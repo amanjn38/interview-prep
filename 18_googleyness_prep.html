@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Googleyness & Leadership - One-Day Prep Guide</title>
+<style>
+:root{--bg-primary:#1a1a2e;--bg-secondary:#16213e;--bg-card:#1e2a3a;--text-primary:#e8e8e8;--text-secondary:#a0a0b0;--accent:#00d4aa;--accent-dim:#00d4aa22;--code-bg:#0d1117;--orange:#f0a050;--orange-dim:#f0a05022;--blue:#5b9bf5;--blue-dim:#5b9bf522;--purple:#b68aff;--purple-dim:#b68aff22;--green:#00d4aa;--green-dim:#00d4aa22;--red:#ff6b6b;--red-dim:#ff6b6b22;--result-orange:#f0a050;--result-dim:#f0a05022;--sidebar-width:280px;--transition:200ms}
+.light-mode{--bg-primary:#f5f5f5;--bg-secondary:#e8e8e8;--bg-card:#fff;--text-primary:#1a1a2e;--text-secondary:#555;--code-bg:#f0f0f0;--accent-dim:#00d4aa33;--blue-dim:#5b9bf533;--purple-dim:#b68aff33;--green-dim:#00d4aa33;--orange-dim:#f0a05033;--red-dim:#ff6b6b33;--result-dim:#f0a05033}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg-primary);color:var(--text-primary);display:flex;height:100vh;overflow:hidden;transition:background var(--transition),color var(--transition)}
+
+/* Sidebar */
+.sidebar{width:var(--sidebar-width);min-width:var(--sidebar-width);background:var(--bg-secondary);display:flex;flex-direction:column;border-right:1px solid rgba(255,255,255,.05);z-index:10;transition:transform var(--transition),background var(--transition)}
+.sidebar-header{padding:16px;border-bottom:1px solid rgba(255,255,255,.05);display:flex;flex-direction:column;gap:4px}
+.sidebar-header h2{font-size:14px;color:var(--accent);font-weight:700}
+.sidebar-header span{font-size:11px;color:var(--text-secondary)}
+.nav-list{flex:1;overflow-y:auto;padding:8px 0}
+.nav-list::-webkit-scrollbar{width:4px}
+.nav-list::-webkit-scrollbar-thumb{background:#555;border-radius:2px}
+.nav-item{display:flex;align-items:center;padding:10px 16px;cursor:pointer;border-left:3px solid transparent;transition:all 150ms;gap:10px;font-size:13px;line-height:1.3}
+.nav-item:hover{background:rgba(255,255,255,.03)}
+.nav-item.active{background:var(--accent-dim);border-left-color:var(--accent);color:var(--accent)}
+.nav-num{font-size:11px;font-weight:700;color:var(--text-secondary);min-width:18px}
+.sidebar-footer{padding:12px 16px;border-top:1px solid rgba(255,255,255,.05);display:flex;gap:8px}
+.theme-btn{flex:1;padding:8px;background:transparent;border:1px solid var(--accent);color:var(--accent);border-radius:6px;cursor:pointer;font-size:12px;transition:all 150ms}
+.theme-btn:hover{background:var(--accent);color:#0a1628}
+
+/* Main */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.top-bar{display:flex;align-items:center;padding:10px 24px;border-bottom:1px solid rgba(255,255,255,.05);gap:12px;flex-shrink:0}
+.hamburger{display:none;background:transparent;border:none;color:var(--text-primary);font-size:20px;cursor:pointer;padding:4px}
+.top-title{font-size:14px;color:var(--text-secondary);flex:1}
+.top-title b{color:var(--accent)}
+.content-area{flex:1;overflow-y:auto;padding:24px;scroll-behavior:smooth}
+.content-area::-webkit-scrollbar{width:6px}
+.content-area::-webkit-scrollbar-thumb{background:#555;border-radius:3px}
+
+/* Sections */
+.section{max-width:800px;margin:0 auto 48px;animation:fadeIn 300ms ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.section-anchor{scroll-margin-top:20px}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--accent)}
+.section-num{background:var(--accent);color:#0a1628;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+.section-header h2{font-size:20px;font-weight:700}
+
+/* Cards */
+.card{background:var(--bg-card);border-radius:12px;padding:24px;margin-bottom:16px;border:1px solid rgba(255,255,255,.05);transition:background var(--transition)}
+.card h3{font-size:16px;font-weight:700;margin-bottom:12px;color:var(--accent)}
+.card p,.card li{font-size:14px;line-height:1.7;color:var(--text-primary)}
+.card ul,.card ol{margin:8px 0 8px 20px}
+.card li{margin:4px 0}
+.card b,.card strong{color:var(--accent)}
+
+/* Signal cards */
+.signal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px}
+.signal-card{background:var(--bg-card);border-radius:12px;padding:20px;border:1px solid rgba(255,255,255,.05);border-left:4px solid var(--accent)}
+.signal-card h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
+.signal-card p{font-size:13px;line-height:1.6}
+
+/* STAR stories */
+.star-card{background:var(--bg-card);border-radius:12px;padding:0;margin-bottom:20px;border:1px solid rgba(255,255,255,.05);overflow:hidden}
+.star-card-header{padding:20px 24px 16px;border-bottom:1px solid rgba(255,255,255,.05)}
+.star-card-header .story-num{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.star-card-header h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.star-card-header .star-question{font-size:14px;color:var(--text-secondary);font-style:italic}
+.star-body{padding:0 24px 20px}
+.star-section{padding:14px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.star-section:last-child{border-bottom:none}
+.star-label{display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:700;letter-spacing:.5px;margin-bottom:8px}
+.star-s .star-label{background:var(--blue-dim);color:var(--blue)}
+.star-t .star-label{background:var(--purple-dim);color:var(--purple)}
+.star-a .star-label{background:var(--green-dim);color:var(--green)}
+.star-r .star-label{background:var(--result-dim);color:var(--result-orange)}
+.star-section p{font-size:14px;line-height:1.7}
+
+/* Customize callout */
+.customize-box{background:var(--orange-dim);border-left:3px solid var(--orange);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 24px 20px;font-size:13px;line-height:1.5;color:var(--orange)}
+.customize-box strong{color:var(--orange)}
+
+/* Quick answer accordion */
+.qa-item{background:var(--bg-card);border-radius:10px;margin-bottom:8px;border:1px solid rgba(255,255,255,.05);overflow:hidden}
+.qa-header{padding:14px 20px;cursor:pointer;display:flex;align-items:center;gap:12px;font-size:14px;font-weight:600;transition:background 150ms;user-select:none}
+.qa-header:hover{background:rgba(255,255,255,.03)}
+.qa-arrow{font-size:12px;color:var(--text-secondary);transition:transform 200ms;flex-shrink:0}
+.qa-item.open .qa-arrow{transform:rotate(90deg)}
+.qa-tag{font-size:11px;padding:2px 8px;border-radius:10px;background:var(--accent-dim);color:var(--accent);margin-left:auto;flex-shrink:0}
+.qa-body{max-height:0;overflow:hidden;transition:max-height 300ms ease,padding 200ms}
+.qa-item.open .qa-body{max-height:400px;padding:0 20px 16px}
+.qa-body p{font-size:13px;line-height:1.7;color:var(--text-secondary)}
+
+/* Framework box */
+.framework-box{background:var(--bg-card);border-radius:12px;padding:24px;border:1px solid rgba(255,255,255,.05);margin-bottom:16px}
+.framework-box h4{font-size:15px;font-weight:700;color:var(--accent);margin-bottom:12px}
+.framework-box li{font-size:14px;line-height:1.7;margin:6px 0}
+.sample-answer{background:var(--code-bg);border-radius:8px;padding:16px;margin-top:16px;font-size:13px;line-height:1.7;border:1px solid rgba(255,255,255,.05);font-style:italic;color:var(--text-secondary)}
+
+/* Tips grid */
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
+.tip-card{background:var(--bg-card);border-radius:10px;padding:16px;border:1px solid rgba(255,255,255,.05);display:flex;gap:12px;align-items:flex-start}
+.tip-icon{font-size:18px;flex-shrink:0;width:28px;text-align:center}
+.tip-card p{font-size:13px;line-height:1.6}
+
+/* Red flag cards */
+.redflag-card{background:var(--red-dim);border-radius:10px;padding:14px 18px;border-left:3px solid var(--red);margin-bottom:10px}
+.redflag-card p{font-size:14px;line-height:1.6}
+.redflag-card strong{color:var(--red)}
+
+/* Real Questions Section */
+.rq-summary{background:var(--bg-card);border-radius:12px;padding:20px 24px;border:1px solid rgba(255,255,255,.05);margin-bottom:24px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.rq-summary-stat{text-align:center;padding:8px 16px;border-radius:8px;background:var(--accent-dim)}
+.rq-summary-stat .rq-big{font-size:28px;font-weight:800;color:var(--accent);display:block;line-height:1.2}
+.rq-summary-stat .rq-label{font-size:11px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px}
+.rq-summary-sources{flex:1;min-width:200px;font-size:13px;color:var(--text-secondary);line-height:1.6}
+.rq-summary-sources b{color:var(--accent)}
+
+.rq-category{background:var(--bg-card);border-radius:12px;margin-bottom:12px;border:1px solid rgba(255,255,255,.05);overflow:hidden}
+.rq-cat-header{padding:16px 20px;cursor:pointer;display:flex;align-items:center;gap:12px;font-size:15px;font-weight:700;transition:background 150ms;user-select:none}
+.rq-cat-header:hover{background:rgba(255,255,255,.03)}
+.rq-cat-arrow{font-size:12px;color:var(--text-secondary);transition:transform 200ms;flex-shrink:0}
+.rq-category.open .rq-cat-arrow{transform:rotate(90deg)}
+.rq-cat-count{font-size:11px;padding:2px 10px;border-radius:10px;background:var(--accent-dim);color:var(--accent);margin-left:auto;flex-shrink:0}
+.rq-cat-body{max-height:0;overflow:hidden;transition:max-height 500ms ease}
+.rq-category.open .rq-cat-body{max-height:none}
+.rq-cat-body-inner{padding:0 20px 20px}
+
+.rq-question{padding:16px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.rq-question:last-child{border-bottom:none}
+.rq-q-text{font-size:14px;font-weight:700;line-height:1.5;margin-bottom:6px;color:var(--text-primary)}
+.rq-q-source{font-size:11px;color:var(--text-secondary);margin-bottom:8px}
+.rq-q-story{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;margin-bottom:8px;letter-spacing:.3px}
+.rq-story-1{background:var(--blue-dim);color:var(--blue)}
+.rq-story-2{background:var(--green-dim);color:var(--green)}
+.rq-story-3{background:var(--purple-dim);color:var(--purple)}
+.rq-story-4{background:var(--orange-dim);color:var(--orange)}
+.rq-story-5{background:var(--red-dim);color:var(--red)}
+.rq-story-6{background:var(--blue-dim);color:var(--blue)}
+.rq-story-7{background:var(--green-dim);color:var(--green)}
+.rq-story-8{background:var(--purple-dim);color:var(--purple)}
+.rq-story-general{background:rgba(255,255,255,.06);color:var(--text-secondary)}
+.rq-story-culture{background:var(--accent-dim);color:var(--accent)}
+.rq-story-reflective{background:var(--orange-dim);color:var(--orange)}
+.rq-q-framework{font-size:13px;line-height:1.7;color:var(--text-secondary);padding-left:12px;border-left:2px solid rgba(255,255,255,.06)}
+
+.rq-patterns{background:var(--bg-card);border-radius:12px;padding:24px;border:1px solid rgba(255,255,255,.05);margin-top:24px}
+.rq-patterns h3{font-size:16px;font-weight:700;color:var(--accent);margin-bottom:16px}
+.rq-pattern-item{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;line-height:1.6}
+.rq-pattern-item:last-child{border-bottom:none}
+.rq-pattern-item b{color:var(--accent)}
+
+/* STAR method card */
+.star-method{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:16px 0}
+.star-method-item{border-radius:10px;padding:16px;text-align:center}
+.star-method-item.sm-s{background:var(--blue-dim);border:1px solid rgba(91,155,245,.2)}
+.star-method-item.sm-t{background:var(--purple-dim);border:1px solid rgba(182,138,255,.2)}
+.star-method-item.sm-a{background:var(--green-dim);border:1px solid rgba(0,212,170,.2)}
+.star-method-item.sm-r{background:var(--result-dim);border:1px solid rgba(240,160,80,.2)}
+.star-method-item h4{font-size:18px;font-weight:700;margin-bottom:4px}
+.sm-s h4{color:var(--blue)}.sm-t h4{color:var(--purple)}.sm-a h4{color:var(--green)}.sm-r h4{color:var(--result-orange)}
+.star-method-item p{font-size:12px;line-height:1.5;color:var(--text-secondary)}
+
+/* Sidebar overlay */
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9}
+
+@media(max-width:768px){
+.sidebar{position:fixed;top:0;left:0;bottom:0;transform:translateX(-100%);transition:transform var(--transition)}
+.sidebar.open{transform:translateX(0)}
+.sidebar-overlay.open{display:block}
+.hamburger{display:block}
+.content-area{padding:16px}
+.section-header h2{font-size:17px}
+.signal-grid{grid-template-columns:1fr}
+.tips-grid{grid-template-columns:1fr}
+.star-method{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+<div class="sidebar-header">
+<h2>Googleyness Prep</h2>
+<span>One-Day Guide for Aman Jain</span>
+</div>
+<div class="nav-list" id="navList"></div>
+<div class="sidebar-footer">
+<button class="theme-btn" id="themeBtn" onclick="toggleTheme()">Toggle Light/Dark</button>
+</div>
+</aside>
+<main class="main">
+<div class="top-bar">
+<button class="hamburger" id="hamburgerBtn">&#9776;</button>
+<div class="top-title"><b>Googleyness & Leadership</b> &mdash; Interview Prep</div>
+</div>
+<div class="content-area" id="contentArea">
+
+<!-- SECTION 1 -->
+<div class="section-anchor" id="sec-1"></div>
+<div class="section">
+<div class="section-header"><div class="section-num">1</div><h2>What Is the Googleyness Round?</h2></div>
+<div class="card">
+<p>This is a <strong>45-minute behavioral interview</strong> conducted by a senior engineer (not HR). It is one of the four interview loops at Google and carries equal weight to the coding rounds.</p>
+<ul>
+<li><strong>What it evaluates:</strong> collaboration, humility, handling ambiguity, leadership without authority, inclusiveness, and the ability to push back respectfully.</li>
+<li><strong>What it is NOT:</strong> a personality test. You do not need to be bubbly or "Googley" in personality. It is about whether you can <strong>work effectively with others</strong> to ship great software.</li>
+<li><strong>Who interviews you:</strong> typically a senior engineer or tech lead. They are assessing whether they would want you on their team.</li>
+<li><strong>Format:</strong> 5-7 behavioral questions. Each answer should be 3-5 minutes. The interviewer will ask follow-up questions to dig into specifics.</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="section-anchor" id="sec-2"></div>
+<div class="section">
+<div class="section-header"><div class="section-num">2</div><h2>Google's Evaluation Signals</h2></div>
+<div class="signal-grid">
+<div class="signal-card">
+<h4>Googleyness</h4>
+<p>Doing the right thing even when it is hard. Comfort with ambiguity and imperfect information. Genuine collaboration over individual heroics. Intellectual humility &mdash; admitting what you do not know. Continuous learning and curiosity about technology and people.</p>
+</div>
+<div class="signal-card">
+<h4>Leadership</h4>
+<p>Influencing without authority &mdash; convincing peers through data and empathy, not title. Mentoring and growing others. Taking ownership of problems nobody asked you to solve. Driving initiatives from idea to shipped product.</p>
+</div>
+<div class="signal-card">
+<h4>Navigating Ambiguity</h4>
+<p>Making progress with incomplete information rather than waiting for perfect specs. Breaking down unclear problems into actionable steps. Iterating quickly and adjusting course based on feedback. Comfortable saying "I don't know yet, but here is how I will find out."</p>
+</div>
+<div class="signal-card">
+<h4>Communication</h4>
+<p>Explaining your reasoning clearly and concisely. Active listening &mdash; incorporating what the interviewer says into your answers. Structuring your stories so they are easy to follow. Acknowledging trade-offs and opposing viewpoints.</p>
+</div>
+</div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="section-anchor" id="sec-3"></div>
+<div class="section">
+<div class="section-header"><div class="section-num">3</div><h2>The STAR Method</h2></div>
+<div class="card">
+<p>Every behavioral answer should follow the <strong>STAR</strong> format. This keeps your answers structured, concise, and easy for the interviewer to score.</p>
+<div class="star-method">
+<div class="star-method-item sm-s"><h4>S</h4><p>Situation<br>Set the scene briefly. Company, team, project. ~10% of your time.</p></div>
+<div class="star-method-item sm-t"><h4>T</h4><p>Task<br>Your specific responsibility. What was at stake? ~10% of your time.</p></div>
+<div class="star-method-item sm-a"><h4>A</h4><p>Action<br>What YOU did. Be specific. Use "I", not "we". ~60% of your time.</p></div>
+<div class="star-method-item sm-r"><h4>R</h4><p>Result<br>Quantify impact. Metrics, outcomes, learnings. ~20% of your time.</p></div>
+</div>
+<ul>
+<li>Keep Situation and Task <strong>short</strong> &mdash; do not spend more than 30 seconds setting context.</li>
+<li>The Action section is where your score comes from. Be detailed and personal: <em>"I analyzed the crash logs and identified three root causes"</em> not <em>"we looked into it"</em>.</li>
+<li>Results should have <strong>metrics</strong> wherever possible (percentages, counts, ratings).</li>
+<li>Always end with <strong>what you learned</strong> or what you would do differently.</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 4 -->
+<div class="section-anchor" id="sec-4"></div>
+<div class="section">
+<div class="section-header"><div class="section-num">4</div><h2>Your Stories &mdash; 8 STAR Answers</h2></div>
+
+<!-- Story 1 -->
+<div class="star-card">
+<div class="star-card-header">
+<div class="story-num">Story 1 &mdash; Mentoring & Growing Others</div>
+<h3>Helping an Engineer Level Up on Compose</h3>
+<div class="star-question">"Tell me about a time you helped someone grow."</div>
+</div>
+<div class="star-body">
+<div class="star-section star-s">
+<div class="star-label">SITUATION</div>
+<p>At DevRev, I had built the internal Jetpack Compose component library (buttons, inputs, bottom sheets, lists) that the entire mobile org depended on. Six engineers on the team were transitioning from XML-based UI to Compose, and one junior engineer in particular was struggling with Compose's state management model &mdash; hoisting state, handling recomposition, and using Flows to drive UI.</p>
+</div>
+<div class="star-section star-t">
+<div class="star-label">TASK</div>
+<p>As the most experienced Compose developer on the team, I took responsibility for getting this engineer productive. They were blocked on a feature involving a multi-step form with complex validation, and the deadline was two weeks out.</p>
+</div>
+<div class="star-section star-a">
+<div class="star-label">ACTION</div>
+<p>I did not just fix their code. Instead, I set up three targeted pair-programming sessions spread over a week. In the first session, I walked through how Compose state hoisting works by refactoring one of our simpler library components together. I explained the mental model: composables as functions of state, not holders of state.</p>
+<p>In the second session, we tackled their actual feature. I asked them to drive while I asked guiding questions: "Where should this state live? What happens if the user rotates here?" By the third session, they were making correct architectural decisions independently.</p>
+<p>I also wrote an internal Confluence doc titled "Compose State Patterns at DevRev" covering the five most common patterns we used, with code examples pulled from our actual codebase. This became the onboarding reference for the whole team.</p>
+</div>
+<div class="star-section star-r">
+<div class="star-label">RESULT</div>
+<p>The engineer shipped the multi-step form feature on time. Within two months, they were leading their own Compose feature independently and even contributed two new components back to the shared library. The documentation I wrote reduced onboarding ramp-up time for the next three hires. I learned that <strong>teaching through questions</strong> is far more effective than giving answers &mdash; it builds lasting understanding, not dependency.</p>
+</div>
+</div>
+<div class="customize-box"><strong>Customize this:</strong> Replace with your actual experience with one of the 6 engineers. Which engineer? What specific feature were they building? What specific mistake were they making with state? What was the moment you saw them "get it"?</div>
+</div>
+
+<!-- Story 2 -->
+<div class="star-card">
+<div class="star-card-header">
+<div class="story-num">Story 2 &mdash; Taking Initiative / Driving Impact</div>
+<h3>Cutting Crash Rate 40% Without Being Asked</h3>
+<div class="star-question">"Tell me about a time you identified a problem and fixed it without being asked."</div>
+</div>
+<div class="star-body">
+<div class="star-section star-s">
+<div class="star-label">SITUATION</div>
+<p>At DevRev, I noticed our Android app's crash rate had crept up significantly over the previous quarter. The team was focused on feature delivery, and nobody had been assigned to investigate stability. But I kept seeing crash spikes in Firebase Crashlytics during my morning checks.</p>
+</div>
+<div class="star-section star-t">
+<div class="star-label">TASK</div>
+<p>I decided to take ownership of the stability problem even though it was not on any sprint board. I needed to diagnose the root causes, propose a fix, get buy-in from my manager, and execute without disrupting feature work.</p>
+</div>
+<div class="star-section star-a">
+<div class="star-label">ACTION</div>
+<p>I spent two evenings analyzing Crashlytics data. I categorized the top crash signatures and found that roughly 60% of crashes came from the network layer &mdash; unhandled exceptions during JSON parsing when the API returned unexpected responses, and race conditions in the WebSocket reconnection logic.</p>
+<p>I put together a one-page proposal: the root causes, the estimated impact, and a two-week plan to redesign the network error handling. I presented it to my manager with data showing that our crash-free rate was below the Play Store threshold for featuring. That got immediate buy-in.</p>
+<p>I redesigned the network layer with proper sealed Result types, added defensive parsing with default values for optional fields, and rebuilt the WebSocket reconnection with exponential backoff and coroutine-scoped lifecycle management. I also reduced the payload size by 35% by switching to a more efficient serialization format and removing redundant fields.</p>
+</div>
+<div class="star-section star-r">
+<div class="star-label">RESULT</div>
+<p>Crash rate dropped 40% within three weeks of the rollout. Payload size reduced 35%, which improved load times on slower networks. Our crash-free rate went above 99.5%, making the app eligible for Play Store featuring again. The lesson: <strong>monitoring is not just a devops thing</strong> &mdash; as a mobile engineer, I should be looking at production health proactively.</p>
+</div>
+</div>
+<div class="customize-box"><strong>Customize this:</strong> Add the actual crash types you found (NullPointerException? IllegalStateException? Serialization failures?). How exactly did you convince your manager &mdash; was it a Slack message, a doc, a meeting? What was the specific serialization change?</div>
+</div>
+
+<!-- Story 3 -->
+<div class="star-card">
+<div class="star-card-header">
+<div class="story-num">Story 3 &mdash; Navigating Ambiguity</div>
+<h3>Designing an SDK With No Clear Spec</h3>
+<div class="star-question">"Tell me about a time you had to make progress with unclear requirements."</div>
+</div>
+<div class="star-body">
+<div class="star-section star-s">
+<div class="star-label">SITUATION</div>
+<p>At DevRev, I was tasked with building Kotlin SDK modules that would wrap our REST and WebSocket APIs for enterprise mobile clients. The challenge: we had 50+ enterprise clients with different integration needs, different tech stacks, and different expectations. There was no product spec &mdash; just a mandate to "make it easy for clients to integrate."</p>
+</div>
+<div class="star-section star-t">
+<div class="star-label">TASK</div>
+<p>I needed to design an API surface that was flexible enough for diverse client needs but simple enough that integration would not require hand-holding from our team. I had to make architectural decisions with incomplete information about future use cases.</p>
+</div>
+<div class="star-section star-a">
+<div class="star-label">ACTION</div>
+<p>Instead of guessing, I started by talking to people. I interviewed five integration engineers from our largest clients to understand their pain points with our existing API. I also sat with our customer success team to understand the most common support tickets.</p>
+<p>From these conversations, I identified three conflicting requirements: some clients wanted a high-level "just works" API, others wanted granular control over caching and retry behavior, and a third group needed raw access to the underlying WebSocket for custom event handling.</p>
+<p>I designed a layered architecture: a high-level convenience layer on top, a mid-level coroutine-first Flow-based layer for most use cases, and escape hatches to the raw API for power users. I shipped a minimal first version to three beta clients, collected feedback over two weeks, iterated on the API naming and default behaviors, then rolled out broadly.</p>
+</div>
+<div class="star-section star-r">
+<div class="star-label">RESULT</div>
+<p>The SDK was adopted by all 50+ enterprise clients. The layered design meant that 80% of clients used the high-level API and integrated in under a day, while power users had the flexibility they needed. Support tickets related to integration dropped significantly. I learned that <strong>when requirements are ambiguous, talk to users first and ship small before designing big</strong>.</p>
+</div>
+</div>
+<div class="customize-box"><strong>Customize this:</strong> Add specific examples of conflicting client requirements. What were the actual API methods? Which beta clients gave you the most useful feedback? What specific API change did you make based on feedback?</div>
+</div>
+
+<!-- Story 4 -->
+<div class="star-card">
+<div class="star-card-header">
+<div class="story-num">Story 4 &mdash; Disagreement / Pushing Back</div>
+<h3>Advocating for Compose Migration at Fiorano</h3>
+<div class="star-question">"Tell me about a time you disagreed with a teammate or manager."</div>
+</div>
+<div class="star-body">
+<div class="star-section star-s">
+<div class="star-label">SITUATION</div>
+<p>At Fiorano, our Android app was built entirely in XML layouts. The codebase had accumulated significant UI tech debt &mdash; duplicate layout files, inconsistent styling, and brittle custom views. Our Play Store rating was 3.8, partly due to UI jank and inconsistencies.</p>
+</div>
+<div class="star-section star-t">
+<div class="star-label">TASK</div>
+<p>I proposed migrating to Jetpack Compose, but a senior teammate pushed back. Their argument: Compose was too new, the team did not have experience with it, and migrating would risk the stability of a production app used by enterprise customers. They wanted to keep XML and just refactor the existing layouts.</p>
+</div>
+<div class="star-section star-a">
+<div class="star-label">ACTION</div>
+<p>I did not dismiss their concerns &mdash; they were valid. Instead, I built a case with data. I spent a weekend prototyping one of our most complex screens in both refactored XML and Compose. I documented: lines of code (40% less in Compose), build time (faster incremental builds with Compose), and the number of layout bugs that would be structurally impossible in Compose (state-driven UI eliminates an entire class of bugs).</p>
+<p>I presented this to the team and proposed a compromise: an incremental migration strategy. We would start with new screens only, using ComposeView inside existing XML Activities. No rewrite of existing screens. If the team felt Compose was not working after one month, we would stop.</p>
+<p>I also volunteered to write the Compose coding guidelines and review all initial Compose PRs to maintain quality during the transition.</p>
+</div>
+<div class="star-section star-r">
+<div class="star-label">RESULT</div>
+<p>The team agreed to the incremental approach. Over the next year, we shipped 15+ releases with Compose screens. Developer velocity improved &mdash; new screens took roughly half the time. Test coverage rose from 40% to 72% because Compose's testable architecture made it easier to write UI tests. The Play Store rating improved from 3.8 to 4.5. The key learning: <strong>disagreements are productive when you bring data, propose a low-risk path, and address the other person's concerns head-on</strong>.</p>
+</div>
+</div>
+<div class="customize-box"><strong>Customize this:</strong> Replace with your actual disagreement &mdash; was it with a specific person? What was their exact concern? What data point was most convincing? Could also be about architecture, priorities, or timeline rather than Compose specifically.</div>
+</div>
+
+<!-- Story 5 -->
+<div class="star-card">
+<div class="star-card-header">
+<div class="story-num">Story 5 &mdash; Handling Failure</div>
+<h3>DETE: When the Tech Worked but the Business Did Not</h3>
+<div class="star-question">"Tell me about a time something didn't go as planned."</div>
+</div>
+<div class="star-body">
+<div class="star-section star-s">
+<div class="star-label">SITUATION</div>
+<p>I co-founded DETE, a local delivery platform, during college. I architected three Kotlin apps (User, Merchant, Driver) with shared modules, built a realtime layer over Firebase with Flow-based APIs, and led a 15-member team. We scaled to 500+ users and 60+ merchants.</p>
+</div>
+<div class="star-section star-t">
+<div class="star-label">TASK</div>
+<p>As co-founder and lead engineer, I was responsible for both the technology and, ultimately, the business outcomes. We needed to grow from a college-town operation to a sustainable business.</p>
+</div>
+<div class="star-section star-a">
+<div class="star-label">ACTION</div>
+<p>On the technology side, things went well. I built a clean modular architecture, the realtime delivery tracking worked reliably, and the apps were stable. But I made a mistake: I spent too much time perfecting the technology and too little time validating the business model.</p>
+<p>I was focused on building reusable shared modules, optimizing Firebase queries, and making the architecture "right" &mdash; when the real problem was that our unit economics did not work at our scale. Delivery costs in a small city were too high relative to order values.</p>
+<p>When I realized this, I tried to pivot &mdash; we explored different pricing models and expanded our merchant base. But we had burned too much runway on engineering and not enough on market validation.</p>
+</div>
+<div class="star-section star-r">
+<div class="star-label">RESULT</div>
+<p>DETE did not scale into a sustainable business. But the technical and personal lessons were significant. I learned that <strong>engineering excellence without product-market fit is wasted effort</strong>. I learned to validate assumptions early before building infrastructure. This experience fundamentally changed how I approach projects &mdash; at DevRev and Fiorano, I always ask "what is the user impact?" before investing in technical work. It also gave me deep empathy for startup founders and product managers who are making difficult prioritization calls every day.</p>
+</div>
+</div>
+<div class="customize-box"><strong>Customize this:</strong> Add the actual reason DETE did not continue &mdash; was it funding, market fit, team, competition? Be honest and specific. Google values self-awareness. What specific moment made you realize things were not working?</div>
+</div>
+
+<!-- Story 6 -->
+<div class="star-card">
+<div class="star-card-header">
+<div class="story-num">Story 6 &mdash; Collaboration Across Teams</div>
+<h3>Working with Enterprise Clients on SDK Adoption</h3>
+<div class="star-question">"Tell me about a time you worked with people outside your team."</div>
+</div>
+<div class="star-body">
+<div class="star-section star-s">
+<div class="star-label">SITUATION</div>
+<p>At DevRev, the Kotlin SDK I built needed to be adopted by 50+ enterprise clients who had their own engineering teams, their own architectures, and their own timelines. The SDK was not just a code artifact &mdash; it needed documentation, migration guides, and hands-on support.</p>
+</div>
+<div class="star-section star-t">
+<div class="star-label">TASK</div>
+<p>I needed to collaborate with customer success, developer relations, and the clients' own engineering teams to drive adoption. This meant working with non-engineers and external stakeholders &mdash; a very different dynamic from my day-to-day mobile team work.</p>
+</div>
+<div class="star-section star-a">
+<div class="star-label">ACTION</div>
+<p>I started by creating comprehensive migration guides with step-by-step instructions and sample projects. But I quickly learned that documentation alone was not enough &mdash; different clients had different levels of Android expertise.</p>
+<p>I worked with the customer success team to identify the top 10 clients by revenue and set up direct Slack channels with their mobile engineers. For the three most complex integrations, I did live code-review sessions over video calls, walking through their codebases and showing exactly where our SDK plugged in.</p>
+<p>I also set up a feedback loop: after each integration, I asked the client's engineer to fill out a short survey on what was confusing. I compiled this feedback and used it to improve both the SDK's API design and the documentation. For example, one client's feedback led me to add default timeout configurations and a simpler initialization flow.</p>
+</div>
+<div class="star-section star-r">
+<div class="star-label">RESULT</div>
+<p>All 50+ clients successfully integrated the SDK. Average integration time dropped from what customer success estimated at a week to under two days. The feedback loop became a standard practice at DevRev for all SDK launches. I learned that <strong>collaboration across teams requires speaking the other person's language</strong> &mdash; customer success thinks in terms of time-to-value, clients think in terms of risk, and engineers think in terms of API cleanliness.</p>
+</div>
+</div>
+<div class="customize-box"><strong>Customize this:</strong> Add a specific client interaction. What was the hardest integration? What specific feedback changed the SDK design? Was there a moment where you had to balance a client's request against good API design?</div>
+</div>
+
+<!-- Story 7 -->
+<div class="star-card">
+<div class="star-card-header">
+<div class="story-num">Story 7 &mdash; Going Above and Beyond</div>
+<h3>Raising Test Coverage from 40% to 72%</h3>
+<div class="star-question">"Tell me about a time you went beyond your job description."</div>
+</div>
+<div class="star-body">
+<div class="star-section star-s">
+<div class="star-label">SITUATION</div>
+<p>At Fiorano, our Android app had 40% test coverage. Most of it was basic happy-path unit tests. There were no integration tests, no UI tests, and no CI enforcement. Bugs were caught in QA or, worse, by customers. On the side, I had also been building RouteChef, an offline-first travel app that eventually reached 50K+ downloads.</p>
+</div>
+<div class="star-section star-t">
+<div class="star-label">TASK</div>
+<p>Improving test coverage was not part of my assigned work &mdash; I was hired to build features. But I believed that the team's velocity was suffering because of the constant regressions. I decided to make testing a priority on my own initiative.</p>
+</div>
+<div class="star-section star-a">
+<div class="star-label">ACTION</div>
+<p>I started by leading by example. For every feature I built, I wrote comprehensive tests &mdash; unit tests for business logic, integration tests for repository layers with in-memory Room databases, and Compose UI tests for critical screens. I made sure my PRs always included tests, and I explained my testing approach in PR descriptions.</p>
+<p>I then proposed a team-wide testing initiative: a two-week sprint where each engineer would add tests to their most recent feature. I created a shared testing guide with patterns specific to our codebase (how to test our ViewModel pattern, how to mock our API layer, how to use Compose test rules). I also configured CI to run tests on every PR and added a coverage threshold that would block merges below 60%.</p>
+<p>For RouteChef, I applied the same discipline &mdash; rigorous testing helped me reduce the crash rate from 2.5% to 0.8% despite working on it in evenings and weekends.</p>
+</div>
+<div class="star-section star-r">
+<div class="star-label">RESULT</div>
+<p>Fiorano's test coverage rose from 40% to 72%. More importantly, the regression rate in QA dropped noticeably, which meant faster release cycles. RouteChef hit 50K+ downloads with a 0.8% crash rate, proving that quality and side-project pace can coexist. I learned that <strong>going above and beyond is not about working more hours &mdash; it is about investing time in things that create leverage</strong> for the whole team.</p>
+</div>
+</div>
+<div class="customize-box"><strong>Customize this:</strong> Pick the story that resonates more &mdash; Fiorano testing or RouteChef. If Fiorano: what specific regression motivated you? If RouteChef: what drove you to build it alongside a full-time job? Combine them or focus on one.</div>
+</div>
+
+<!-- Story 8 -->
+<div class="star-card">
+<div class="star-card-header">
+<div class="story-num">Story 8 &mdash; Leading Without Authority</div>
+<h3>Leading 15 Engineers at DETE as Co-Founder</h3>
+<div class="star-question">"Tell me about a time you led a project or initiative without being the manager."</div>
+</div>
+<div class="star-body">
+<div class="star-section star-s">
+<div class="star-label">SITUATION</div>
+<p>At DETE, I was the technical co-founder, not a traditional engineering manager. Our team of 15 included college students, freelancers, and part-time contributors &mdash; none of whom reported to me formally. We were building three interconnected Kotlin apps (User, Merchant, Driver) simultaneously, and everyone had different skill levels and availability.</p>
+</div>
+<div class="star-section star-t">
+<div class="star-label">TASK</div>
+<p>I needed to keep 15 people aligned on architecture decisions, code quality standards, and release timelines &mdash; without any formal authority, performance review leverage, or even a salary to offer most of them.</p>
+</div>
+<div class="star-section star-a">
+<div class="star-label">ACTION</div>
+<p>I led through three strategies: shared ownership, technical credibility, and genuine care.</p>
+<p>First, I designed a shared module architecture where common code (networking, auth, models) lived in a shared Kotlin module. This forced collaboration &mdash; when someone improved the shared module, everyone benefited, which created natural buy-in.</p>
+<p>Second, I established credibility by being the hardest worker. I wrote the initial architecture, built the Firebase realtime layer, set up CI, and wrote the coding standards. When I asked someone to follow a convention, they knew it was not arbitrary &mdash; I had done the work to validate it.</p>
+<p>Third, I invested in each person's growth. I matched tasks to skill levels, gave detailed PR reviews that taught rather than just corrected, and publicly credited people's contributions in our weekly standup. When a team member wanted to quit because they felt their work on the Driver app was less visible, I restructured the demo to showcase all three apps equally and gave them ownership of a user-facing feature in the main app.</p>
+</div>
+<div class="star-section star-r">
+<div class="star-label">RESULT</div>
+<p>We shipped all three apps, scaled to 500+ users and 60+ merchants, and maintained team cohesion for over a year &mdash; remarkable for a volunteer student team. Two team members went on to get Android roles at companies, citing DETE as their primary experience. I learned that <strong>leadership without authority comes down to three things: earn respect through your own work, give people ownership, and genuinely care about their growth</strong>.</p>
+</div>
+</div>
+<div class="customize-box"><strong>Customize this:</strong> Add a specific moment where you had to convince a team member to change direction. What was the disagreement? How did you handle it without being able to "just decide"? Who was the person who almost quit, and what specifically brought them back?</div>
+</div>
+
+</div>
+
+<!-- SECTION 5 -->
+<div class="section-anchor" id="sec-5"></div>
+<div class="section">
+<div class="section-header"><div class="section-num">5</div><h2>Common Questions &mdash; Quick Answers</h2></div>
+<p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Click each question to expand the suggested answer framework and which story to draw from.</p>
+
+<div class="qa-item" data-open="false">
+<div class="qa-header"><span class="qa-arrow">&#9654;</span>Why Google?<span class="qa-tag">See Section 6</span></div>
+<div class="qa-body"><p>Use the framework in Section 6. Connect your Android passion, scale ambitions (50+ clients to billions of users), and alignment with Google's engineering culture (code review, testing, design docs). Be specific about which Google product or team excites you.</p></div>
+</div>
+
+<div class="qa-item" data-open="false">
+<div class="qa-header"><span class="qa-arrow">&#9654;</span>What's your biggest weakness?<span class="qa-tag">Story 5</span></div>
+<div class="qa-body"><p>Use the DETE story. "I tend to over-engineer &mdash; at my startup I spent too long perfecting architecture when the business needed faster validation. I have learned to ask 'what is the minimum viable version?' before building. At DevRev, I now timebox exploratory work and validate assumptions with users within the first week."</p></div>
+</div>
+
+<div class="qa-item" data-open="false">
+<div class="qa-header"><span class="qa-arrow">&#9654;</span>How do you handle disagreements?<span class="qa-tag">Story 4</span></div>
+<div class="qa-body"><p>Use the Compose migration story. Emphasize: listen first, acknowledge the other person's concerns, bring data, propose a low-risk compromise. "I never try to win arguments &mdash; I try to find the approach with the best evidence."</p></div>
+</div>
+
+<div class="qa-item" data-open="false">
+<div class="qa-header"><span class="qa-arrow">&#9654;</span>Tell me about a time you failed<span class="qa-tag">Story 5</span></div>
+<div class="qa-body"><p>DETE is your strongest failure story. Be honest about what went wrong (business model, not technology). Show self-awareness and concrete behavioral changes you made afterward. Google values people who learn from failure, not people who claim they never fail.</p></div>
+</div>
+
+<div class="qa-item" data-open="false">
+<div class="qa-header"><span class="qa-arrow">&#9654;</span>How do you prioritize when everything is urgent?<span class="qa-tag">Story 2</span></div>
+<div class="qa-body"><p>Frame using the crash rate story: "I assess by user impact first. When I found the crash rate issue at DevRev, I weighed it against feature work by looking at Play Store vitals thresholds. I use a simple framework: is it blocking users? Is it degrading metrics? Is it blocking the team? Then I communicate trade-offs to my manager with data."</p></div>
+</div>
+
+<div class="qa-item" data-open="false">
+<div class="qa-header"><span class="qa-arrow">&#9654;</span>Describe your ideal team<span class="qa-tag">General</span></div>
+<div class="qa-body"><p>"A team where people are direct but kind in code reviews, where we debate technical decisions with data not ego, and where everyone takes ownership beyond their assigned tickets. At DevRev, the best days were when someone would say 'I noticed this problem and here is my proposal to fix it.' That is the culture I thrive in."</p></div>
+</div>
+
+<div class="qa-item" data-open="false">
+<div class="qa-header"><span class="qa-arrow">&#9654;</span>How do you handle feedback?<span class="qa-tag">Story 1, 6</span></div>
+<div class="qa-body"><p>"I actively seek it. During the SDK development at DevRev, I set up formal feedback loops with enterprise clients. Personally, I ask for specific feedback in code reviews &mdash; not just 'looks good' but 'what would you change?' The hardest feedback to hear is usually the most valuable."</p></div>
+</div>
+
+<div class="qa-item" data-open="false">
+<div class="qa-header"><span class="qa-arrow">&#9654;</span>Tell me about a time you influenced without authority<span class="qa-tag">Story 4, 8</span></div>
+<div class="qa-body"><p>You have two strong stories here. The Compose migration (Story 4) is about influencing a technical decision. DETE leadership (Story 8) is about influencing people. Pick based on what the interviewer seems to be probing for. If they want technical influence, use Story 4. If they want people leadership, use Story 8.</p></div>
+</div>
+
+<div class="qa-item" data-open="false">
+<div class="qa-header"><span class="qa-arrow">&#9654;</span>How do you stay current with technology?<span class="qa-tag">General</span></div>
+<div class="qa-body"><p>"I build things. RouteChef is my open-source project where I experiment with new libraries and patterns &mdash; it has 50K+ downloads, so I get real user feedback. I follow Android Developers blog, watch Google I/O talks, and read KotlinConf summaries. But the best way to learn is shipping &mdash; I adopted Compose at Fiorano before most companies."</p></div>
+</div>
+
+<div class="qa-item" data-open="false">
+<div class="qa-header"><span class="qa-arrow">&#9654;</span>What would your teammates say about you?<span class="qa-tag">Story 1, 7</span></div>
+<div class="qa-body"><p>"They would say I am thorough in code reviews but never harsh &mdash; I explain the 'why' behind every suggestion. They would say I raise the team's quality bar. And they would probably say I care about testing more than anyone else on the team." Be honest and specific. Avoid generic praise.</p></div>
+</div>
+
+<div class="qa-item" data-open="false">
+<div class="qa-header"><span class="qa-arrow">&#9654;</span>Tell me about a time you had to make a decision quickly<span class="qa-tag">Story 2</span></div>
+<div class="qa-body"><p>Frame the crash rate investigation: "When I noticed crashes spiking, I had to decide quickly whether to escalate to the team or investigate first. I spent 2 hours on a rapid diagnosis, confirmed the root cause, and presented the proposal the next morning. Speed mattered because every day of high crash rates affected user trust."</p></div>
+</div>
+
+<div class="qa-item" data-open="false">
+<div class="qa-header"><span class="qa-arrow">&#9654;</span>How do you handle working with someone whose style is different from yours?<span class="qa-tag">Story 6, 8</span></div>
+<div class="qa-body"><p>"At DETE, my team included people who preferred detailed upfront planning and others who wanted to 'just start coding.' I adapted by providing architecture direction upfront (for the planners) while giving autonomy on implementation details (for the builders). The key is understanding what each person needs to do their best work."</p></div>
+</div>
+
+<div class="qa-item" data-open="false">
+<div class="qa-header"><span class="qa-arrow">&#9654;</span>What do you do when you disagree with a decision that's already been made?<span class="qa-tag">General</span></div>
+<div class="qa-body"><p>"Disagree and commit. I share my concerns clearly and with data. If the decision stands, I commit fully &mdash; passive resistance is worse than disagreement. But I document my concerns and the reasoning, so if we need to revisit later, we have context. I have been wrong enough times to know that my instinct is not always right."</p></div>
+</div>
+
+<div class="qa-item" data-open="false">
+<div class="qa-header"><span class="qa-arrow">&#9654;</span>How do you ensure quality in your work?<span class="qa-tag">Story 7</span></div>
+<div class="qa-body"><p>"Three layers: testing (I raised coverage from 40% to 72% at Fiorano), code review (I led reviews at DevRev enforcing design-system conventions), and monitoring (I proactively check Crashlytics and Play Console vitals). Quality is not a phase &mdash; it is built into every step."</p></div>
+</div>
+
+<div class="qa-item" data-open="false">
+<div class="qa-header"><span class="qa-arrow">&#9654;</span>What's the most impactful thing you've done in your career?<span class="qa-tag">Story 2 or 3</span></div>
+<div class="qa-body"><p>Two strong options. The SDK (Story 3) has the broadest impact (50+ enterprise clients). The crash rate reduction (Story 2) has the clearest metrics (40% reduction). Pick based on what angle you want &mdash; breadth of impact or depth of technical problem-solving.</p></div>
+</div>
+
+</div>
+
+<!-- SECTION 6 -->
+<div class="section-anchor" id="sec-6"></div>
+<div class="section">
+<div class="section-header"><div class="section-num">6</div><h2>"Why Google?" &mdash; Framework</h2></div>
+
+<div class="framework-box">
+<h4>Build Your Answer from These Five Pillars</h4>
+<ol>
+<li><strong>Your passion for Android:</strong> You have been building Android apps since DETE. You built a Compose component library, an open-source app with 50K downloads, SDKs used by enterprise clients. Android is not just your job &mdash; it is your craft.</li>
+<li><strong>Scale:</strong> Your SDK at DevRev serves 50+ enterprise clients. That is meaningful &mdash; but Google's apps serve hundreds of millions of daily users. You want to work on problems where a 1% improvement affects millions of people.</li>
+<li><strong>Building for the platform you love:</strong> At Google, Android engineers build FOR the platform. You would be shaping the tools that every Android developer uses &mdash; Jetpack, Compose, Play Services. That is a unique opportunity to multiply your impact.</li>
+<li><strong>Engineering culture:</strong> You already practice what Google values &mdash; code reviews, design docs, testing, mentoring. At Google, these are not optional nice-to-haves; they are how the work gets done. You want to be in an environment where these practices are the norm, not something you have to advocate for.</li>
+<li><strong>Personal growth:</strong> At L4, you would be working alongside engineers who built the tools you use every day. The density of talent and the complexity of problems at Google would accelerate your growth toward L5 and beyond.</li>
+</ol>
+
+<div class="sample-answer">
+<strong>Sample answer (customize this):</strong><br><br>
+"I have been building Android apps for over four years &mdash; from founding DETE where I built three Kotlin apps from scratch, to Fiorano where I led a Compose migration, to DevRev where I designed SDKs adopted by 50+ enterprise clients. Android is not just my technology choice &mdash; it is where I do my best thinking.<br><br>
+What excites me about Google specifically is the combination of scale and influence. At DevRev, improving our SDK helped 50 companies. At Google, improving a Jetpack library or a Compose API helps millions of developers and reaches billions of users. I want to work at that scale.<br><br>
+I also deeply value Google's engineering culture. I already practice thorough code reviews, invest in testing, and write design docs before building. At Google, I would be in an environment where these practices are the standard, not something I have to convince others to adopt. And honestly, I want to learn from engineers who built the tools I use every day. That density of talent is what would push me to grow the most."
+</div>
+</div>
+</div>
+
+<!-- SECTION 7 -->
+<div class="section-anchor" id="sec-7"></div>
+<div class="section">
+<div class="section-header"><div class="section-num">7</div><h2>Day-Of Tips</h2></div>
+<div class="tips-grid">
+<div class="tip-card"><div class="tip-icon">&#128172;</div><p><strong>Think out loud.</strong> If you need a moment to recall a story, say "Let me think about the best example for this." Silence feels longer to the interviewer than it does to you.</p></div>
+<div class="tip-card"><div class="tip-icon">&#10067;</div><p><strong>Ask clarifying questions.</strong> "Are you looking for a technical disagreement or an interpersonal one?" shows maturity and buys you time to pick the right story.</p></div>
+<div class="tip-card"><div class="tip-icon">&#128100;</div><p><strong>Use "I" not "we."</strong> The interviewer needs to evaluate YOUR contribution. "I proposed the migration strategy" not "we decided to migrate."</p></div>
+<div class="tip-card"><div class="tip-icon">&#9208;</div><p><strong>Pause and think.</strong> It is completely OK to take 5-10 seconds before answering. A thoughtful answer beats a rushed one every time.</p></div>
+<div class="tip-card"><div class="tip-icon">&#128269;</div><p><strong>Show self-awareness.</strong> For every story, know what you would do differently. "If I were to do it again, I would start with user interviews even earlier."</p></div>
+<div class="tip-card"><div class="tip-icon">&#127919;</div><p><strong>End with the learning.</strong> Every STAR answer should close with what you learned or how it changed your approach. This signals growth mindset.</p></div>
+<div class="tip-card"><div class="tip-icon">&#128588;</div><p><strong>Be genuine.</strong> Rehearsed answers sound fake. Know your stories well enough that you can tell them naturally, not recite them word-for-word.</p></div>
+<div class="tip-card"><div class="tip-icon">&#128260;</div><p><strong>Pivot gracefully.</strong> If you do not have a perfect story, say: "I have not faced that exact situation, but the closest experience is..." Honesty is better than fabrication.</p></div>
+</div>
+</div>
+
+<!-- SECTION 8 -->
+<div class="section-anchor" id="sec-8"></div>
+<div class="section">
+<div class="section-header"><div class="section-num">8</div><h2>Red Flags to Avoid</h2></div>
+<div class="redflag-card"><p><strong>Blaming others.</strong> Even if someone else made a mistake, focus on what YOU did to resolve it. "The PM gave us bad requirements" is a red flag. "I realized the requirements were unclear so I set up a meeting to align" is a green flag.</p></div>
+<div class="redflag-card"><p><strong>Taking all the credit.</strong> On team projects, acknowledge others' contributions. Then clearly articulate YOUR specific part. "The team shipped the feature, and my specific contribution was designing the SDK architecture and writing the migration guides."</p></div>
+<div class="redflag-card"><p><strong>Having no failures.</strong> If you cannot share a failure, the interviewer assumes you either have not done challenging work or lack self-awareness. DETE is a strong, honest failure story. Use it.</p></div>
+<div class="redflag-card"><p><strong>Generic answers without specifics.</strong> "I am a team player" means nothing. "I set up weekly 1:1 code review sessions with a junior engineer and they shipped their first independent feature within two months" is a signal.</p></div>
+<div class="redflag-card"><p><strong>Saying "we" for everything.</strong> The interviewer cannot assess what you did if every sentence starts with "we." Use "I" for your actions, "we" only when describing team outcomes.</p></div>
+<div class="redflag-card"><p><strong>Badmouthing previous employers.</strong> Even if a previous job was terrible, frame it constructively. "The process was not ideal, which motivated me to propose improvements" not "management was incompetent."</p></div>
+<div class="redflag-card"><p><strong>Not showing growth.</strong> Every story should end with a learning. If you tell the same story from 2022 with no evolution in your thinking, it suggests stagnation. Show how past experiences shaped your current approach.</p></div>
+</div>
+
+</div>
+</div>
+</main>
+
+<script>
+const SECTIONS = [
+  { id: "sec-1", num: "1", title: "What Is the Googleyness Round?" },
+  { id: "sec-2", num: "2", title: "Evaluation Signals" },
+  { id: "sec-3", num: "3", title: "The STAR Method" },
+  { id: "sec-4", num: "4", title: "Your Stories (8 STAR)" },
+  { id: "sec-5", num: "5", title: "Quick Answers (15 Q's)" },
+  { id: "sec-6", num: "6", title: "Why Google?" },
+  { id: "sec-7", num: "7", title: "Day-Of Tips" },
+  { id: "sec-8", num: "8", title: "Red Flags to Avoid" }
+];
+
+let darkMode = true;
+let activeSection = "sec-1";
+
+function renderNav() {
+  const list = document.getElementById("navList");
+  list.innerHTML = SECTIONS.map(s => {
+    const cls = s.id === activeSection ? "active" : "";
+    return `<div class="nav-item ${cls}" data-id="${s.id}"><span class="nav-num">${s.num}</span><span>${s.title}</span></div>`;
+  }).join("");
+  list.querySelectorAll(".nav-item").forEach(item => {
+    item.addEventListener("click", () => {
+      const target = document.getElementById(item.dataset.id);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        closeSidebar();
+      }
+    });
+  });
+}
+
+function updateActiveSection() {
+  const content = document.getElementById("contentArea");
+  const scrollTop = content.scrollTop;
+  let current = SECTIONS[0].id;
+  for (const s of SECTIONS) {
+    const el = document.getElementById(s.id);
+    if (el && el.offsetTop - 40 <= scrollTop) {
+      current = s.id;
+    }
+  }
+  if (current !== activeSection) {
+    activeSection = current;
+    renderNav();
+  }
+}
+
+// Collapsible QA items
+document.querySelectorAll(".qa-header").forEach(header => {
+  header.addEventListener("click", () => {
+    const item = header.parentElement;
+    item.classList.toggle("open");
+  });
+});
+
+// Theme
+function applyTheme() {
+  document.body.classList.toggle("light-mode", !darkMode);
+}
+function toggleTheme() {
+  darkMode = !darkMode;
+  applyTheme();
+}
+
+// Sidebar mobile
+function openSidebar() {
+  document.getElementById("sidebar").classList.add("open");
+  document.getElementById("sidebarOverlay").classList.add("open");
+}
+function closeSidebar() {
+  document.getElementById("sidebar").classList.remove("open");
+  document.getElementById("sidebarOverlay").classList.remove("open");
+}
+
+document.getElementById("hamburgerBtn").addEventListener("click", openSidebar);
+document.getElementById("sidebarOverlay").addEventListener("click", closeSidebar);
+
+// Scroll tracking
+document.getElementById("contentArea").addEventListener("scroll", updateActiveSection);
+
+// Init
+applyTheme();
+renderNav();
+</script>
+</body>
+</html>

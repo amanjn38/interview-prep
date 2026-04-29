@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>G&L Interview Cheat Sheet — Aman Jain</title>
+<style>
+:root{--bg:#1a1a2e;--card:#1e2a3a;--text:#e8e8e8;--dim:#a0a0b0;--accent:#00d4aa;--blue:#5b9bf5;--purple:#b68aff;--orange:#f0a050;--red:#ff6b6b;--green:#00d4aa}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);padding:16px;font-size:12px;line-height:1.5}
+h1{font-size:16px;color:var(--accent);text-align:center;margin-bottom:4px}
+.subtitle{text-align:center;color:var(--dim);font-size:11px;margin-bottom:16px}
+
+/* Quick lookup */
+.lookup{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
+.lookup-card{background:var(--card);border-radius:8px;padding:10px 12px;border-left:3px solid var(--accent)}
+.lookup-card.s1{border-left-color:var(--blue)}
+.lookup-card.s2{border-left-color:var(--green)}
+.lookup-card.s3{border-left-color:var(--purple)}
+.lookup-card.s3b{border-left-color:var(--purple);border-left-style:dashed}
+.lookup-card.s4{border-left-color:var(--orange)}
+.lookup-card.s5{border-left-color:var(--red)}
+.lookup-card.s6{border-left-color:var(--blue)}
+.lookup-card.s7{border-left-color:var(--green)}
+.lookup-card.s8{border-left-color:var(--orange)}
+.story-tag{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px}
+.s1 .story-tag{color:var(--blue)}
+.s2 .story-tag{color:var(--green)}
+.s3 .story-tag{color:var(--purple)}
+.s3b .story-tag{color:var(--purple)}
+.s4 .story-tag{color:var(--orange)}
+.s5 .story-tag{color:var(--red)}
+.s6 .story-tag{color:var(--blue)}
+.s7 .story-tag{color:var(--green)}
+.s8 .story-tag{color:var(--orange)}
+.hook{font-weight:700;font-size:11px;margin-bottom:6px;color:var(--text)}
+.triggers{list-style:none;padding:0}
+.triggers li{font-size:11px;color:var(--dim);padding:1px 0}
+.triggers li::before{content:"→ ";color:var(--accent);font-weight:700}
+.metric{font-size:10px;color:var(--accent);font-weight:700;margin-top:4px;padding-top:4px;border-top:1px solid rgba(255,255,255,.05)}
+.learning{font-size:10px;color:var(--dim);font-style:italic;margin-top:2px}
+
+/* Question router */
+.router{margin-bottom:20px}
+.router h2{font-size:13px;color:var(--accent);margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.1)}
+.router-table{width:100%;border-collapse:collapse}
+.router-table th{text-align:left;font-size:10px;color:var(--accent);padding:4px 6px;border-bottom:1px solid rgba(255,255,255,.1);text-transform:uppercase;letter-spacing:.5px}
+.router-table td{font-size:11px;padding:4px 6px;border-bottom:1px solid rgba(255,255,255,.03)}
+.router-table td:first-child{color:var(--text);font-weight:600;width:55%}
+.router-table td:nth-child(2){color:var(--accent);font-weight:700;width:20%}
+.router-table td:nth-child(3){color:var(--dim);width:25%}
+.kw{background:rgba(0,212,170,.1);color:var(--accent);padding:1px 4px;border-radius:3px;font-size:10px;font-weight:600}
+
+/* Context cards */
+.context-section{margin-bottom:16px}
+.context-section h2{font-size:13px;color:var(--accent);margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ctx-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ctx-card{background:var(--card);border-radius:8px;padding:10px 12px}
+.ctx-card h4{font-size:11px;color:var(--accent);margin-bottom:4px}
+.ctx-card p{font-size:11px;color:var(--dim);line-height:1.5}
+.ctx-card .kp{color:var(--text);font-weight:600}
+
+/* Clarifiers */
+.clarifiers{margin-bottom:16px}
+.clarifiers h2{font-size:13px;color:var(--accent);margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.1)}
+.cl-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.cl-item{font-size:11px;color:var(--dim);padding:4px 8px;background:var(--card);border-radius:6px}
+.cl-item b{color:var(--text);font-weight:600}
+
+/* Red flags strip */
+.redflags{background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.2);border-radius:8px;padding:10px 14px;margin-bottom:16px}
+.redflags h2{font-size:12px;color:var(--red);margin-bottom:6px}
+.redflags ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.redflags li{font-size:10px;color:var(--red);background:rgba(255,107,107,.1);padding:2px 8px;border-radius:10px}
+
+/* Print */
+@media print{
+body{background:#fff;color:#111;font-size:10px;padding:8px}
+.lookup-card,.ctx-card,.cl-item{background:#f5f5f5;border-color:#333;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.router-table td,.router-table th{border-bottom-color:#ddd}
+}
+@media(max-width:600px){
+.lookup,.ctx-grid,.cl-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<h1>G&L Cheat Sheet</h1>
+<div class="subtitle">Scan keyword → find story → use triggers to reconstruct answer</div>
+
+<!-- STORY CARDS -->
+<div class="lookup">
+
+<div class="lookup-card s1">
+<div class="story-tag">S1 — Mentoring Sahil · DevRev</div>
+<div class="hook">Intern zero→feature owner in 2 months</div>
+<ul class="triggers">
+<li>Pair programming on small tasks first</li>
+<li>Guiding questions not answers ("where should state live?")</li>
+<li>Progressive autonomy: bug fixes → modules → design ownership</li>
+<li>Wireframing traversal — layout screenshots for session replay</li>
+</ul>
+<div class="metric">2 mo → independent on core SDK feature</div>
+<div class="learning">Structured ramp-up with increasing autonomy > hand-holding</div>
+</div>
+
+<div class="lookup-card s2">
+<div class="story-tag">S2 — Crash Rate Fix · DevRev</div>
+<div class="hook">Self-initiated: 40% crash drop, Play Store featuring restored</div>
+<ul class="triggers">
+<li>Morning Crashlytics checks, nobody assigned</li>
+<li>60% crashes from network layer — JSON parsing + WebSocket race</li>
+<li>One-page proposal with data → manager buy-in</li>
+<li>Sealed Result types, exponential backoff, lifecycle-scoped reconnection</li>
+<li>Payload 35% smaller (serialization switch)</li>
+</ul>
+<div class="metric">Crash ↓40% · Crash-free >99.5% · Payload ↓35%</div>
+<div class="learning">Mobile engineers should proactively own production health</div>
+</div>
+
+<div class="lookup-card s3">
+<div class="story-tag">S3 — SDK Design No Spec · DevRev</div>
+<div class="hook">50+ enterprise clients, no spec, shipped layered SDK</div>
+<ul class="triggers">
+<li>Interviewed 5 client engineers + customer success</li>
+<li>3 conflicting needs: simple vs. granular vs. raw WebSocket</li>
+<li>Layered arch: convenience → Flow mid-layer → raw escape hatch</li>
+<li>Beta to 3 clients → iterate → broad rollout</li>
+</ul>
+<div class="metric">50+ clients · 80% used high-level API · &lt;1 day integration</div>
+<div class="learning">Talk to users first, ship small before designing big</div>
+</div>
+
+<div class="lookup-card s3b">
+<div class="story-tag">S3B — Session Replay Rebuild · DevRev</div>
+<div class="hook">Took over stalled SDK, rebuilt Java→Kotlin, ships this week</div>
+<ul class="triggers">
+<li>Legacy Java: OOM (Bitmap heap), AsyncTask races, NPE in view traversal, callback hell</li>
+<li>Contractor left — 0 docs, thousands of lines, multiple modules</li>
+<li>Traced 1 screenshot end-to-end: traversal→capture→timestamp→zip→upload</li>
+<li>Trade-off: rebuild > salvage (race conditions too deep)</li>
+<li>Kotlin: coroutines + Flow backpressure + sealed states + null safety + ProcessLifecycleOwner</li>
+<li>Vertical slices: 1 screenshot working before edge cases</li>
+</ul>
+<div class="metric">Stalled months → shipping this week · Eliminates OOM/NPE/races</div>
+<div class="learning">Trace one path e2e, build vertical slices, don't assume handoff will happen</div>
+</div>
+
+<div class="lookup-card s4">
+<div class="story-tag">S4 — MVVM Migration · Fiorano</div>
+<div class="hook">Disagreed with manager, data-driven MVVM push, 3.8→4.5 rating</div>
+<ul class="triggers">
+<li>Java spaghetti: logic in Activities, no separation, 1 change breaks 3 screens</li>
+<li>Features overrunning estimates 40-60%, constant regressions</li>
+<li>Tracked 3 feature overruns + regression count → showed cost to manager</li>
+<li>POC: refactored worst screen to MVVM — 0 regressions, week→day modification time</li>
+<li>Pragmatic: new features in MVVM, refactor old only when touched</li>
+</ul>
+<div class="metric">Coverage 40%→72% · Rating 3.8→4.5 · Features hitting estimates</div>
+<div class="learning">Disagree with evidence not opinions, propose low-risk path</div>
+</div>
+
+<div class="lookup-card s5">
+<div class="story-tag">S5 — DETE Failure · Startup</div>
+<div class="hook">Co-founded delivery platform, tech worked, business didn't</div>
+<ul class="triggers">
+<li>Hyperlocal: Swiggy+UrbanCompany, vocal for local, college town</li>
+<li>3 Kotlin apps, shared modules, Firebase realtime, 15-person team</li>
+<li>Over-engineered: perfected arch instead of validating unit economics</li>
+<li>Delivery costs too high vs. order values, education loan → had to stop</li>
+<li>Snabbit doing same thing 6 years later — we had first-mover advantage</li>
+</ul>
+<div class="metric">500+ users · 60+ merchants · Unsustainable model</div>
+<div class="learning">Things take time. Engineering without PMF = wasted. Always ask "user impact?" first</div>
+</div>
+
+<div class="lookup-card s6">
+<div class="story-tag">S6 — Banking Clients XFN · DevRev</div>
+<div class="hook">Escalation-prone bank client → collaborative, integration week→2 days</div>
+<ul class="triggers">
+<li>50+ enterprise clients, banks hardest (compliance, legacy, cautious)</li>
+<li>One bank escalated to leadership, skipping me</li>
+<li>Called their EM + lead eng, showed issue timeline (SDK vs their bugs)</li>
+<li>Dedicated Slack + weekly sync + 4hr response commitment</li>
+<li>"Walk me through your compliance process" — tone shift</li>
+<li>Live code reviews caught SSL pinning conflict → added configurable networking (30%+ clients used it)</li>
+</ul>
+<div class="metric">Escalations stopped · Integration week→2 days · Client EM praise</div>
+<div class="learning">Difficult stakeholders = unheard people. Fix communication first</div>
+</div>
+
+<div class="lookup-card s7">
+<div class="story-tag">S7 — Testing Initiative · Fiorano</div>
+<div class="hook">Uninstructed: pushed coverage 40%→72%, built testing culture</div>
+<ul class="triggers">
+<li>40% coverage, no integration/UI tests, no CI — regressions caught by customers</li>
+<li>Not my job (hired for features) but regressions killing velocity</li>
+<li>Led by example: every PR had tests (unit + Room + Compose UI)</li>
+<li>2-week team sprint, wrote testing guide, configured CI + 60% merge threshold</li>
+<li>RouteChef: 50K downloads, crash 2.5%→0.8%</li>
+</ul>
+<div class="metric">Coverage 40%→72% · Regressions ↓ · Faster releases</div>
+<div class="learning">Above & beyond = investing in leverage, not more hours</div>
+</div>
+
+<div class="lookup-card s8">
+<div class="story-tag">S8 — Leading 15 at DETE · Startup</div>
+<div class="hook">Led volunteer team, no authority, shipped 3 apps, 2 got jobs</div>
+<ul class="triggers">
+<li>15 people: students, freelancers, part-time — no salary, no reporting</li>
+<li>Shared Kotlin module → forced collaboration, everyone benefits</li>
+<li>Credibility: I wrote arch, Firebase layer, CI, standards first</li>
+<li>Genuine care: task-skill matching, teaching PRs, public credit</li>
+<li>Person almost quit (Driver app invisible) → restructured demo + gave main app feature</li>
+<li>XFN: sat in merchant calls → fast-tracked push notifications</li>
+</ul>
+<div class="metric">3 apps shipped · 500+ users · 60+ merchants · 2 got Android jobs</div>
+<div class="learning">Earn respect through work, give ownership, genuinely care about growth</div>
+</div>
+
+</div>
+
+<!-- QUESTION ROUTER -->
+<div class="router">
+<h2>Question → Story Router</h2>
+<table class="router-table">
+<tr><th>When you hear...</th><th>Go to</th><th>Backup</th></tr>
+<tr><td><span class="kw">mentor</span> <span class="kw">grow</span> <span class="kw">develop</span> <span class="kw">poor performer</span> <span class="kw">skill gap</span></td><td>S1 Sahil</td><td>S8 DETE team</td></tr>
+<tr><td><span class="kw">initiative</span> <span class="kw">without being asked</span> <span class="kw">prioritize</span> <span class="kw">quick decision</span> <span class="kw">pressure</span></td><td>S2 Crash</td><td>S7 Testing</td></tr>
+<tr><td><span class="kw">ambiguity</span> <span class="kw">unclear requirements</span> <span class="kw">creative solution</span> <span class="kw">changing requirements</span></td><td>S3 SDK Design</td><td>S3B Replay</td></tr>
+<tr><td><span class="kw">no documentation</span> <span class="kw">created from nothing</span> <span class="kw">challenging project</span> <span class="kw">obstacles</span></td><td>S3B Replay</td><td>S3 SDK</td></tr>
+<tr><td><span class="kw">disagree</span> <span class="kw">conflict</span> <span class="kw">pushed back</span> <span class="kw">unpopular decision</span> <span class="kw">convince</span></td><td>S4 MVVM</td><td>S6 Bank</td></tr>
+<tr><td><span class="kw">failed</span> <span class="kw">mistake</span> <span class="kw">setback</span> <span class="kw">weakness</span> <span class="kw">didn't go as planned</span></td><td>S5 DETE</td><td>S3B Contractor</td></tr>
+<tr><td><span class="kw">cross-functional</span> <span class="kw">outside team</span> <span class="kw">stakeholder</span> <span class="kw">difficult person</span> <span class="kw">escalation</span></td><td>S6 Bank</td><td>S8 DETE XFN</td></tr>
+<tr><td><span class="kw">above and beyond</span> <span class="kw">quality</span> <span class="kw">beyond job</span> <span class="kw">process improvement</span></td><td>S7 Testing</td><td>S2 Crash</td></tr>
+<tr><td><span class="kw">led</span> <span class="kw">leadership</span> <span class="kw">without authority</span> <span class="kw">team through</span> <span class="kw">delegate</span></td><td>S8 DETE</td><td>S4 MVVM</td></tr>
+<tr><td><span class="kw">negative feedback</span> <span class="kw">constructive feedback</span></td><td>Regression story</td><td>S6 client loop</td></tr>
+<tr><td><span class="kw">wrong decision</span> <span class="kw">technically wrong</span></td><td>DETE no-arch</td><td>S5 over-eng</td></tr>
+<tr><td><span class="kw">disagree with manager</span> <span class="kw">already decided</span></td><td>S4 MVVM</td><td>DevRev 80/20</td></tr>
+<tr><td><span class="kw">super performer</span></td><td>DevRev Sr Eng</td><td>—</td></tr>
+</table>
+</div>
+
+<!-- CONTEXT QUICK CARDS -->
+<div class="context-section">
+<h2>Direct Questions — Key Points</h2>
+<div class="ctx-grid">
+
+<div class="ctx-card">
+<h4>Why Google?</h4>
+<p><span class="kp">Android = my craft</span> (DETE→Fiorano→DevRev→RouteChef 50K). <span class="kp">Scale</span>: 50 clients → billions. <span class="kp">Build FOR platform</span>: Jetpack, Compose, Play Services. <span class="kp">Culture</span>: code reviews + testing + design docs = norm. <span class="kp">Growth</span>: L4→L5, learn from people who built my tools.</p>
+</div>
+
+<div class="ctx-card">
+<h4>Why leaving DevRev?</h4>
+<p><span class="kp">Same product 2+ years.</span> Grateful for growth. Ready for bigger scale. Want to build FOR the platform, not just ON it.</p>
+</div>
+
+<div class="ctx-card">
+<h4>3-5 year vision</h4>
+<p><span class="kp">Stronger engineer</span>, lead small team, meaningful difference on product used by millions. L4→L5 = deeper ownership + broader influence.</p>
+</div>
+
+<div class="ctx-card">
+<h4>Biggest weakness</h4>
+<p><span class="kp">Over-engineering.</span> DETE: perfected arch, ignored business model. Mitigation: timebox exploration, validate with users in week 1.</p>
+</div>
+
+<div class="ctx-card">
+<h4>Negative feedback</h4>
+<p><span class="kp">Shipped regression</span> in legacy SDK, survived 3 releases. Manager direct feedback. Full ownership → pre-ship checklist → regression tests for every change. Led to testing culture at Fiorano.</p>
+</div>
+
+<div class="ctx-card">
+<h4>Wrong technical decision</h4>
+<p><span class="kp">DETE: no MVVM</span>, multi-Activity spaghetti. College mentor reviewed → pointed out structural problems. Refactored to MVVM → maintainable for 15 contributors. Strong opinions, loosely held.</p>
+</div>
+
+<div class="ctx-card">
+<h4>Favorite Google product</h4>
+<p><span class="kp">Android Studio / Jetpack Compose.</span> Use daily, understand the craft, want to contribute to making them better for every Android dev.</p>
+</div>
+
+<div class="ctx-card">
+<h4>Coffee with Pichai</h4>
+<p><span class="kp">SDK dev experience</span> on Android: view hierarchy + accessibility APIs need to be more SDK-friendly. <span class="kp">Java→Kotlin migration paths</span>: structured concurrency, null safety, Flow solve real production issues (OOM, races, NPE).</p>
+</div>
+
+<div class="ctx-card">
+<h4>Google's mission</h4>
+<p>"Organize world's info, make accessible." = <span class="kp">reduce friction</span> between people and what they need. Android: billions of devices. DETE: merchants reached customers they never had access to.</p>
+</div>
+
+<div class="ctx-card">
+<h4>Biggest Google challenge</h4>
+<p><span class="kp">AI transition</span> into products without losing trust/simplicity. Android: <span class="kp">fragmentation evolving</span> — foldables, cars, watches, TV. Compose + Jetpack across all form factors + on-device AI.</p>
+</div>
+
+<div class="ctx-card">
+<h4>Handle stress</h4>
+<p>Separate controllable vs. not. DETE: startup + placements + education loan → <span class="kp">time blocks</span>. DevRev SDK stalled → <span class="kp">vertical slices</span> to reduce overwhelm. Cricket + Valorant = reset buttons.</p>
+</div>
+
+<div class="ctx-card">
+<h4>Time to contribute</h4>
+<p><span class="kp">30 days:</span> codebase, norms, ship small fix. <span class="kp">90 days:</span> own a feature e2e. <span class="kp">6 months:</span> team-level initiative. Evidence: took over stalled SDK, shipped in weeks.</p>
+</div>
+
+<div class="ctx-card">
+<h4>Define success</h4>
+<p>Ship something that <span class="kp">improves someone's workflow</span> AND makes codebase better. Crash fix: improved every user's experience. MVVM: made every future feature faster. <span class="kp">Impact that compounds.</span></p>
+</div>
+
+<div class="ctx-card">
+<h4>Smartest person I know</h4>
+<p><span class="kp">College mentor</span> who taught me Android. Looked at DETE spaghetti code, immediately saw structural problems + explained WHY they'd cause pain. <span class="kp">Thinks in systems, not code.</span></p>
+</div>
+
+<div class="ctx-card">
+<h4>Career over again?</h4>
+<p>Same path but <span class="kp">start DETE with a business co-founder</span>. Validate business model before writing code. But wouldn't trade DETE — taught more about leadership + trade-offs than any job.</p>
+</div>
+
+<div class="ctx-card">
+<h4>Ultimate power</h4>
+<p><span class="kp">Quality software education in tier-2/3 Indian cities.</span> College-industry gap is massive. DETE proof: 2 team members got Android jobs. Mentorship access would explode the talent pipeline.</p>
+</div>
+
+</div>
+</div>
+
+<!-- CLARIFIERS -->
+<div class="clarifiers">
+<h2>Clarifying Questions — Ask ONE Before Answering</h2>
+<div class="cl-grid">
+<div class="cl-item"><b>Conflict:</b> "Technical disagreement or interpersonal?"</div>
+<div class="cl-item"><b>Difficult person:</b> "Peer, stakeholder, or mentee?"</div>
+<div class="cl-item"><b>Leadership:</b> "Leading a project or leading people?"</div>
+<div class="cl-item"><b>Failure:</b> "Technical failure or business/strategic one?"</div>
+<div class="cl-item"><b>XFN:</b> "Internal cross-team or external collaboration?"</div>
+<div class="cl-item"><b>Ambiguity:</b> "Unclear technical requirements or business direction?"</div>
+<div class="cl-item"><b>Initiative:</b> "Technical problem or process problem?"</div>
+<div class="cl-item"><b>Creative:</b> "Technical creativity or people/process?"</div>
+</div>
+</div>
+
+<!-- RED FLAGS -->
+<div class="redflags">
+<h2>Never Do This</h2>
+<ul>
+<li>Blame others</li>
+<li>Take all credit</li>
+<li>Say "we" for everything</li>
+<li>Claim zero failures</li>
+<li>Generic with no specifics</li>
+<li>Badmouth employers</li>
+<li>No learning at the end</li>
+<li>Sound rehearsed</li>
+</ul>
+</div>
+
+<div style="text-align:center;font-size:10px;color:var(--dim);margin-top:8px">
+Hook → S+T (30 sec) → Action 3-5 steps with WHY (60%) → Metric + Learning · Say "I" not "we" · Include one trade-off · 200-300 words · 2-3 min spoken
+</div>
+
+</body>
+</html>
