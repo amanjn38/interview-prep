@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(open:*)",
+      "Bash(python3:*)",
+      "Bash(git -C /Users/amanjn38/Desktop/interview-prep pull)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}
