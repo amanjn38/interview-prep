@@ -15,6 +15,7 @@
  *   8. ProGuard / R8 — Code Obfuscation
  *   9. Content Provider Security
  *  10. WebView Security
+ *  11. Play Integrity API
  *
  * ============================================================================
  */
@@ -149,29 +150,47 @@ class PermissionActivity : AppCompatActivity() {
 
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 3. CERTIFICATE PINNING
+// 3. CERTIFICATE PINNING — DEEP DIVE
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * Certificate pinning = only trust specific certificates for a domain.
- * Prevents MITM attacks even with a compromised CA.
+ * Certificate pinning = only trust specific public keys (SPKI hashes) for a domain.
+ * Prevents MITM even if a CA is compromised or a rogue cert is installed.
+ *
+ * What to pin:
+ *   - Public key hash (SHA-256 of SubjectPublicKeyInfo) — survives cert renewal
+ *     if the same key pair is reused
+ *   - NOT the full certificate — expires with cert and breaks on every rotation
  *
  * Approaches:
- *   1. Network Security Config (XML) — recommended
- *   2. OkHttp CertificatePinner — programmatic
- *   3. TrustManager — custom low-level
+ *   1. Network Security Config (XML) — recommended, declarative, debug overrides
+ *   2. OkHttp CertificatePinner — programmatic, per-client control
+ *   3. Custom TrustManager — last resort; easy to get wrong
  *
- * ⚠️ Always include a backup pin — if the primary cert is rotated,
- *    you need a fallback to avoid bricking the app.
+ * ⚠️ Pin rotation strategy (critical for production):
+ *   - Always ship TWO pins: current + backup (next cert's SPKI hash)
+ *   - Set pin-set expiration in XML so old pins auto-expire
+ *   - Coordinate with backend/infra before cert rotation
+ *   - Have a remote-config kill switch to disable pinning in emergencies
+ *   - Without backup pin, a cert rotation BRICKS the app for all users
+ *
+ * How to extract SPKI pin (for OkHttp or XML):
+ *   openssl s_client -connect api.example.com:443 | \
+ *     openssl x509 -pubkey -noout | \
+ *     openssl pkey -pubin -outform der | \
+ *     openssl dgst -sha256 -binary | openssl enc -base64
+ *
+ * 💡 Interview tip: Pinning protects against MITM; it does NOT stop reverse
+ *    engineering or rooted-device tampering — pair with Play Integrity for that.
  */
 
-// OkHttp certificate pinning
+// OkHttp — programmatic pinning with backup pin
 fun createPinnedClient(): OkHttpClient {
     val certificatePinner = CertificatePinner.Builder()
         .add(
             "api.example.com",
-            "sha256/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",  // Primary
-            "sha256/BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB="   // Backup
+            "sha256/CURRENT_SPKI_HASH=",   // Active cert public key
+            "sha256/BACKUP_SPKI_HASH="     // Next rotation — ship before switch
         )
         .build()
 
@@ -180,9 +199,141 @@ fun createPinnedClient(): OkHttpClient {
         .build()
 }
 
+// Pinning failure handling — log for monitoring, don't crash silently
+class PinningEventListener : EventListener() {
+    override fun secureConnectEnd(call: Call, handshake: Handshake?) {
+        // Handshake succeeded — pin matched
+    }
+    // CertificatePinningException thrown on mismatch — catch at call site
+}
+
+// Remote-config fallback pattern (pseudo-code)
+/*
+fun createApiClient(remoteConfig: RemoteConfig): OkHttpClient {
+    val builder = OkHttpClient.Builder()
+    if (remoteConfig.getBoolean("cert_pinning_enabled", default = true)) {
+        builder.certificatePinner(buildCertificatePinner())
+    }
+    return builder.build()
+}
+*/
+
+/**
+ * ❓ Follow-up: What happens when a pin doesn't match?
+ *    A: OkHttp throws SSLPeerUnverifiedException / CertificatePinningException.
+ *       All API calls fail. Users see network errors. Fix: ship app update with
+ *       new pin OR disable pinning via remote config (if you planned for it).
+ *
+ * ❓ Follow-up: XML pinning vs OkHttp pinning — when to use which?
+ *    A: XML for app-wide default (WebView, Cronet, default OkHttp if configured).
+ *       OkHttp for per-client pins (different APIs, staging vs prod clients).
+ *       Use both consistently — mismatched configs cause confusing debug sessions.
+ */
+
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 4. ANDROID KEYSTORE SYSTEM
+// 11. PLAY INTEGRITY API (replaces SafetyNet Attestation)
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Play Integrity API verifies the app's runtime environment before trusting
+ * sensitive operations (payments, premium features, anti-fraud).
+ *
+ * Verdict tokens (server-side decode only — never trust client-side):
+ *   - deviceIntegrity: MEETS_DEVICE_INTEGRITY, MEETS_BASIC_INTEGRITY, etc.
+ *   - appIntegrity: PLAY_RECOGNIZED, UNRECOGNIZED_VERSION
+ *   - accountDetails: app licensing status
+ *
+ * vs SafetyNet (deprecated):
+ *   SafetyNet Attestation → replaced by Play Integrity
+ *   SafetyNet Verify Apps → replaced by Play Protect APIs
+ *
+ * Architecture:
+ *   App → requestIntegrityToken() → Google Play → signed JWT token
+ *   App → send token to YOUR backend → decode with Google API → allow/deny
+ *
+ * ⚠️ Never make security decisions solely on-device. Always verify server-side.
+ *
+ * 💡 Interview tip: Play Integrity detects rooted/emulated/tampered environments.
+ *    It's not foolproof (Magisk hide, custom ROMs) — use as one signal in a
+ *    layered defense, not the only gate.
+ */
+
+// Client-side: request integrity token before sensitive API call
+class IntegrityChecker(
+    private val integrityManager: IntegrityManager,
+    private val cloudProjectNumber: Long  // from Google Cloud Console
+) {
+    suspend fun requestToken(): String = suspendCancellableCoroutine { cont ->
+        val request = IntegrityTokenRequest.builder()
+            .setCloudProjectNumber(cloudProjectNumber)
+            .build()
+
+        integrityManager.requestIntegrityToken(request)
+            .addOnSuccessListener { response ->
+                if (cont.isActive) cont.resume(response.token())
+            }
+            .addOnFailureListener { e ->
+                if (cont.isActive) cont.resumeWithException(e)
+            }
+    }
+}
+
+// Usage in repository — token sent to backend, NOT decoded on device
+class PaymentRepository(
+    private val api: PaymentApi,
+    private val integrityChecker: IntegrityChecker
+) {
+    suspend fun initiatePayment(amount: Cents): Result<PaymentResult> {
+        return try {
+            val integrityToken = integrityChecker.requestToken()
+            val response = api.createPayment(
+                PaymentRequest(amount = amount, integrityToken = integrityToken)
+            )
+            Result.success(response)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+}
+
+/**
+ * Server-side verification (conceptual — runs on your backend, not Android):
+ *
+ *   POST https://playintegrity.googleapis.com/v1/{packageName}:decodeIntegrityToken
+ *   Body: { "integrityToken": "<token from app>" }
+ *
+ *   Check response.payload:
+ *     deviceIntegrity.deviceRecognitionVerdict contains "MEETS_DEVICE_INTEGRITY"
+ *     appIntegrity.appRecognitionVerdict == "PLAY_RECOGNIZED"
+ *     requestDetails.requestPackageName matches your app
+ *
+ * Decision matrix (example):
+ *   ┌─────────────────────────────┬────────────────────────────────────┐
+ *   │ Verdict                     │ Action                             │
+ *   ├─────────────────────────────┼────────────────────────────────────┤
+ *   │ Full integrity + recognized │ Allow sensitive operation          │
+ *   │ Basic integrity only        │ Allow read-only, block payments    │
+ *   │ App unrecognized (sideload) │ Block or limit features            │
+ *   │ Token decode fails          │ Reject — possible tampering        │
+ *   └─────────────────────────────┴────────────────────────────────────┘
+ */
+
+/**
+ * ❓ Q6: How does Play Integrity differ from certificate pinning?
+ *    A: Pinning = protect network traffic from MITM (transport layer).
+ *       Play Integrity = verify app binary + device environment (runtime layer).
+ *       Complementary: pin API calls, verify device before high-value actions.
+ *
+ * ❓ Q7: What if Play Integrity API is unavailable (no Play Store, China devices)?
+ *    A: Graceful degradation — don't hard-crash. Fall back to reduced functionality,
+ *       server-side rate limiting, or alternate auth. Document the trade-off.
+ *
+ * ❓ Q8: How do you test Play Integrity in development?
+ *    A: Use Play Console → App Integrity → test responses. Register test devices.
+ *       Debug builds won't get PLAY_RECOGNIZED — test the failure path too.
+ */
+
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
@@ -659,4 +810,12 @@ class SafeBridge {
  *       Even root access can't extract the key material.
  *       Password-based encryption: key is in app memory — extractable.
  *       Keystore also supports biometric-gated access.
+ *
+ * ❓ Q6: How does Play Integrity differ from certificate pinning?
+ *    A: Pinning protects transport (MITM). Play Integrity verifies app binary
+ *       and device environment at runtime. Use both for layered security.
+ *
+ * ❓ Q7: What's your pin rotation strategy?
+ *    A: Ship current + backup SPKI hash, set XML expiration, coordinate with infra,
+ *       remote-config kill switch for emergencies. Never pin only one hash.
  */

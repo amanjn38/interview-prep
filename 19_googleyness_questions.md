@@ -1,7 +1,7 @@
-# Real Google Googleyness & Leadership (G&L) Interview Questions
+# 19 — Googleyness & Leadership — Question Bank (96 Questions)
 
 Compiled from candidate experiences, interview prep platforms, and community reports.
-Questions are deduplicated and organized by category.
+Questions are deduplicated and organized by category. Prep guide: [18_googleyness_and_leadership.md](18_googleyness_and_leadership.md).
 
 ---
 

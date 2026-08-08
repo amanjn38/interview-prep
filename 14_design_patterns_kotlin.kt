@@ -12,7 +12,7 @@
  *   5. Kotlin DSL
  *   6. Inline Functions, Reified Types, Crossinline, Noinline
  *   7. Kotlin Scope Functions (let, run, with, apply, also)
- *   8. Design Patterns in Android
+ *   8. Design Patterns in Android (GoF + Kotlin idioms)
  *   9. Value Classes (inline classes)
  *  10. Kotlin Contracts
  *
@@ -559,6 +559,39 @@ fun demonstrateTypeCheck(value: Any?) {
  * 💡 Interview tip: You don't need to write contracts often, but understanding
  *   them explains why require(), check(), and scope functions work so smoothly
  *   with Kotlin's type system.
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 8. DESIGN PATTERNS IN ANDROID (GoF + Android-specific)
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Classic GoF patterns mapped to Android — interviewers ask "where have you seen X?"
+ *
+ * ┌─────────────────────┬──────────────────────────────────────────────────────┐
+ * │ Pattern             │ Android Example                                      │
+ * ├─────────────────────┼──────────────────────────────────────────────────────┤
+ * │ Observer            │ StateFlow, LiveData, Compose state, BroadcastReceiver│
+ * │ Singleton           │ object DatabaseModule, Application instance          │
+ * │ Factory             │ ViewModelProvider.Factory, Fragment.instantiate()    │
+ * │ Builder             │ OkHttpClient.Builder, Notification.Builder           │
+ * │ Adapter             │ RecyclerView.Adapter, ListAdapter (DiffUtil)           │
+ * │ Decorator           │ OkHttp Interceptors, Compose Modifier chain          │
+ * │ Facade              │ Repository hiding Room + Retrofit + DataStore        │
+ * │ Strategy            │ PaymentProcessor interface, multiple implementations │
+ * │ Template Method     │ AsyncTask (deprecated), CoroutineWorker.doWork()     │
+ * │ Proxy               │ Retrofit interface → dynamic proxy implementation    │
+ * └─────────────────────┴──────────────────────────────────────────────────────┘
+ *
+ * Kotlin idioms often replace GoF boilerplate:
+ *   - Builder → default/named parameters
+ *   - Singleton → object or @Singleton (Hilt)
+ *   - Decorator → extension functions + Modifier
+ *   - Strategy → higher-order functions / lambdas
+ *
+ * 💡 Interview tip: Don't recite all 23 GoF patterns. Know 5–6 with Android examples
+ *    and explain when Kotlin features make the classic pattern unnecessary.
  */
 
 

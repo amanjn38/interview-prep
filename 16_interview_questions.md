@@ -442,21 +442,115 @@ class StartupBenchmark {
 
 ---
 
+### Q16: How would you implement certificate pinning and Play Integrity together?
+
+**Expected Answer:**
+
+They solve different layers:
+- **Certificate pinning** — transport security; prevents MITM on API calls (Network Security Config + backup SPKI pin)
+- **Play Integrity** — runtime verification; app requests token, **backend** decodes via Google API before sensitive actions (payments, premium)
+
+Layered defense: pin all API traffic; verify device/app integrity before high-value operations. Graceful degradation if Play services unavailable.
+
+**Follow-ups:**
+- What if cert rotation breaks pinning? → Backup pin + remote-config kill switch
+- Can you trust Play Integrity on client? → Never; server-side decode only
+
+---
+
+### Q17: Explain Room migration strategy for a production app with millions of users.
+
+**Expected Answer:**
+
+1. **AutoMigration** (Room 2.4+) for simple additive changes (new column with default, new table)
+2. **Manual Migration** for complex transforms (split column, data backfill)
+3. **Always test** with `MigrationTestHelper` — bad migration corrupts user data irreversibly
+4. **Ship migration in app update** before server depends on new schema
+5. **Fallback:** export schema JSON in repo; CI runs migration tests on every PR
+
+```kotlin
+val MIGRATION_2_3 = object : Migration(2, 3) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE articles ADD COLUMN sync_status TEXT NOT NULL DEFAULT 'SYNCED'")
+    }
+}
+```
+
+**Follow-ups:**
+- What if migration fails on user device? → Room throws; app may crash on open. Test exhaustively; consider destructive fallback only for debug.
+- Destructive migration in production? → Last resort — users lose local data
+
+---
+
+### Q18: Design a one-time event system (navigation, snackbars) in Compose + ViewModel.
+
+**Expected Answer:**
+
+**Never use StateFlow for events** — conflated, re-delivered on config change.
+
+Use **Channel** + `receiveAsFlow()` in ViewModel:
+
+```kotlin
+private val _events = Channel<UiEvent>(Channel.BUFFERED)
+val events = _events.receiveAsFlow()
+
+fun onLoginSuccess() {
+    viewModelScope.launch { _events.send(UiEvent.NavigateToHome) }
+}
+```
+
+In UI (Compose):
+```kotlin
+LaunchedEffect(Unit) {
+    viewModel.events.collect { event ->
+        when (event) {
+            UiEvent.NavigateToHome -> navController.navigate("home")
+        }
+    }
+}
+```
+
+**Follow-ups:**
+- Channel vs SharedFlow(replay=0)? → Channel: exactly-once, buffers during rotation. SharedFlow: can lose events if no collector.
+- Snackbar from ViewModel? → Send event; Composable shows snackbar (ViewModel shouldn't hold Context)
+
+---
+
+### Q19: How do you structure a multi-module Android project?
+
+**Expected Answer:**
+
+```
+:app → :feature:* → :core:ui, :core:data, :core:domain, :core:common
+```
+
+Rules:
+- Features depend on core, **not on each other**
+- Cross-feature navigation via routes/deeplinks, not direct module imports
+- `:core:domain` has no Android dependencies (pure Kotlin) — testable, KMP-ready
+- Shared UI in `:core:ui`; feature-specific screens in `:feature:*`
+
+**Follow-ups:**
+- When to split a module? → When build time hurts, team ownership boundaries, or feature can be toggled off
+- Dynamic Feature Modules? → On-demand delivery; adds complexity; Google uses for large apps (Play Feature Delivery)
+
+---
+
 ## TIER 3: DEEP DIVE QUESTIONS (For strong candidates)
 
-### Q16: Explain the Compose Snapshot system.
+### Q20: Explain the Compose Snapshot system.
 
 Compose uses a snapshot system (similar to software transactional memory) to track state reads and writes. When `mutableStateOf()` is read during composition, the snapshot records it. When the state value changes, all compositions that read it are invalidated and scheduled for recomposition.
 
 ---
 
-### Q17: How does the Binder IPC mechanism work?
+### Q21: How does the Binder IPC mechanism work?
 
 Client → Proxy → Parcel → Binder Driver (kernel) → Server process → unparcel → execute → return path. Everything in Android uses Binder: `startActivity()`, `bindService()`, `ContentResolver`. Transaction limit ~1MB per process.
 
 ---
 
-### Q18: Design a pagination system for a chat app.
+### Q22: Design a pagination system for a chat app.
 
 - Messages loaded from Room with `PagingSource`
 - Oldest-first loading (scroll up to load older messages)
