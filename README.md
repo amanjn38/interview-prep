@@ -52,7 +52,7 @@ Each `.kt` file is self-contained: concepts, code snippets, interview tips (💡
 | 14 | Design Patterns & Kotlin Advanced | [14_design_patterns_kotlin.kt](14_design_patterns_kotlin.kt) | 🟠 High |
 | 15 | System Design — Offline-first, Chat, Image Loader | [15_system_design_android.kt](15_system_design_android.kt) | 🔴 Critical |
 | 16 | Mock Q&A — 22 tiered interview questions with answers | [16_interview_questions.md](16_interview_questions.md) | 🔴 Critical |
-| 17 | Amit Shekhar Q&A — Unique sections (RecyclerView, Java, Gradle) | [17_amit_shekhar_questions_answers.kt](17_amit_shekhar_questions_answers.kt) | 🟠 High |
+| 17 | Amit Shekhar Q&A — Extended deep-dive answers (full reference) | [17_amit_shekhar_questions_answers.kt](17_amit_shekhar_questions_answers.kt) | 🟠 High |
 
 ### Behavioral — Googleyness & Leadership
 
@@ -82,12 +82,11 @@ Each `.kt` file is self-contained: concepts, code snippets, interview tips (💡
 Regenerate artifacts after editing source files:
 
 ```bash
-# Trim file 17 (already run; re-run only if restoring from backup)
-python3 scripts/trim_amit_shekhar.py
-
-# Regenerate printable HTML guide (~900 KB)
+# Regenerate printable HTML guide after editing source files
 python3 scripts/build_print_guide.py
 ```
+
+Optional: `scripts/trim_amit_shekhar.py` stubs duplicate sections in file 17 — **not recommended** if you use the full Amit Shekhar reference for prep.
 
 ---
 
@@ -117,13 +116,13 @@ python3 scripts/build_print_guide.py
 ```
 01–15   Android technical topics (.kt)
 16      Domain round mock Q&A (.md)
-17      Extended Q&A — unique sections only (.kt)
+17      Extended Q&A — full Amit Shekhar reference (.kt)
 18–19   Googleyness prep (.md)
 20      DSA — 27 problems (.md)
 STUDY_PLAN.md      7-day schedule
 learn.html         Interactive flashcards
 print-guide.html   Full printable guide (generated)
-scripts/           trim_amit_shekhar.py, build_print_guide.py
+scripts/           build_print_guide.py (trim_amit_shekhar.py optional)
 README.md          Start here
 ```
 

@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Trim 17_amit_shekhar_questions_answers.kt — stub duplicate sections, keep unique content."""
+"""Trim 17_amit_shekhar_questions_answers.kt — stub duplicate sections, keep unique content.
+
+WARNING: Not used by default. The full file is kept for interview prep.
+Only run this if you explicitly want a shorter file 17 with redirects to 01–16.
+"""
 from pathlib import Path
 import re
 import shutil

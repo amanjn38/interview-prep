@@ -5,101 +5,1238 @@
  * ============================================================================
  *
  * Topics Covered:
- *   Section 1:  Kotlin Coroutines (→ 04_coroutines)
- *   Section 2:  Kotlin Flow API (→ 04_coroutines)
+ *   Section 1:  Kotlin Coroutines
+ *   Section 2:  Kotlin Flow API
  *   Section 3:  Kotlin Language
- *   Section 4:  Android — Base (→ 01_fundamentals)
- *   Section 5:  Activity and Fragment (→ 01_fundamentals)
+ *   Section 4:  Android — Base
+ *   Section 5:  Activity and Fragment
  *   Section 6:  Views and ViewGroups
  *   Section 7:  RecyclerView
  *   Section 8:  Intents, Services, and IPC
  *   Section 9:  Long-Running Operations & Memory
- *   Section 10: Data Saving (→ 05_data_persistence)
+ *   Section 10: Data Saving
  *   Section 11: Android Libraries
- *   Section 12: Android Architecture (→ 02_app_architecture)
+ *   Section 12: Android Architecture
  *   Section 13: Design Patterns
  *   Section 14: Android System Design
- *   Section 15: Android Unit Testing (→ 11_testing)
+ *   Section 15: Android Unit Testing
  *   Section 16: Android Tools and Technologies
- *   Section 17: Jetpack Compose (→ 03_jetpack_compose)
+ *   Section 17: Jetpack Compose
  *   Section 18: Java (Brief Interview Answers)
  *   Section 19: Android Jetpack
  *   Section 20: Other Topics
  *
- * TRIMMED: Sections 1,2,4,5,10,12,15,17 are stubs pointing to files 01–11.
- *         Unique content kept in sections 3,6,7,8,9,11,13,14,16,18,19,20.
  * Source: amitshekhar.me — curated and expanded with code examples.
  *
  * ── NAVIGATION ──────────────────────────────────────────────────────────────
- * Use Ctrl+F (or IDE symbol search) to jump to sections. Line numbers are
- * approximate anchors for quick navigation.
+ * Full reference kept for prep. Sections overlapping 01–16 offer a second angle;
+ * use the primary file first, then drill here for extra Q&A depth.
  *
- * | Section | Topic                        | Line  | Overlap with files 01–16?     |
- * |---------|------------------------------|-------|-------------------------------|
- * | 1       | Kotlin Coroutines            | ~34   | Yes → prefer 04_coroutines    |
- * | 2       | Kotlin Flow API              | ~736  | Yes → prefer 04_coroutines    |
- * | 3       | Kotlin Language              | ~1220 | Partial → see 14_design_patterns |
- * | 4       | Android — Base               | ~2362 | Yes → prefer 01_fundamentals  |
- * | 5       | Activity and Fragment        | ~2667 | Yes → prefer 01_fundamentals  |
- * | 6       | Views and ViewGroups         | ~3254 | Legacy Views — unique depth   |
- * | 7       | RecyclerView                 | ~3583 | Legacy Views — unique depth   |
- * | 8       | Intents, Services, and IPC   | ~4113 | Partial → see 01, 09          |
- * | 9       | Long-Running Ops & Memory    | ~4713 | Partial → see 07, 08          |
- * | 10      | Data Saving                  | ~5138 | Yes → prefer 05_data_persistence |
- * | 11      | Android Libraries            | ~5541 | Partial                       |
- * | 12      | Android Architecture         | ~6052 | Yes → prefer 02_app_architecture |
- * | 13      | Design Patterns              | ~6387 | Partial → see 14              |
- * | 14      | Android System Design        | ~6831 | Yes → prefer 15_system_design |
- * | 15      | Android Unit Testing         | ~7282 | Yes → prefer 11_testing       |
- * | 16      | Android Tools & Technologies | ~7680 | Unique — Gradle, Play Console |
- * | 17      | Jetpack Compose              | ~8094 | Yes → prefer 03_jetpack_compose |
- * | 18      | Java (Brief Answers)         | ~9083 | Unique — Java interop round   |
- * | 19      | Android Jetpack              | ~9454 | Partial → spread across 01–15 |
- * | 20      | Other Topics                 | ~9776 | Misc gap-fill                 |
- *
- * 💡 When to use this file vs 01–16:
- *    - Use 01–16 for primary study (better organized, interview tips, gotchas)
- *    - Use 17 for: RecyclerView internals, legacy View system, Java answers,
- *      Gradle/Play Console tooling, and quick Q&A lookup before interviews
- *    - Skip sections marked "Yes → prefer X" unless you need a second angle
+ * | Section | Topic                        | Also in files 01–16?          |
+ * |---------|------------------------------|-------------------------------|
+ * | 1–2     | Coroutines & Flow            | Yes → 04_coroutines           |
+ * | 3       | Kotlin Language              | Partial → 14_design_patterns  |
+ * | 4–5     | Android base, Activity       | Yes → 01_fundamentals         |
+ * | 6–7     | Views, RecyclerView          | Unique legacy depth           |
+ * | 8–9     | Intents, memory              | Partial → 01, 07, 08          |
+ * | 10      | Data saving                  | Yes → 05_data_persistence     |
+ * | 11      | Android libraries            | Partial                       |
+ * | 12      | Architecture                 | Yes → 02_app_architecture     |
+ * | 13–14   | Patterns, system design      | Partial → 14, 15              |
+ * | 15      | Unit testing                 | Yes → 11_testing              |
+ * | 16      | Tools (Gradle, Play Console) | Unique                        |
+ * | 17      | Jetpack Compose              | Yes → 03_jetpack_compose      |
+ * | 18      | Java brief answers           | Unique                        |
+ * | 19–20   | Jetpack, other               | Gap-fill                      |
  *
  * ============================================================================
  */
-// ────────────────────────────────────────────────────────────────────────────
+
+// ─────────────────────────────────────────────────────────────────────────────
 // SECTION 1: KOTLIN COROUTINES
-// ⛔ STUB — Full content removed (duplicates 04_coroutines_and_flows.kt)
-// 📖 Primary reference: 04_coroutines_and_flows.kt
-// ────────────────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * This section duplicated content from 04_coroutines_and_flows.kt.
- * Read that file for interview tips (💡), gotchas (⚠️), and follow-ups (❓).
+ * Q1: What are Coroutines in Kotlin?
  *
- * Quick topics covered there:
- *   - CPS transformation & suspend functions
- *   - Structured concurrency guarantees
- *   - Exception handling in coroutines
+ * Coroutines are a concurrency design pattern that allows you to write
+ * asynchronous, non-blocking code in a sequential style. They are lightweight
+ * threads — you can launch thousands of coroutines without the overhead of
+ * OS threads because they are scheduled cooperatively on a thread pool.
  *
- * Use this file (17) for UNIQUE sections only — see header navigation table.
+ * Key points for interview:
+ *  - Coroutines SUSPEND execution without blocking the thread.
+ *  - The Kotlin compiler transforms suspend functions into a state machine
+ *    under the hood (Continuation Passing Style — CPS).
+ *  - They are built on top of actual threads but multiplex many coroutines
+ *    onto a small number of threads.
+ *  - They simplify callback-based code ("callback hell") into linear code.
  */
 
-// ────────────────────────────────────────────────────────────────────────────
+fun coroutineBasicExample() {
+    val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+
+    scope.launch {
+        val user = fetchUser()        // suspends, doesn't block Main thread
+        val posts = fetchPosts(user)  // sequential — runs after fetchUser completes
+        updateUI(user, posts)         // back on Main thread
+    }
+}
+
+// Under the hood the compiler turns this into a state machine with labels:
+// state 0 → call fetchUser, suspend
+// state 1 → call fetchPosts, suspend
+// state 2 → call updateUI, return
+
+/**
+ * Q2: What is a suspend function?
+ *
+ * A suspend function is a function that can be paused and resumed later.
+ * It can only be called from another suspend function or from a coroutine.
+ * The `suspend` keyword tells the compiler to add a hidden `Continuation`
+ * parameter to the function signature (CPS transformation).
+ *
+ * A suspend function does NOT automatically run on a background thread.
+ * It simply has the ABILITY to suspend. You must use withContext() or
+ * other coroutine builders to switch dispatchers if needed.
+ */
+
+suspend fun fetchUser(): User {
+    return withContext(Dispatchers.IO) {
+        // This block executes on an IO thread
+        api.getUser()   // network call
+    }
+    // After withContext completes, execution resumes on the original dispatcher
+}
+
+// Decompiled signature (simplified):
+// fun fetchUser(continuation: Continuation<User>): Any?
+// Returns COROUTINE_SUSPENDED if it actually suspends, or the result if it completes immediately.
+
+/**
+ * Q3: Suspending vs Blocking in Kotlin Coroutines
+ *
+ * BLOCKING: The thread is occupied and cannot do anything else.
+ *   Thread.sleep(1000) → the thread sits idle for 1 second.
+ *
+ * SUSPENDING: The coroutine pauses but the thread is FREE to do other work.
+ *   delay(1000) → the coroutine suspends, and the thread can execute other
+ *   coroutines or tasks during that time.
+ *
+ * Analogy: Blocking = you stand in line at the restaurant doing nothing.
+ *          Suspending = you give your number and go do errands; they call
+ *          you when your table is ready.
+ *
+ * In interview: "Suspending frees the thread; blocking holds it hostage."
+ */
+
+fun blockingVsSuspending() {
+    // BLOCKING — holds the Main thread for 2 seconds, causes ANR
+    // Thread.sleep(2000)
+
+    // SUSPENDING — Main thread is free during the 2-second wait
+    CoroutineScope(Dispatchers.Main).launch {
+        delay(2000)  // suspends, doesn't block
+        println("Resumed after 2 seconds")
+    }
+}
+
+/**
+ * Q4: Launch vs Async in Kotlin Coroutines
+ *
+ * launch { } — "fire and forget". Returns a Job. Does NOT return a result.
+ *   Use when you don't need a return value (e.g., updating UI, writing to DB).
+ *
+ * async { } — returns a Deferred<T> (which is a Job + a future result).
+ *   Call .await() to get the result. Use when you need a return value,
+ *   especially for parallel decomposition.
+ *
+ * Both are coroutine BUILDERS that create new child coroutines.
+ *
+ * Key difference for exceptions:
+ *   - launch propagates exceptions immediately to the parent.
+ *   - async stores the exception in the Deferred and throws on await().
+ */
+
+fun launchVsAsync() {
+    val scope = CoroutineScope(Dispatchers.Main + Job())
+
+    // launch — fire and forget
+    scope.launch {
+        saveToDatabase(data)  // no return value needed
+    }
+
+    // async — returns a result
+    scope.launch {
+        val deferredUser = async(Dispatchers.IO) { api.getUser() }
+        val deferredPosts = async(Dispatchers.IO) { api.getPosts() }
+        // Both requests run in PARALLEL
+        val user = deferredUser.await()
+        val posts = deferredPosts.await()
+        showData(user, posts)
+    }
+}
+
+/**
+ * Q5: What are Dispatchers in Kotlin Coroutines?
+ *
+ * Dispatchers determine WHICH THREAD or thread pool a coroutine runs on.
+ *
+ * Dispatchers.Main      — Main/UI thread. Use for UI updates, lightweight work.
+ *                          Backed by Android's Main Looper.
+ *
+ * Dispatchers.IO        — Optimized for blocking I/O (network, disk, DB).
+ *                          Uses a shared pool that can grow up to 64 threads
+ *                          (or more based on cores). Shares threads with Default.
+ *
+ * Dispatchers.Default   — CPU-intensive work (sorting, parsing JSON, DiffUtil).
+ *                          Thread pool size = number of CPU cores (min 2).
+ *
+ * Dispatchers.Unconfined — Starts on the caller thread, but after the first
+ *                          suspension point resumes on whatever thread the
+ *                          suspending function used. Rarely used in production.
+ *
+ * You can also create custom dispatchers:
+ *   val singleThread = newSingleThreadContext("MyThread")
+ *   val limitedPool = Dispatchers.IO.limitedParallelism(4)
+ */
+
+suspend fun dispatcherExample() {
+    withContext(Dispatchers.IO) {
+        val data = readFromDisk()           // IO-bound
+        val parsed = withContext(Dispatchers.Default) {
+            parseJson(data)                  // CPU-bound
+        }
+        withContext(Dispatchers.Main) {
+            textView.text = parsed.title     // UI update
+        }
+    }
+}
+
+/**
+ * Q6: What is Coroutine Scope? What is Coroutine Context?
+ *
+ * CoroutineScope defines the LIFECYCLE boundary for coroutines. When a scope
+ * is cancelled, all coroutines within it are cancelled. It enforces structured
+ * concurrency.
+ *
+ * CoroutineContext is a set of elements that configure a coroutine:
+ *   - Job           → controls lifecycle (cancellation, parent-child hierarchy)
+ *   - Dispatcher    → which thread to run on
+ *   - CoroutineName → for debugging
+ *   - ExceptionHandler → handles uncaught exceptions
+ *
+ * Scope = lifecycle boundary.  Context = configuration bag.
+ * CoroutineScope is essentially a wrapper around a CoroutineContext.
+ */
+
+fun scopeAndContextExample() {
+    // Scope with a combined context
+    val scope = CoroutineScope(
+        SupervisorJob() +
+        Dispatchers.Main +
+        CoroutineName("MyScope") +
+        CoroutineExceptionHandler { _, throwable ->
+            Log.e("Coroutine", "Error: ${throwable.message}")
+        }
+    )
+
+    scope.launch {
+        // This coroutine inherits the parent context (Main dispatcher, SupervisorJob child)
+        // coroutineContext[Job] → the child Job
+        // coroutineContext[ContinuationInterceptor] → Dispatchers.Main
+    }
+
+    // Cancel everything in this scope
+    scope.cancel()
+}
+
+/**
+ * Q7: lifecycleScope vs viewModelScope vs GlobalScope
+ *
+ * lifecycleScope (from lifecycle-runtime-ktx)
+ *   - Tied to a LifecycleOwner (Activity/Fragment).
+ *   - Cancelled in onDestroy(). Also has launchWhenStarted/launchWhenResumed.
+ *   - Use for UI work that should stop when the screen is destroyed.
+ *
+ * viewModelScope (from lifecycle-viewmodel-ktx)
+ *   - Tied to ViewModel's lifecycle.
+ *   - Cancelled when ViewModel.onCleared() is called.
+ *   - Survives configuration changes (unlike lifecycleScope).
+ *   - Use for data-loading operations in ViewModel.
+ *
+ * GlobalScope
+ *   - Lives for the entire application process.
+ *   - NEVER cancelled automatically → memory leaks, zombie coroutines.
+ *   - Almost NEVER use it. Prefer custom CoroutineScope with SupervisorJob.
+ *
+ * Interview tip: "I never use GlobalScope. For app-wide work I inject a
+ *   custom CoroutineScope from the Application or DI graph."
+ */
+
+class MyViewModel : ViewModel() {
+    fun loadData() {
+        viewModelScope.launch {
+            // Survives rotation, cancelled on ViewModel.onCleared()
+            val result = repository.fetchData()
+            _uiState.value = result
+        }
+    }
+}
+
+class MyFragment : Fragment() {
+    fun observeData() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { state ->
+                    renderUI(state)
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Q8: suspendCoroutine and suspendCancellableCoroutine
+ *
+ * These are bridge functions that convert callback-based APIs into suspend
+ * functions.
+ *
+ * suspendCoroutine { continuation -> ... }
+ *   - Suspends the current coroutine and gives you a Continuation object.
+ *   - You call continuation.resume(value) or continuation.resumeWithException(e).
+ *   - Does NOT support cancellation — the callback may still fire after cancel.
+ *
+ * suspendCancellableCoroutine { cancellableContinuation -> ... }
+ *   - Same, but the continuation is CancellableContinuation.
+ *   - You can register an invokeOnCancellation { } block to clean up resources
+ *     (e.g., cancel the network call) when the coroutine is cancelled.
+ *   - ALWAYS prefer this over suspendCoroutine.
+ */
+
+suspend fun awaitCallback(): Location {
+    return suspendCancellableCoroutine { cont ->
+        val callback = object : LocationCallback() {
+            override fun onLocationResult(result: LocationResult) {
+                if (cont.isActive) {
+                    cont.resume(result.lastLocation)
+                }
+            }
+        }
+
+        fusedLocationClient.requestLocationUpdates(request, callback, Looper.getMainLooper())
+
+        cont.invokeOnCancellation {
+            fusedLocationClient.removeLocationUpdates(callback)
+        }
+    }
+}
+
+/**
+ * Q9: coroutineScope vs supervisorScope
+ *
+ * coroutineScope { }
+ *   - Creates a new scope that inherits the outer context.
+ *   - If ANY child fails, ALL other children are cancelled, and the exception
+ *     propagates to the parent. (This is standard structured concurrency.)
+ *   - Use when all child tasks are interdependent.
+ *
+ * supervisorScope { }
+ *   - Creates a scope with a SupervisorJob.
+ *   - If one child fails, OTHER children are NOT cancelled.
+ *   - The exception does NOT auto-propagate; you must handle it in each child
+ *     (try/catch or CoroutineExceptionHandler).
+ *   - Use when child tasks are independent (e.g., loading multiple sections
+ *     of a dashboard — one failing shouldn't kill the others).
+ */
+
+suspend fun loadDashboard(): DashboardData = coroutineScope {
+    // If either fails, both are cancelled
+    val user = async { api.getUser() }
+    val feed = async { api.getFeed() }
+    DashboardData(user.await(), feed.await())
+}
+
+suspend fun loadDashboardIndependent() = supervisorScope {
+    val user = async {
+        try { api.getUser() }
+        catch (e: Exception) { null }
+    }
+    val feed = async {
+        try { api.getFeed() }
+        catch (e: Exception) { emptyList() }
+    }
+    // feed still loads even if user fails
+    DashboardData(user.await(), feed.await())
+}
+
+/**
+ * Q10: What is runBlocking in Coroutines?
+ *
+ * runBlocking { } BLOCKS the current thread until all coroutines inside it
+ * complete. It bridges the regular blocking world and the suspend world.
+ *
+ * Use cases:
+ *   - main() function of a Kotlin program.
+ *   - Unit tests (though runTest is preferred now).
+ *   - NEVER use in production Android code on the Main thread — it causes ANR.
+ *
+ * It creates a coroutine and blocks the calling thread. This defeats the
+ * purpose of coroutines, so it's only for top-level entry points or tests.
+ */
+
+// In a test:
+@Test
+fun testFetchUser() = runBlocking {
+    val user = repository.fetchUser()
+    assertEquals("Alice", user.name)
+}
+
+// Better — use runTest for tests (skips delays, uses TestDispatcher):
+@Test
+fun testFetchUserModern() = runTest {
+    val user = repository.fetchUser()
+    assertEquals("Alice", user.name)
+}
+
+/**
+ * Q11: Exception Handling in Coroutines
+ *
+ * There are two mechanisms:
+ *
+ * 1) try/catch inside the coroutine body — catches exceptions locally.
+ *
+ * 2) CoroutineExceptionHandler — a last-resort handler for UNCAUGHT exceptions
+ *    in launch (not async). It must be installed on the ROOT coroutine or scope.
+ *    It does NOT prevent cancellation of sibling coroutines.
+ *
+ * Rules:
+ *  - launch: exception propagates to parent immediately.
+ *  - async: exception is stored in Deferred, thrown on await().
+ *  - SupervisorJob/supervisorScope: failure doesn't propagate to siblings.
+ *  - CancellationException is treated specially — it cancels the coroutine
+ *    but does NOT propagate to the parent (it's "expected").
+ */
+
+val handler = CoroutineExceptionHandler { _, exception ->
+    Log.e("Coroutine", "Caught: ${exception.message}")
+}
+
+fun exceptionHandlingExample() {
+    // Handler MUST be on the root/scope level
+    val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main + handler)
+
+    scope.launch {
+        // try/catch for granular handling
+        try {
+            val data = riskyOperation()
+        } catch (e: IOException) {
+            showError("Network error")
+        }
+    }
+
+    // With async — exception surfaces at await()
+    scope.launch {
+        val deferred = async { riskyOperation() }
+        try {
+            val result = deferred.await()
+        } catch (e: Exception) {
+            showError(e.message ?: "Unknown error")
+        }
+    }
+}
+
+/**
+ * Q12: What is structured concurrency in Kotlin Coroutines?
+ *
+ * Structured concurrency means every coroutine is launched in a specific
+ * CoroutineScope, creating a parent-child hierarchy (a Job tree).
+ *
+ * Guarantees:
+ *  1. A parent coroutine will NOT complete until all children complete.
+ *  2. When a parent is cancelled, all children are cancelled.
+ *  3. When a child fails, it cancels the parent (unless SupervisorJob).
+ *  4. No coroutine is "leaked" — they're all tracked.
+ *
+ * This prevents fire-and-forget coroutines that outlive their scope,
+ * which would cause memory leaks and wasted resources.
+ *
+ * In interview: "Structured concurrency is like structured programming for
+ * async code. Every coroutine has an owner, and the owner is responsible
+ * for its lifecycle."
+ */
+
+suspend fun structuredConcurrencyExample() = coroutineScope {
+    val job1 = launch { task1() }  // child of this scope
+    val job2 = launch { task2() }  // child of this scope
+    // coroutineScope {} won't return until BOTH job1 and job2 complete
+    // If either throws, the other is cancelled
+}
+
+/**
+ * Q13: What is a Job in Coroutines?
+ *
+ * A Job represents the lifecycle of a coroutine. Every coroutine builder
+ * (launch, async) returns a Job (or Deferred, which extends Job).
+ *
+ * Job states: New → Active → Completing → Completed
+ *                          ↘ Cancelling → Cancelled
+ *
+ * Key operations:
+ *   job.cancel()     — cancels the coroutine
+ *   job.join()       — suspends until the job completes
+ *   job.cancelAndJoin() — cancel + wait for cancellation to finish
+ *   job.isActive / isCompleted / isCancelled — check state
+ *   job.children     — iterate over child jobs
+ *
+ * Job types:
+ *   Job()           — regular Job. Child failure cancels parent and siblings.
+ *   SupervisorJob() — child failure does NOT cancel parent or siblings.
+ */
+
+fun jobExample() {
+    val scope = CoroutineScope(Dispatchers.Main)
+
+    val parentJob = scope.launch {
+        val childJob = launch {
+            delay(5000)
+            println("Child completed")
+        }
+        childJob.invokeOnCompletion { throwable ->
+            if (throwable is CancellationException) println("Child was cancelled")
+            else println("Child finished normally")
+        }
+    }
+
+    // Cancel the parent after 2 seconds → child gets cancelled too
+    scope.launch {
+        delay(2000)
+        parentJob.cancelAndJoin()
+    }
+}
+
+/**
+ * Q14: job.cancel() vs scope.cancel()
+ *
+ * job.cancel()
+ *   - Cancels that specific coroutine and its children.
+ *   - The scope is still active — you can launch new coroutines in it.
+ *
+ * scope.cancel()
+ *   - Cancels the scope's Job, which cancels ALL coroutines in the scope.
+ *   - The scope becomes INACTIVE — you can NO longer launch new coroutines.
+ *   - Any subsequent scope.launch { } will be silently ignored.
+ *
+ * In practice:
+ *   - Use job.cancel() to cancel individual operations.
+ *   - Use scope.cancel() in onDestroy/onCleared for full cleanup.
+ */
+
+fun cancelExample() {
+    val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+
+    val job1 = scope.launch { longTask1() }
+    val job2 = scope.launch { longTask2() }
+
+    // Cancel only job1 — job2 keeps running, scope is still active
+    job1.cancel()
+
+    // Cancel the entire scope — job2 is cancelled, scope is dead
+    // scope.cancel()
+}
+
+/**
+ * Q15: What happens if an exception is thrown inside an async coroutine,
+ *      but await() is never called?
+ *
+ * With a regular Job parent: The exception still propagates to the parent
+ * and cancels sibling coroutines — even without calling await(). This is
+ * because async is a child of the scope, and structured concurrency ensures
+ * the parent is notified.
+ *
+ * With a SupervisorJob parent: The exception is stored in the Deferred.
+ * Since await() is never called, the exception is effectively LOST (silently
+ * swallowed). No crash, no propagation — but also no handling.
+ *
+ * Interview tip: "This is why logging in CoroutineExceptionHandler is
+ * important — it catches exceptions that would otherwise be lost."
+ */
+
+fun unawaitedAsyncExample() {
+    val scope = CoroutineScope(Job() + Dispatchers.Main)
+
+    scope.launch {
+        val deferred = async { throw RuntimeException("Oops") }
+        // Even without await(), this exception propagates to the parent
+        // because the parent has a regular Job
+        delay(1000)
+        println("This may never print — parent might be cancelled")
+    }
+
+    // With SupervisorJob:
+    val supervisorScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + handler)
+    supervisorScope.launch {
+        val deferred = async { throw RuntimeException("Oops") }
+        // Exception is silently stored in deferred
+        delay(1000)
+        println("This prints — supervisor doesn't propagate child failures")
+    }
+}
+
+/**
+ * Q16: How to Implement Debounce Using Coroutines?
+ *
+ * Debounce means waiting for a pause in events before acting. Common use case:
+ * search-as-you-type where you wait for the user to stop typing.
+ *
+ * Approach: Cancel the previous coroutine on each new event, then delay.
+ * If no new event arrives during the delay, the action executes.
+ */
+
+class SearchViewModel : ViewModel() {
+    private val _query = MutableStateFlow("")
+
+    val searchResults = _query
+        .debounce(300L)                 // wait 300ms after last emission
+        .filter { it.isNotBlank() }
+        .distinctUntilChanged()
+        .flatMapLatest { query ->
+            repository.search(query)
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    fun onQueryChanged(text: String) {
+        _query.value = text
+    }
+}
+
+// Manual debounce with Job cancellation:
+class SearchActivity : AppCompatActivity() {
+    private var searchJob: Job? = null
+
+    fun onTextChanged(text: String) {
+        searchJob?.cancel()                // cancel previous
+        searchJob = lifecycleScope.launch {
+            delay(300)                     // debounce period
+            performSearch(text)            // only runs if not cancelled
+        }
+    }
+}
+
+/**
+ * Q17: yield() in Kotlin Coroutines
+ *
+ * yield() is a suspend function that checks for cancellation and gives
+ * other coroutines a chance to run on the same dispatcher. It's a
+ * cooperative yielding point.
+ *
+ * Use it in CPU-intensive loops that don't have natural suspension points,
+ * to ensure the coroutine remains cancellable and doesn't hog the thread.
+ */
+
+suspend fun processLargeList(items: List<Item>) {
+    for (item in items) {
+        yield()                // check cancellation + yield to other coroutines
+        heavyComputation(item) // CPU-intensive work
+    }
+}
+
+// Without yield(), cancelling this coroutine during the loop would
+// have no effect until the loop finishes — yield() makes it responsive.
+
+// ensureActive() is similar but ONLY checks cancellation — it doesn't
+// yield execution to other coroutines.
+
+/**
+ * Q18: Thread.sleep() vs delay() in Kotlin
+ *
+ * Thread.sleep(1000)
+ *   - BLOCKS the thread. No other work happens on that thread for 1 second.
+ *   - Not cancellable — ignores coroutine cancellation.
+ *   - Uses an actual OS timer and holds the thread hostage.
+ *
+ * delay(1000)
+ *   - SUSPENDS the coroutine. The thread is free for other work.
+ *   - Is cancellation-aware — throws CancellationException if the
+ *     coroutine is cancelled during the delay.
+ *   - Much more efficient — you can delay thousands of coroutines on a
+ *     single thread.
+ *
+ * Rule: NEVER use Thread.sleep() inside a coroutine.
+ */
+
+suspend fun delayExample() {
+    // BAD — blocks the thread, wastes resources, not cancellable
+    // Thread.sleep(1000)
+
+    // GOOD — suspends, thread is free, respects cancellation
+    delay(1000)
+}
+
+/**
+ * Q19: How to run two coroutines in series and parallel?
+ *
+ * SERIES (sequential): Just call suspend functions one after another.
+ * PARALLEL (concurrent): Use async { } and await().
+ */
+
+suspend fun seriesExecution() = coroutineScope {
+    val user = fetchUser()          // completes first
+    val posts = fetchPosts(user.id) // starts only after fetchUser is done
+    // Total time ≈ time(fetchUser) + time(fetchPosts)
+    Pair(user, posts)
+}
+
+suspend fun parallelExecution() = coroutineScope {
+    val userDeferred = async { fetchUser() }      // starts immediately
+    val postsDeferred = async { fetchAllPosts() }  // starts immediately
+    // Total time ≈ max(time(fetchUser), time(fetchAllPosts))
+    val user = userDeferred.await()
+    val posts = postsDeferred.await()
+    Pair(user, posts)
+}
+
+/**
+ * Q20: Timeouts in Kotlin Coroutines
+ *
+ * withTimeout(timeMillis) — cancels the coroutine if it doesn't finish
+ *   within the given time. Throws TimeoutCancellationException.
+ *
+ * withTimeoutOrNull(timeMillis) — same, but returns null instead of throwing.
+ *   Preferred when timeout is an expected outcome.
+ */
+
+suspend fun fetchWithTimeout(): User? {
+    return withTimeoutOrNull(5000L) {
+        api.getUser()  // cancelled if takes > 5 seconds, returns null
+    }
+}
+
+suspend fun fetchWithTimeoutStrict(): User {
+    return withTimeout(5000L) {
+        api.getUser()  // throws TimeoutCancellationException if > 5 seconds
+    }
+}
+
+/**
+ * Q21: How do you combine multiple coroutine results?
+ *
+ * 1. async/await — parallel execution, combine results:
+ * 2. coroutineScope — ensures all children complete before returning.
+ * 3. awaitAll() — convenience for awaiting multiple Deferred values.
+ */
+
+suspend fun combineResults() = coroutineScope {
+    // Method 1: individual async/await
+    val user = async { fetchUser() }
+    val settings = async { fetchSettings() }
+    ProfileScreen(user.await(), settings.await())
+}
+
+suspend fun combineResultsBatch() = coroutineScope {
+    // Method 2: awaitAll for homogeneous results
+    val ids = listOf(1, 2, 3, 4, 5)
+    val users: List<User> = ids.map { id ->
+        async { fetchUser(id) }
+    }.awaitAll()  // waits for all, returns List<User>
+}
+
+suspend fun combineWithTransform() = coroutineScope {
+    // Method 3: combine heterogeneous results into a data class
+    val deferredA = async { api.fetchA() }
+    val deferredB = async { api.fetchB() }
+    val deferredC = async { api.fetchC() }
+    Result(
+        a = deferredA.await(),
+        b = deferredB.await(),
+        c = deferredC.await()
+    )
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
 // SECTION 2: KOTLIN FLOW API
-// ⛔ STUB — Full content removed (duplicates 04_coroutines_and_flows.kt)
-// 📖 Primary reference: 04_coroutines_and_flows.kt
-// ────────────────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * This section duplicated content from 04_coroutines_and_flows.kt.
- * Read that file for interview tips (💡), gotchas (⚠️), and follow-ups (❓).
+ * Q1: What is Flow in Kotlin?
  *
- * Quick topics covered there:
- *   - Cold Flow vs hot StateFlow/SharedFlow
- *   - stateIn / shareIn operators
- *   - callbackFlow bridging
+ * Flow is a cold asynchronous stream that emits values sequentially.
+ * It's the coroutine equivalent of Reactive Streams (like RxJava Observable).
  *
- * Use this file (17) for UNIQUE sections only — see header navigation table.
+ * Key characteristics:
+ *  - COLD: The flow doesn't execute until someone calls collect(). Each
+ *    collector gets its own independent execution of the flow.
+ *  - Sequential: Emissions are processed one at a time by default.
+ *  - Cancellable: Respects coroutine cancellation.
+ *  - Built on coroutines: Uses suspend functions under the hood.
+ *  - Backpressure is handled naturally because the collector suspends
+ *    (the producer only emits when the consumer is ready).
  */
+
+fun simpleFlow(): Flow<Int> = flow {
+    for (i in 1..5) {
+        delay(100)  // simulate async work
+        emit(i)     // emit a value downstream
+    }
+}
+
+// Collecting:
+suspend fun collectExample() {
+    simpleFlow().collect { value ->
+        println(value)  // prints 1, 2, 3, 4, 5
+    }
+}
+
+/**
+ * Q2: Flow Builder, Operator, Collector
+ *
+ * BUILDER — Creates a flow:
+ *   flow { }        — general purpose, call emit() inside
+ *   flowOf(1, 2, 3) — from fixed values
+ *   list.asFlow()   — from a collection
+ *   channelFlow { } — concurrent emissions using send()
+ *   callbackFlow { } — bridge callback APIs into flows
+ *
+ * OPERATOR — Transforms the flow (intermediate, returns a new Flow):
+ *   map, filter, take, zip, combine, debounce, flatMapLatest, etc.
+ *   Operators are LAZY — they don't execute until a terminal operator is called.
+ *
+ * COLLECTOR (Terminal Operator) — Triggers execution:
+ *   collect { }     — receives each emitted value
+ *   toList()        — collects all values into a List
+ *   first()         — takes the first value and cancels
+ *   single()        — expects exactly one value
+ *   reduce { }      — accumulates values
+ *   launchIn(scope) — collects in a given scope
+ */
+
+fun flowPipelineExample() {
+    val flow = flowOf(1, 2, 3, 4, 5)     // BUILDER
+        .filter { it % 2 == 0 }           // OPERATOR
+        .map { it * 10 }                  // OPERATOR
+
+    scope.launch {
+        flow.collect { println(it) }      // COLLECTOR → prints 20, 40
+    }
+}
+
+/**
+ * Q3: flowOn and Dispatchers
+ *
+ * flowOn(dispatcher) changes the upstream dispatcher — i.e., everything
+ * ABOVE it in the chain runs on that dispatcher. The collector still runs
+ * on the original coroutine's dispatcher.
+ *
+ * This is different from withContext: you can't use withContext inside flow { }
+ * because that would violate the sequential nature of Flow and its context
+ * preservation property.
+ *
+ * Rule: flowOn affects UPstream. collect runs on the collector's dispatcher.
+ */
+
+fun dataFlow(): Flow<ProcessedData> = flow {
+    val rawData = readFromDisk()       // runs on IO
+    emit(rawData)
+}
+    .map { parse(it) }                 // runs on IO (upstream of flowOn)
+    .flowOn(Dispatchers.IO)            // everything above runs on IO
+    .map { formatForUI(it) }           // runs on collector's dispatcher (Main)
+
+// Collecting on Main thread:
+// lifecycleScope.launch { dataFlow().collect { updateUI(it) } }
+
+/**
+ * Q4: Key Flow Operators
+ *
+ * filter { predicate }          — only emits values matching the predicate
+ * map { transform }             — transforms each value
+ * zip(otherFlow) { a, b -> }   — combines two flows pair-wise (waits for both)
+ * flatMapConcat { }             — maps each value to a flow, collects sequentially
+ * retry(count) { cause -> }    — retries the upstream on error
+ * debounce(timeMillis)          — waits for a pause before emitting the latest
+ * distinctUntilChanged()        — skips consecutive duplicate values
+ * flatMapLatest { }             — like flatMapConcat but cancels previous inner flow
+ */
+
+fun operatorsShowcase() {
+    // zip — combines two flows pair-wise
+    val names = flowOf("Alice", "Bob", "Carol")
+    val ages = flowOf(30, 25, 35)
+    names.zip(ages) { name, age -> "$name is $age" }
+    // Emits: "Alice is 30", "Bob is 25", "Carol is 35"
+
+    // debounce + distinctUntilChanged — search use case
+    val searchQuery: Flow<String> = queryFlow
+        .debounce(300)
+        .distinctUntilChanged()
+        .filter { it.isNotBlank() }
+        .flatMapLatest { query -> searchApi(query) }
+}
+
+/**
+ * Q5: Terminal Operators
+ *
+ * Terminal operators are SUSPEND functions that trigger flow execution.
+ * After a terminal operator, the flow is fully consumed.
+ *
+ *   collect { }     — processes each value, most common
+ *   toList()        — collects into a List<T>
+ *   toSet()         — collects into a Set<T>
+ *   first()         — returns first value, cancels flow
+ *   first { }       — returns first matching value
+ *   single()        — returns the single value (throws if 0 or 2+)
+ *   reduce { acc, value -> } — folds values without initial value
+ *   fold(initial) { acc, value -> } — folds with initial value
+ *   count()         — counts emissions
+ *   launchIn(scope) — collects in the given scope (returns Job)
+ */
+
+suspend fun terminalOperatorExamples() {
+    val numbers = flowOf(1, 2, 3, 4, 5)
+
+    val sum = numbers.reduce { acc, value -> acc + value }     // 15
+    val list = numbers.toList()                                 // [1, 2, 3, 4, 5]
+    val first = numbers.first()                                 // 1
+    val product = numbers.fold(1) { acc, value -> acc * value } // 120
+}
+
+/**
+ * Q6: Cold Flow vs Hot Flow
+ *
+ * COLD FLOW (regular Flow):
+ *   - Execution starts only when collect() is called.
+ *   - Each collector gets its own independent execution.
+ *   - Producer is active only while there's a collector.
+ *   - Like a DVD — each viewer watches from the beginning.
+ *
+ * HOT FLOW (StateFlow, SharedFlow):
+ *   - Emits values regardless of whether anyone is collecting.
+ *   - Multiple collectors share the SAME stream of data.
+ *   - Has a lifecycle independent of collectors.
+ *   - Like a live TV broadcast — viewers see whatever is playing now.
+ */
+
+// Cold — each collect triggers a new API call
+fun coldExample(): Flow<User> = flow {
+    emit(api.getUser())  // called once per collector
+}
+
+// Hot — single source of truth, multiple observers
+class UserViewModel : ViewModel() {
+    private val _user = MutableStateFlow<User?>(null)
+    val user: StateFlow<User?> = _user.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            _user.value = api.getUser()  // set once, observed by many
+        }
+    }
+}
+
+/**
+ * Q7: StateFlow vs SharedFlow
+ *
+ * StateFlow:
+ *   - Always has a current value (initialized in constructor).
+ *   - Replays the LATEST value to new collectors (replay = 1).
+ *   - Uses distinctUntilChanged() semantics — won't re-emit the same value.
+ *   - Equivalent to LiveData in many respects.
+ *   - Great for UI state (e.g., screen state, loading/error/success).
+ *
+ * SharedFlow:
+ *   - Does NOT require an initial value.
+ *   - Configurable replay (0, 1, N). Default replay = 0.
+ *   - CAN emit the same value consecutively.
+ *   - Great for events (navigation, snackbar, one-time actions).
+ *   - With replay=0, new collectors miss past emissions (event-like).
+ */
+
+class EventViewModel : ViewModel() {
+    // StateFlow for UI state — always has a value
+    private val _uiState = MutableStateFlow(UiState.Loading)
+    val uiState: StateFlow<UiState> = _uiState.asStateFlow()
+
+    // SharedFlow for one-shot events — replay = 0 so events aren't replayed
+    private val _events = MutableSharedFlow<UiEvent>()
+    val events: SharedFlow<UiEvent> = _events.asSharedFlow()
+
+    fun onButtonClick() {
+        viewModelScope.launch {
+            _events.emit(UiEvent.NavigateToDetail)  // fire-and-forget event
+        }
+    }
+}
+
+/**
+ * Q8: callbackFlow and channelFlow
+ *
+ * callbackFlow { } — bridges callback-based APIs into a Flow.
+ *   Uses a Channel under the hood. You call trySend() (or send()) from the
+ *   callback, and awaitClose { } to unregister when the flow is cancelled.
+ *
+ * channelFlow { } — allows concurrent emissions from multiple coroutines.
+ *   Regular flow { } is sequential and single-coroutine. channelFlow lets
+ *   you launch child coroutines that all send to the same channel.
+ */
+
+fun locationFlow(): Flow<Location> = callbackFlow {
+    val callback = object : LocationCallback() {
+        override fun onLocationResult(result: LocationResult) {
+            trySend(result.lastLocation)  // non-blocking send
+        }
+    }
+    fusedLocationClient.requestLocationUpdates(request, callback, Looper.getMainLooper())
+
+    awaitClose {
+        fusedLocationClient.removeLocationUpdates(callback)  // cleanup
+    }
+}
+
+fun concurrentFetch(): Flow<Data> = channelFlow {
+    launch { send(api.fetchFromSourceA()) }  // concurrent
+    launch { send(api.fetchFromSourceB()) }  // concurrent
+    // Both run in parallel, results emitted as they arrive
+}
+
+/**
+ * Q9: stateIn vs shareIn
+ *
+ * Both convert a cold Flow into a hot shared flow.
+ *
+ * stateIn(scope, started, initialValue) → StateFlow<T>
+ *   - Converts to a StateFlow with an initial value.
+ *   - Always has a current value (.value).
+ *   - Replays the latest value to new collectors.
+ *
+ * shareIn(scope, started, replay) → SharedFlow<T>
+ *   - Converts to a SharedFlow.
+ *   - Configurable replay count (default 0).
+ *   - No .value property (unless replay >= 1 and you access replayCache).
+ *
+ * SharingStarted options:
+ *   - Eagerly — starts immediately, never stops.
+ *   - Lazily — starts on first collector, never stops.
+ *   - WhileSubscribed(stopTimeoutMillis) — starts on first
+ *     collector, stops after the last collector disappears + timeout.
+ *     WhileSubscribed(5000) is the recommended default for Android UI.
+ */
+
+class MyRepository(private val api: Api) {
+    val userData: StateFlow<User?> = flow {
+        emit(api.getUser())
+    }
+    .stateIn(
+        scope = externalScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = null
+    )
+
+    val notifications: SharedFlow<Notification> = notificationSource()
+        .shareIn(
+            scope = externalScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            replay = 1
+        )
+}
+
+/**
+ * Q10: flatMapConcat vs flatMapMerge vs flatMapLatest
+ *
+ * All three map each value to a Flow and flatten the results, but differ
+ * in how they handle concurrency:
+ *
+ * flatMapConcat — sequential. Collects each inner flow to completion
+ *   before starting the next. Order is preserved.
+ *   Use when order matters and each emission depends on the previous.
+ *
+ * flatMapMerge(concurrency) — concurrent. Collects inner flows concurrently
+ *   (default concurrency = 16). Order is NOT guaranteed.
+ *   Use for maximum throughput when order doesn't matter.
+ *
+ * flatMapLatest — cancels the previous inner flow when a new value arrives.
+ *   Only the latest inner flow runs at any time.
+ *   Use for search-as-you-type or any "only latest matters" scenario.
+ */
+
+fun flatMapExamples(queryFlow: Flow<String>) {
+    // flatMapConcat — each query completes before next one starts
+    queryFlow.flatMapConcat { query -> search(query) }
+
+    // flatMapMerge — all queries run concurrently
+    queryFlow.flatMapMerge { query -> search(query) }
+
+    // flatMapLatest — new query cancels the in-progress search
+    queryFlow.flatMapLatest { query -> search(query) }
+}
+
+/**
+ * Q11: collect vs collectLatest
+ *
+ * collect { } — processes each value sequentially. If processing takes longer
+ *   than the emission interval, emissions buffer up and are processed in order.
+ *
+ * collectLatest { } — cancels the previous collection block when a new value
+ *   arrives. Only the processing of the LATEST value completes fully.
+ *   Similar to flatMapLatest but at the collector level.
+ *
+ * Use collectLatest for UI updates where you only care about the latest state.
+ */
+
+suspend fun collectVsCollectLatest() {
+    val flow = flow {
+        emit(1); delay(50)
+        emit(2); delay(50)
+        emit(3)
+    }
+
+    // collect — processes ALL values: 1, 2, 3
+    flow.collect { value ->
+        delay(100)               // slow processing
+        println("Collected $value")
+    }
+    // Output: Collected 1, Collected 2, Collected 3 (sequential, all processed)
+
+    // collectLatest — only the latest value completes processing
+    flow.collectLatest { value ->
+        delay(100)               // slow processing
+        println("Collected $value")
+    }
+    // Output: Collected 3 (1 and 2 were cancelled because 2 and 3 arrived)
+}
+
+/**
+ * Q12: Exception Handling in Kotlin Flow
+ *
+ * 1. catch { } operator — catches upstream exceptions (NOT downstream).
+ *    Can emit fallback values or re-throw.
+ *
+ * 2. try/catch around collect — catches exceptions from the entire pipeline
+ *    (both upstream and downstream).
+ *
+ * 3. onCompletion { cause -> } — like a finally block. Called when the flow
+ *    completes (normally or with error). cause is null on success.
+ *
+ * Important: catch { } only catches upstream errors. If the collector throws,
+ * catch won't help — use try/catch around collect instead.
+ */
+
+suspend fun flowExceptionHandling() {
+    flowOf(1, 2, 3)
+        .map { value ->
+            if (value == 2) throw RuntimeException("Error at $value")
+            value
+        }
+        .catch { e ->
+            emit(-1)  // emit fallback value
+            // or: Log.e("Flow", "Error", e)
+        }
+        .onCompletion { cause ->
+            if (cause != null) println("Flow completed with error")
+            else println("Flow completed normally")
+        }
+        .collect { println(it) }
+    // Output: 1, -1, Flow completed normally
+    // (catch emitted -1 and flow completed "normally" from collector's perspective)
+}
+
+// retry operator:
+fun fetchDataFlow(): Flow<Data> = flow {
+    emit(api.getData())
+}
+    .retry(retries = 3) { cause ->
+        cause is IOException   // only retry on IO errors
+    }
+    .catch { emit(Data.Empty) }
+
+/**
+ * Q13: Long-running tasks in parallel with Kotlin Flow
+ *
+ * Use flatMapMerge for parallel execution within a flow, or use
+ * channelFlow with multiple launch blocks for concurrent producers.
+ */
+
+suspend fun parallelFlowTasks(): List<Result> {
+    return listOf(1, 2, 3, 4, 5)
+        .asFlow()
+        .flatMapMerge(concurrency = 5) { id ->
+            flow {
+                emit(api.fetchItem(id))  // all 5 fetch concurrently
+            }
+        }
+        .toList()
+}
+
+// Alternative using coroutineScope + async:
+suspend fun parallelWithAsync(): List<Result> = coroutineScope {
+    listOf(1, 2, 3, 4, 5).map { id ->
+        async { api.fetchItem(id) }
+    }.awaitAll()
+}
+
+/**
+ * Q14: Instant Search Using Kotlin Flow Operators
+ *
+ * Combine debounce, filter, distinctUntilChanged, and flatMapLatest
+ * to build a responsive search that avoids redundant network calls.
+ */
+
+class InstantSearchViewModel : ViewModel() {
+    private val _query = MutableStateFlow("")
+
+    val searchResults: StateFlow<List<SearchResult>> = _query
+        .debounce(300)                    // wait for typing pause
+        .filter { it.length >= 2 }        // minimum query length
+        .distinctUntilChanged()           // skip if query didn't actually change
+        .flatMapLatest { query ->
+            flow {
+                emit(SearchState.Loading)
+                val results = repository.search(query)
+                emit(SearchState.Success(results))
+            }.catch { emit(SearchState.Error(it.message)) }
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    fun onSearch(query: String) {
+        _query.value = query
+    }
+}
+
+/**
+ * Q15: Retry Operator in Kotlin Flow
+ *
+ * retry(retries, predicate) — retries the entire upstream flow when an
+ * exception occurs. The predicate decides if the error is retryable.
+ *
+ * retryWhen { cause, attempt -> } — more flexible. Has access to the
+ * attempt count. Return true to retry, false to give up.
+ *
+ * Use exponential backoff with delay inside the predicate for production code.
+ */
+
+fun fetchWithRetry(): Flow<Data> = flow {
+    emit(api.getData())  // might throw IOException
+}
+    .retry(retries = 3) { cause ->
+        if (cause is IOException) {
+            delay(1000)   // wait before retrying
+            true          // retry
+        } else {
+            false          // don't retry non-IO errors
+        }
+    }
+
+// retryWhen with exponential backoff:
+fun fetchWithExponentialBackoff(): Flow<Data> = flow {
+    emit(api.getData())
+}
+    .retryWhen { cause, attempt ->
+        if (cause is IOException && attempt < 4) {
+            delay(1000L * (1L shl attempt.toInt()))  // 1s, 2s, 4s, 8s (true exponential)
+            true
+        } else false
+    }
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SECTION 3: KOTLIN LANGUAGE
@@ -1243,41 +2380,897 @@ class LazyInitExample {
 }
 
 
-// ────────────────────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════════════════
 // SECTION 4: ANDROID — BASE
-// ⛔ STUB — Full content removed (duplicates 01_android_fundamentals.kt)
-// 📖 Primary reference: 01_android_fundamentals.kt
-// ────────────────────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Why does an Android App lag?
+// ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * This section duplicated content from 01_android_fundamentals.kt.
- * Read that file for interview tips (💡), gotchas (⚠️), and follow-ups (❓).
+ * Android renders UI at 60 fps (16.67ms per frame). Lag ("jank") occurs when a
+ * frame takes longer than this budget. Root causes:
  *
- * Quick topics covered there:
- *   - Android app components overview
- *   - Application class lifecycle
- *   - Why Android app lags (frame budget)
+ * 1. Main thread blockage — network calls, DB reads, heavy computation on the
+ *    UI thread starve the choreographer of time to draw.
  *
- * Use this file (17) for UNIQUE sections only — see header navigation table.
+ * 2. Overdraw — the same pixel is drawn multiple times per frame.
+ *    Diagnose: Developer Options → Debug GPU overdraw.
+ *
+ * 3. Deep view hierarchies — measure/layout/draw passes scale with tree depth.
+ *    Each nested ViewGroup multiplies traversal cost.
+ *
+ * 4. Expensive onDraw() / layout — custom views doing allocations inside
+ *    onDraw(), or repeated requestLayout() calls trigger extra passes.
+ *
+ * 5. Garbage collection pauses — frequent small allocations (e.g., inside
+ *    onDraw or onBindViewHolder) cause GC pressure, stalling the main thread.
+ *
+ * 6. Bitmap / image decoding on main thread — loading large images without
+ *    downsampling or async decoding.
+ *
+ * 7. RecyclerView misuse — no ViewHolder reuse, inflating in onBindViewHolder,
+ *    calling notifyDataSetChanged() instead of DiffUtil.
+ *
+ * Tools for diagnosis:
+ *   - Android Profiler (CPU, Memory, Energy)
+ *   - Systrace / Perfetto for frame-level analysis
+ *   - Layout Inspector for view hierarchy depth
+ *   - StrictMode for accidental disk/network on main thread
  */
 
-// ────────────────────────────────────────────────────────────────────────────
+fun enableStrictModeForDebug() {
+    if (BuildConfig.DEBUG) {
+        StrictMode.setThreadPolicy(
+            StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads()
+                .detectDiskWrites()
+                .detectNetwork()
+                .penaltyLog()
+                .build()
+        )
+        StrictMode.setVmPolicy(
+            StrictMode.VmPolicy.Builder()
+                .detectLeakedClosableObjects()
+                .detectActivityLeaks()
+                .penaltyLog()
+                .build()
+        )
+    }
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is Context? How is it used?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Context is an abstract class that provides access to application-specific
+ * resources and classes, as well as calls for app-level operations like
+ * launching activities, broadcasting, receiving intents, etc.
+ *
+ * It is the bridge between your code and the Android system.
+ *
+ * Two main concrete types:
+ *
+ *   Application Context (applicationContext)
+ *     - Singleton tied to the app process lifetime
+ *     - Safe for DI graphs, singletons, repositories, databases
+ *     - CANNOT show dialogs, inflate themed views, or start activities
+ *       without FLAG_ACTIVITY_NEW_TASK
+ *
+ *   Activity Context (this in Activity)
+ *     - Tied to the Activity lifecycle; destroyed with it
+ *     - Required for UI operations: dialogs, toasts, inflating themed views
+ *     - Storing a long-lived reference to it causes memory leaks
+ *
+ * Common uses:
+ *   - Accessing resources: context.getString(R.string.app_name)
+ *   - Starting components: context.startActivity(), context.startService()
+ *   - Accessing system services: context.getSystemService(...)
+ *   - File operations: context.filesDir, context.cacheDir
+ *   - SharedPreferences: context.getSharedPreferences(...)
+ *   - Inflating layouts: LayoutInflater.from(context)
+ *
+ * Rule of thumb: Use Application Context for anything that outlives an
+ * Activity. Use Activity Context for anything UI-related.
+ */
+
+class MyRepository(private val context: Context) {
+    // Uses applicationContext to avoid leaking an Activity
+    private val appContext = context.applicationContext
+
+    fun getCacheDir(): File = appContext.cacheDir
+
+    fun getSystemService(): ConnectivityManager =
+        appContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: How does Zygote make Android apps start faster?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Zygote is a special daemon process that starts at boot time. It pre-loads
+ * the entire Android framework (core libraries, common classes, resources)
+ * and the Dalvik/ART runtime into memory.
+ *
+ * When a new app process is needed, the system tells Zygote to fork().
+ *
+ * Why fork() is fast:
+ *   1. Copy-on-Write (COW) — the forked process shares the same physical
+ *      memory pages as Zygote. Pages are only copied when written to.
+ *   2. No re-initialization — the new process already has the runtime,
+ *      core libraries, and framework classes loaded and initialized.
+ *   3. Pre-warmed heap — common objects are already in memory.
+ *
+ * Without Zygote, every app launch would need to:
+ *   - Start a new ART/Dalvik VM from scratch
+ *   - Load and link all framework classes
+ *   - Initialize the entire Java standard library
+ *   This would add 1-3 seconds to every cold start.
+ *
+ * Process:
+ *   init → Zygote starts → preloads framework
+ *       → ActivityManagerService requests new process
+ *       → Zygote.fork() → child becomes the app process
+ *       → ActivityThread.main() runs → Application.onCreate()
+ *       → Activity.onCreate()
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Tell all the Android application components.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Android has exactly four application components. Each serves a distinct
+ * purpose and has its own lifecycle:
+ *
+ * 1. Activity — a single screen with a UI. Entry point for user interaction.
+ *    Managed by the Activity stack within Tasks.
+ *
+ * 2. Service — performs long-running operations in the background without UI.
+ *    Types:
+ *      - Started Service: runs until explicitly stopped (startService)
+ *      - Bound Service: provides client-server interface (bindService)
+ *      - Foreground Service: user-visible ongoing work with notification
+ *
+ * 3. BroadcastReceiver — responds to system-wide broadcast announcements.
+ *    Examples: battery low, screen off, network change, boot completed.
+ *    Can be registered in manifest (static) or at runtime (dynamic).
+ *
+ * 4. ContentProvider — manages shared app data and provides a standard
+ *    interface for other apps to query/modify it via content:// URIs.
+ *    Examples: Contacts, MediaStore, your own app's data to other apps.
+ *
+ * All four must be declared in AndroidManifest.xml (except dynamic
+ * BroadcastReceivers). They can be activated via Intents (Activity, Service,
+ * BroadcastReceiver) or ContentResolver (ContentProvider).
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is the project structure of an Android Application?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Standard Android project structure (Gradle-based):
+ *
+ * MyApp/
+ * ├── build.gradle.kts              (project-level: repositories, classpath)
+ * ├── settings.gradle.kts           (module declarations)
+ * ├── gradle.properties             (JVM args, AndroidX flags)
+ * ├── local.properties              (SDK path — NOT committed to VCS)
+ * │
+ * ├── app/                          (main application module)
+ * │   ├── build.gradle.kts          (module-level: plugins, deps, SDK versions)
+ * │   └── src/
+ * │       ├── main/
+ * │       │   ├── AndroidManifest.xml
+ * │       │   ├── java/  or  kotlin/   (source code by package)
+ * │       │   ├── res/
+ * │       │   │   ├── layout/          (XML layouts)
+ * │       │   │   ├── drawable/        (vector/bitmap assets)
+ * │       │   │   ├── values/          (strings.xml, colors.xml, themes.xml)
+ * │       │   │   ├── mipmap/          (launcher icons)
+ * │       │   │   └── navigation/      (NavGraph XMLs)
+ * │       │   └── assets/              (raw files accessed via AssetManager)
+ * │       ├── test/                    (unit tests — runs on JVM)
+ * │       └── androidTest/             (instrumentation tests — runs on device)
+ * │
+ * ├── feature-module/               (optional: dynamic feature modules)
+ * └── core/                         (optional: shared library module)
+ *
+ * Key points for interview:
+ *   - build.gradle.kts defines compileSdk, minSdk, targetSdk, dependencies
+ *   - res/ is type-safe via R class; assets/ is raw file access
+ *   - Build variants (debug/release) and product flavors allow configuration
+ *   - Gradle wrapper (gradlew) ensures consistent builds across machines
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is AndroidManifest.xml?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * AndroidManifest.xml is the declaration file every Android app must have at
+ * the root of the app module. It provides essential information about the app
+ * to the Android build tools, the OS, and Google Play.
+ *
+ * What it declares:
+ *
+ * 1. Package name / Application ID — unique identifier for the app
+ * 2. Application components — all Activities, Services, BroadcastReceivers,
+ *    ContentProviders must be declared here
+ * 3. Permissions — both requested (<uses-permission>) and defined (<permission>)
+ * 4. Hardware/software features — <uses-feature> (camera, GPS, etc.)
+ * 5. Minimum and target API levels (also in build.gradle, which overrides)
+ * 6. Intent filters — what implicit intents each component responds to
+ * 7. App-level configuration — theme, backup rules, network security config
+ *
+ * Important attributes:
+ *   android:exported — whether other apps can start the component
+ *   android:launchMode — Activity instantiation behavior
+ *   android:configChanges — opt out of recreation on config changes
+ *   android:process — run a component in a separate process
+ *   android:permission — restrict who can start a component
+ *
+ * The manifest is merged from multiple sources during build:
+ *   app manifest + library manifests + build variant manifests
+ *   Conflicts are resolved via merge rules or tools:replace attribute.
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is the Application class?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * The Application class is the base class for maintaining global application
+ * state. It is instantiated before any Activity, Service, or Receiver and
+ * lives for the entire lifetime of the app process.
+ *
+ * Common uses:
+ *   - Initialize libraries (Timber, Koin, Hilt, Coil, Firebase)
+ *   - Set up crash reporting
+ *   - Register ActivityLifecycleCallbacks for global Activity monitoring
+ *   - Provide applicationContext to DI graph
+ *
+ * Must be declared in AndroidManifest:
+ *   <application android:name=".MyApplication" ... />
+ *
+ * Lifecycle:
+ *   - onCreate() is the first code that runs when the process starts
+ *   - onTerminate() is NEVER called on production devices (only in emulator)
+ *   - onTrimMemory(level) is called when the system needs memory
+ *   - onConfigurationChanged() for system-wide config changes
+ *
+ * Anti-patterns:
+ *   - Don't use it as a global variable dumping ground
+ *   - Don't do heavy work in onCreate() — it blocks the first Activity launch
+ *   - Use lazy initialization or App Startup library for deferred init
+ */
+
+class MyApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+            override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
+                Timber.d("Created: ${activity::class.simpleName}")
+            }
+            override fun onActivityStarted(activity: Activity) {}
+            override fun onActivityResumed(activity: Activity) {}
+            override fun onActivityPaused(activity: Activity) {}
+            override fun onActivityStopped(activity: Activity) {}
+            override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle) {}
+            override fun onActivityDestroyed(activity: Activity) {}
+        })
+    }
+
+    override fun onTrimMemory(level: Int) {
+        super.onTrimMemory(level)
+        if (level >= TRIM_MEMORY_MODERATE) {
+            // Clear image caches, reduce memory footprint
+            ImageLoader.getInstance().clearMemoryCache()
+        }
+    }
+}
+
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // SECTION 5: ACTIVITY AND FRAGMENT
-// ⛔ STUB — Full content removed (duplicates 01_android_fundamentals.kt)
-// 📖 Primary reference: 01_android_fundamentals.kt
-// ────────────────────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Why is it recommended to use only the default constructor to create a Fragment?
+// ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * This section duplicated content from 01_android_fundamentals.kt.
- * Read that file for interview tips (💡), gotchas (⚠️), and follow-ups (❓).
+ * When Android recreates a Fragment (after config change or process death),
+ * it uses reflection to call the no-arg default constructor. If a Fragment
+ * only has a parameterized constructor, the system cannot recreate it and
+ * throws an InstantiationException.
  *
- * Quick topics covered there:
- *   - Activity vs Fragment lifecycle interleaving
- *   - onSaveInstanceState timing
- *   - Fragment backstack memory leaks
+ * The correct way to pass data to a Fragment is via arguments Bundle:
  *
- * Use this file (17) for UNIQUE sections only — see header navigation table.
+ *   - The arguments Bundle is automatically saved and restored by the system
+ *   - It survives both configuration changes and process death
+ *   - The Fragment can read arguments in onCreate() or later
+ *
+ * Modern approach: Use FragmentFactory for constructor injection, or use
+ * Hilt's @AndroidEntryPoint which handles this automatically.
  */
+
+class UserFragment : Fragment() {
+
+    companion object {
+        private const val ARG_USER_ID = "user_id"
+
+        fun newInstance(userId: String): UserFragment {
+            return UserFragment().apply {
+                arguments = bundleOf(ARG_USER_ID to userId)
+            }
+        }
+    }
+
+    private val userId: String by lazy {
+        requireArguments().getString(ARG_USER_ID)!!
+    }
+}
+
+// With FragmentFactory (for constructor injection):
+class MyFragmentFactory(
+    private val repository: UserRepository
+) : FragmentFactory() {
+    override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
+        return when (className) {
+            UserDetailFragment::class.java.name -> UserDetailFragment(repository)
+            else -> super.instantiate(classLoader, className)
+        }
+    }
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is Activity and its lifecycle?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * An Activity represents a single screen with a user interface. It is the
+ * primary entry point for user interaction.
+ *
+ * Full lifecycle (in order):
+ *
+ *   onCreate(savedInstanceState: Bundle?)
+ *     → Called once when Activity is first created or recreated.
+ *     → Initialize views, bind data, set content view.
+ *     → savedInstanceState is non-null if recreating.
+ *
+ *   onStart()
+ *     → Activity becomes VISIBLE but not yet interactive.
+ *     → Register UI-related observers.
+ *
+ *   onResume()
+ *     → Activity is in FOREGROUND and interactive (user can touch).
+ *     → Resume camera, animations, sensors.
+ *
+ *   onPause()
+ *     → Activity is partially obscured (dialog, multi-window).
+ *     → Release exclusive resources (camera). Keep it fast.
+ *
+ *   onStop()
+ *     → Activity is no longer visible.
+ *     → Release heavy resources, save data to DB, stop animations.
+ *
+ *   onDestroy()
+ *     → Activity is finishing or being destroyed by system.
+ *     → isFinishing == true: user leaving; false: config change.
+ *
+ *   onRestart()
+ *     → Coming back from stopped state. onStop → onRestart → onStart.
+ *
+ * onSaveInstanceState(outState: Bundle) is called BEFORE onStop()
+ * (after onPause on older APIs, after onStop on API 28+).
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is the difference between onCreate() and onStart()?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * onCreate():
+ *   - Called ONCE per Activity creation (or recreation after destruction)
+ *   - Activity is NOT visible yet
+ *   - Purpose: one-time setup — inflate layout, initialize ViewModel,
+ *     set up RecyclerView, read Intent extras, restore saved state
+ *   - Receives savedInstanceState Bundle (null on first creation)
+ *
+ * onStart():
+ *   - Called every time the Activity becomes visible
+ *   - Called AFTER onCreate() on first launch, and after onRestart()
+ *     when returning from background
+ *   - Activity is VISIBLE but NOT interactive
+ *   - Purpose: start UI-related updates — register observers,
+ *     refresh data that may have changed while stopped
+ *
+ * Key difference: onCreate() is for initialization; onStart() is for
+ * visibility-related setup that may need to happen multiple times.
+ *
+ * Example: A user navigates away (onStop) then returns (onRestart → onStart).
+ * onCreate() is NOT called again, but onStart() IS.
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: When only onDestroy is called for an activity without onPause() and onStop()?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * This happens when finish() is called from within onCreate().
+ *
+ * If an Activity calls finish() in onCreate(), the system skips onPause()
+ * and onStop() entirely and goes directly to onDestroy(). The Activity
+ * was never visible or interactive, so there is nothing to pause or stop.
+ *
+ * Example scenario: An Activity checks for login status in onCreate(). If the
+ * user is not authenticated, it redirects to the login screen immediately.
+ */
+
+class ProtectedActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (!isUserLoggedIn()) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish() // Goes directly to onDestroy, skipping onPause and onStop
+            return
+        }
+        setContentView(R.layout.activity_protected)
+    }
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Why do we need to call setContentView() in onCreate() of Activity class?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * setContentView() inflates the XML layout and attaches the resulting view
+ * hierarchy to the Activity's window (DecorView). It must be called in
+ * onCreate() because:
+ *
+ * 1. View setup methods (findViewById, ViewBinding) need the view tree to
+ *    already exist — they must run AFTER setContentView().
+ *
+ * 2. The view hierarchy should be ready BEFORE onStart() (when the Activity
+ *    becomes visible). If called later, the user might see a blank screen.
+ *
+ * 3. onRestoreInstanceState() (called between onStart and onResume) expects
+ *    views to exist so it can restore their state (scroll positions,
+ *    EditText text, etc.).
+ *
+ * 4. It is idempotent in onCreate() — on recreation after config change,
+ *    the layout is re-inflated fresh with the new configuration's resources.
+ *
+ * Alternatives to setContentView():
+ *   - Pass layout ID to AppCompatActivity constructor: class MyActivity : AppCompatActivity(R.layout.my)
+ *   - Use ViewBinding: binding = ActivityMainBinding.inflate(layoutInflater); setContentView(binding.root)
+ *   - Compose: setContent { MyComposableScreen() }
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is onSaveInstanceState() and onRestoreInstanceState() in activity?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * onSaveInstanceState(outState: Bundle):
+ *   - Called when the system might destroy the Activity (before config change,
+ *     before going to background, before process death).
+ *   - Save transient UI state: scroll position, selected tab, draft text.
+ *   - Called AFTER onStop() on API 28+, after onPause() on older APIs.
+ *   - NOT called when user explicitly destroys (back press, finish()).
+ *   - Bundle limit: ~1MB (Binder transaction limit). Save only small data.
+ *
+ * onRestoreInstanceState(savedInstanceState: Bundle):
+ *   - Called AFTER onStart() and BEFORE onResume().
+ *   - Only called if there IS saved state (savedInstanceState is non-null).
+ *   - Alternative: check savedInstanceState in onCreate() — both work.
+ *   - Advantage of onRestoreInstanceState(): you know for certain state
+ *     exists, no null-checking needed.
+ *
+ * The system automatically saves/restores View state for views with IDs
+ * (EditText text, ScrollView position, CheckBox state). Custom transient
+ * state must be handled manually.
+ */
+
+class StatefulActivity : AppCompatActivity() {
+
+    private var currentTabIndex = 0
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState) // saves view hierarchy state
+        outState.putInt("TAB_INDEX", currentTabIndex)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState) // restores view hierarchy state
+        currentTabIndex = savedInstanceState.getInt("TAB_INDEX", 0)
+        selectTab(currentTabIndex)
+    }
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is Fragment and its lifecycle?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * A Fragment is a reusable portion of UI within an Activity. It has its own
+ * lifecycle, receives its own input events, and can be added/removed while
+ * the Activity is running.
+ *
+ * Fragment lifecycle (in order):
+ *
+ *   onAttach(context)     → Fragment attached to Activity. Access host here.
+ *   onCreate(bundle)      → Initialize non-view state. Arguments available.
+ *   onCreateView()        → Inflate and return the view hierarchy.
+ *   onViewCreated()       → View is ready. Set up observers, listeners, RV.
+ *   onStart()             → Fragment visible (mirrors Activity.onStart).
+ *   onResume()            → Fragment interactive (mirrors Activity.onResume).
+ *   onPause()             → Losing focus.
+ *   onStop()              → No longer visible.
+ *   onDestroyView()       → View hierarchy destroyed. Null out bindings!
+ *   onDestroy()           → Fragment instance destroyed.
+ *   onDetach()            → Fragment detached from Activity.
+ *
+ * Critical distinction: VIEW lifecycle vs INSTANCE lifecycle.
+ *   - When a Fragment goes on the back stack, onDestroyView is called but
+ *     onDestroy is NOT. The instance stays alive but has no view.
+ *   - When popped from back stack, onCreateView → onViewCreated is called
+ *     again on the SAME instance.
+ *   - This is why you must null out ViewBinding in onDestroyView().
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is Bundle in Android?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Bundle is a key-value map for passing data between Android components.
+ * It implements Parcelable, so it can cross process boundaries via IPC.
+ *
+ * Supported types: primitives, String, Parcelable, Serializable,
+ * arrays/ArrayLists of these, and nested Bundles.
+ *
+ * Common uses:
+ *   - Intent extras: intent.putExtra("key", value)
+ *   - Fragment arguments: fragment.arguments = bundleOf(...)
+ *   - Activity saved state: onSaveInstanceState(outState: Bundle)
+ *   - FragmentResult API: setFragmentResult("key", bundle)
+ *   - Navigation Safe Args (compiled down to Bundle)
+ *
+ * Size limitation: ~1MB total for Binder transaction. Exceeding this
+ * throws TransactionTooLargeException. Store only IDs and small state;
+ * pass large data via ViewModel, database, or file.
+ */
+
+fun bundleExamples() {
+    // Creating bundles
+    val bundle = Bundle().apply {
+        putString("name", "John")
+        putInt("age", 30)
+        putParcelable("user", userParcelable)
+    }
+
+    // Kotlin-idiomatic
+    val bundle2 = bundleOf(
+        "name" to "John",
+        "age" to 30
+    )
+
+    // Reading
+    val name = bundle.getString("name") // nullable
+    val age = bundle.getInt("age", -1)  // with default
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What are "launchMode"?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Launch modes control how a new instance of an Activity is associated with
+ * the current task and back stack. Set in AndroidManifest.xml:
+ *
+ * 1. standard (default):
+ *    - A new instance is created every time, regardless of existing instances.
+ *    - Task: [A] → startActivity(A) → [A, A]
+ *    - Use case: most Activities.
+ *
+ * 2. singleTop:
+ *    - If the same Activity is already at the TOP of the stack, the existing
+ *      instance is reused via onNewIntent(). Otherwise, a new instance is created.
+ *    - Task: [A, B] → startActivity(B, singleTop) → [A, B] (B gets onNewIntent)
+ *    - Task: [A, B] → startActivity(A, singleTop) → [A, B, A] (A not on top)
+ *    - Use case: search results, notification destinations.
+ *
+ * 3. singleTask:
+ *    - Only one instance exists in the system. If it exists in any task,
+ *      that task is brought to front and all Activities above it are destroyed.
+ *    - Task: [A, B, C] → startActivity(A, singleTask) → [A] (B, C destroyed)
+ *    - Use case: app home/dashboard.
+ *
+ * 4. singleInstance:
+ *    - Like singleTask, but the Activity is the ONLY Activity in its task.
+ *      Any Activity started from it goes into a different task.
+ *    - Use case: phone dialer, payment screen.
+ *
+ * 5. singleInstancePerTask (API 31+):
+ *    - Allows one instance per task. Can exist in multiple tasks simultaneously.
+ *
+ * Intent flags (FLAG_ACTIVITY_NEW_TASK, FLAG_ACTIVITY_CLEAR_TOP, etc.)
+ * can override manifest-declared launchMode at runtime.
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is the difference between a Fragment and an Activity?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Activity:
+ *   - Full-screen window that acts as a host for the UI
+ *   - Managed directly by the system (ActivityManager)
+ *   - Has its own lifecycle managed by the OS
+ *   - Declared in AndroidManifest.xml
+ *   - Entry point for user interaction (can be launched by Intents)
+ *   - Each Activity has its own back stack entry by default
+ *
+ * Fragment:
+ *   - A modular portion of UI hosted WITHIN an Activity
+ *   - Managed by FragmentManager (not the OS directly)
+ *   - Lifecycle is tied to (but distinct from) its host Activity
+ *   - NOT declared in manifest
+ *   - Cannot exist without a host Activity
+ *   - Multiple Fragments can be displayed side-by-side (tablets)
+ *   - Can be added/removed/replaced at runtime
+ *   - Has its own back stack (managed by FragmentManager)
+ *
+ * Key architectural difference: Activities are OS-level components with
+ * heavyweight creation (involves IPC with ActivityManagerService). Fragments
+ * are lightweight, managed entirely in-process by FragmentManager.
+ *
+ * Modern recommendation: Single-Activity architecture with Fragments
+ * (or Compose) for each screen, using Navigation Component.
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: When should you use a Fragment rather than an Activity?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Use Fragments when:
+ *
+ * 1. Multi-pane layouts — tablets showing list + detail side by side.
+ *
+ * 2. Single-Activity architecture — modern best practice. One Activity hosts
+ *    all Fragments via Navigation Component. Benefits:
+ *      - Shared ViewModel scoped to navigation graph
+ *      - Smoother transitions/animations between screens
+ *      - Shared elements (toolbar, bottom nav) don't recreate
+ *      - Easier deep linking
+ *
+ * 3. ViewPager/Tab layouts — each page is a Fragment.
+ *
+ * 4. Reusable UI components — same Fragment in multiple Activities/contexts.
+ *
+ * 5. Dynamic UI — add/remove/replace portions of the screen at runtime.
+ *
+ * Use separate Activities when:
+ *   - Completely independent flows (e.g., a settings module)
+ *   - Different process requirements (android:process in manifest)
+ *   - Entry points from other apps (deep links that need Intent filters)
+ *   - Totally different UI paradigms (e.g., camera Activity)
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is the difference between FragmentPagerAdapter vs FragmentStatePagerAdapter?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Both are used with ViewPager (deprecated; prefer ViewPager2 with
+ * FragmentStateAdapter). The key difference is memory management:
+ *
+ * FragmentPagerAdapter:
+ *   - Keeps ALL Fragment instances in memory (only detaches their views).
+ *   - Calls detach() when Fragment goes off-screen → view destroyed,
+ *     instance stays in FragmentManager.
+ *   - Fast re-navigation (no re-creation), but uses more memory.
+ *   - Best for: small, fixed number of tabs (3-5).
+ *
+ * FragmentStatePagerAdapter:
+ *   - DESTROYS Fragment instances when off-screen (saves their state via Bundle).
+ *   - Calls remove() → Fragment and its view are both destroyed.
+ *   - Uses less memory but recreation is slower.
+ *   - Best for: large or dynamic number of pages (feeds, galleries).
+ *
+ * Modern replacement (ViewPager2):
+ *   FragmentStateAdapter — behaves like FragmentStatePagerAdapter with
+ *   RecyclerView-based diffing and better lifecycle handling.
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is the difference between adding/replacing fragment in backstack?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * add() — places a new Fragment ON TOP of the existing Fragment in the container.
+ *   - The old Fragment is NOT destroyed; it remains in the view hierarchy.
+ *   - Both Fragments are active simultaneously.
+ *   - The old Fragment's lifecycle does NOT change (no onPause/onStop).
+ *   - Use case: overlays, dialogs, stacking content.
+ *
+ * replace() — removes ALL existing Fragments in the container, then adds the new one.
+ *   - The old Fragment goes through onDestroyView() (if added to back stack)
+ *     or full onDestroy() (if not added to back stack).
+ *   - Only one Fragment is active in the container at a time.
+ *   - Use case: standard screen navigation.
+ *
+ * With addToBackStack():
+ *   - add + backstack: pressing Back removes the top Fragment, old one shows.
+ *   - replace + backstack: pressing Back recreates old Fragment's view
+ *     (onCreateView is called again since onDestroyView was called).
+ */
+
+fun fragmentTransactionExamples(fragmentManager: FragmentManager) {
+    // add: stacks on top, old Fragment stays alive
+    fragmentManager.commit {
+        add(R.id.container, FragmentB())
+        addToBackStack("add_b")
+    }
+
+    // replace: removes old, adds new; old view destroyed if on back stack
+    fragmentManager.commit {
+        replace(R.id.container, FragmentC())
+        addToBackStack("replace_c")
+    }
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: How would you communicate between two Fragments?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Four modern approaches (in order of preference):
+ *
+ * 1. Shared ViewModel (recommended for same Activity scope):
+ *    Both Fragments observe the same ViewModel scoped to the Activity
+ *    or a shared navigation graph.
+ *
+ * 2. Fragment Result API (for one-shot results between Fragments):
+ *    Fragment B sets a result; Fragment A listens for it.
+ *    Works across the FragmentManager without coupling.
+ *
+ * 3. Navigation Component with SavedStateHandle:
+ *    Previous destination can observe a key set by the current destination.
+ *
+ * 4. Shared ViewModel scoped to Navigation graph:
+ *    Both Fragments share a ViewModel scoped to a nested nav graph.
+ *
+ * Anti-patterns:
+ *   - Casting getActivity() to a specific Activity type (tight coupling)
+ *   - Static variables or event buses (hard to track, lifecycle-unaware)
+ */
+
+// Approach 1: Shared ViewModel
+class SharedViewModel : ViewModel() {
+    private val _selectedItem = MutableLiveData<Item>()
+    val selectedItem: LiveData<Item> = _selectedItem
+
+    fun select(item: Item) { _selectedItem.value = item }
+}
+
+class ListFragment : Fragment() {
+    private val sharedVM: SharedViewModel by activityViewModels()
+
+    fun onItemClicked(item: Item) {
+        sharedVM.select(item)
+    }
+}
+
+class DetailFragment : Fragment() {
+    private val sharedVM: SharedViewModel by activityViewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        sharedVM.selectedItem.observe(viewLifecycleOwner) { item ->
+            displayItem(item)
+        }
+    }
+}
+
+// Approach 2: Fragment Result API
+class FragmentB : Fragment() {
+    fun onDone() {
+        setFragmentResult("request_key", bundleOf("result" to "some_value"))
+        parentFragmentManager.popBackStack()
+    }
+}
+
+class FragmentA : Fragment() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setFragmentResultListener("request_key") { _, bundle ->
+            val result = bundle.getString("result")
+        }
+    }
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is retained Fragment?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * A retained Fragment (setRetainInstance(true)) survives Activity destruction
+ * on configuration changes. The Fragment instance is NOT destroyed; only its
+ * view is destroyed and recreated. It skips onDestroy() and onCreate() during
+ * the config change cycle.
+ *
+ * Lifecycle on config change (retained):
+ *   onPause → onStop → onDestroyView → (Activity destroyed/recreated)
+ *   → onCreateView → onViewCreated → onStart → onResume
+ *
+ * This was commonly used to hold large data across config changes BEFORE
+ * ViewModel was introduced.
+ *
+ * DEPRECATED: setRetainInstance() is deprecated since Fragment 1.3.0.
+ * Use ViewModel instead — it provides the same benefit (surviving config
+ * changes) with better separation of concerns, testability, and support
+ * for SavedStateHandle (process death survival).
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is the purpose of addToBackStack() while committing fragment transaction?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * addToBackStack(name) records the FragmentTransaction so that it can be
+ * reversed when the user presses the Back button.
+ *
+ * Without addToBackStack():
+ *   - The transaction is committed but NOT reversible
+ *   - Pressing Back will finish the Activity (default back behavior)
+ *   - Replaced Fragments are fully destroyed (onDestroy + onDetach)
+ *
+ * With addToBackStack():
+ *   - The transaction is pushed onto the Fragment back stack
+ *   - Pressing Back pops the transaction, reversing it
+ *   - Replaced Fragments are only view-destroyed (onDestroyView), not
+ *     instance-destroyed — the instance stays in FragmentManager
+ *   - When popped, the Fragment's view is recreated (onCreateView again)
+ *
+ * The optional name parameter lets you pop to a specific transaction:
+ *   fragmentManager.popBackStack("name", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+ *
+ * popBackStack() is asynchronous. Use popBackStackImmediate() for synchronous.
+ */
+
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // SECTION 6: VIEWS AND VIEWGROUPS
@@ -3163,23 +5156,408 @@ fun calculateInSampleSize(options: BitmapFactory.Options, reqW: Int, reqH: Int):
  */
 
 
-// ────────────────────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════════════════
 // SECTION 10: DATA SAVING
-// ⛔ STUB — Full content removed (duplicates 05_data_persistence.kt)
-// 📖 Primary reference: 05_data_persistence.kt
-// ────────────────────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Jetpack DataStore Preferences
+// ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * This section duplicated content from 05_data_persistence.kt.
- * Read that file for interview tips (💡), gotchas (⚠️), and follow-ups (❓).
+ * DataStore is the modern replacement for SharedPreferences. It provides
+ * two implementations:
  *
- * Quick topics covered there:
- *   - Room vs SQLite vs DataStore
- *   - SharedPreferences vs DataStore
- *   - ContentProvider basics
+ * 1. Preferences DataStore — key-value pairs (like SharedPreferences but
+ *    fully async with coroutines/Flow).
  *
- * Use this file (17) for UNIQUE sections only — see header navigation table.
+ * 2. Proto DataStore — typed objects using Protocol Buffers (type-safe).
+ *
+ * Advantages over SharedPreferences:
+ *   - Fully asynchronous with Kotlin coroutines and Flow
+ *   - Process-safe (no corrupted data from concurrent writes)
+ *   - No apply()/commit() ambiguity — all writes are transactional
+ *   - No runtime exceptions from type mismatches
+ *   - Backed by Kotlin coroutines — integrates naturally with the ecosystem
+ *
+ * Under the hood: DataStore uses protocol buffers (Proto) or a custom
+ * serializer and writes to files. Reads return Flow<T>, writes use
+ * suspend functions with atomic read-modify-write transactions.
  */
+
+// Preferences DataStore
+val Context.dataStore by preferencesDataStore(name = "settings")
+
+object PrefsKeys {
+    val DARK_MODE = booleanPreferencesKey("dark_mode")
+    val USERNAME = stringPreferencesKey("username")
+    val FONT_SIZE = intPreferencesKey("font_size")
+}
+
+class SettingsRepository(private val context: Context) {
+
+    val darkModeFlow: Flow<Boolean> = context.dataStore.data
+        .catch { exception ->
+            if (exception is IOException) emit(emptyPreferences())
+            else throw exception
+        }
+        .map { prefs -> prefs[PrefsKeys.DARK_MODE] ?: false }
+
+    suspend fun setDarkMode(enabled: Boolean) {
+        context.dataStore.edit { prefs ->
+            prefs[PrefsKeys.DARK_MODE] = enabled
+        }
+    }
+
+    suspend fun clearAll() {
+        context.dataStore.edit { it.clear() }
+    }
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Persisting Data in an Android App
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Android provides several persistence options, each suited for different
+ * data types and access patterns:
+ *
+ * 1. SharedPreferences / DataStore:
+ *    - Small key-value pairs (settings, preferences, tokens)
+ *    - Stored as XML (SharedPrefs) or protocol buffers (DataStore)
+ *    - Fast reads, full-file writes
+ *
+ * 2. Room Database (SQLite):
+ *    - Structured relational data with complex queries
+ *    - Compile-time SQL verification
+ *    - Flow/LiveData integration for reactive UI
+ *    - Best for: local caching of API data, user-generated content
+ *
+ * 3. File Storage:
+ *    - Internal storage: context.filesDir (private to app)
+ *    - External storage: scoped storage (MediaStore, SAF)
+ *    - Cache: context.cacheDir (system may delete when low on space)
+ *    - Best for: images, documents, large files
+ *
+ * 4. EncryptedSharedPreferences / EncryptedFile:
+ *    - For sensitive data (tokens, keys) — uses AES-256 GCM encryption
+ *
+ * 5. Network/Cloud:
+ *    - Firebase Firestore/Realtime Database
+ *    - Your own REST/GraphQL API + Room for offline caching
+ *
+ * Decision framework:
+ *   - Simple settings → DataStore
+ *   - Structured data with queries → Room
+ *   - Binary files → File storage
+ *   - Sensitive data → EncryptedSharedPreferences
+ *   - Shared across devices → Cloud + local cache
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is ORM? How does it work?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * ORM (Object-Relational Mapping) bridges the gap between object-oriented
+ * code and relational databases by mapping classes to tables and objects
+ * to rows.
+ *
+ * In Android, Room is the recommended ORM (part of Jetpack):
+ *
+ * How Room works:
+ *   1. @Entity annotated data classes → database tables
+ *   2. @Dao annotated interfaces → data access methods
+ *   3. @Database annotated abstract class → database holder
+ *   4. Room generates implementation code at compile time using
+ *      annotation processing (KSP).
+ *   5. SQL queries are verified at COMPILE TIME (catches errors early).
+ *
+ * Advantages of Room over raw SQLite:
+ *   - Compile-time SQL verification
+ *   - Less boilerplate (no manual cursor parsing)
+ *   - Built-in support for Flow, LiveData, RxJava
+ *   - Type converters for custom types
+ *   - Migration support
+ *   - Testing support (in-memory database)
+ *
+ * Room does NOT load objects lazily (unlike Hibernate). Foreign key
+ * relationships require explicit @Relation queries or @Transaction methods.
+ */
+
+@Entity(tableName = "users")
+data class UserEntity(
+    @PrimaryKey val id: Int,
+    @ColumnInfo(name = "user_name") val name: String,
+    val email: String,
+    val createdAt: Long = System.currentTimeMillis()
+)
+
+@Dao
+interface UserDao {
+    @Query("SELECT * FROM users WHERE id = :userId")
+    suspend fun getById(userId: Int): UserEntity?
+
+    @Query("SELECT * FROM users ORDER BY user_name ASC")
+    fun getAllFlow(): Flow<List<UserEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(user: UserEntity)
+
+    @Update
+    suspend fun update(user: UserEntity)
+
+    @Delete
+    suspend fun delete(user: UserEntity)
+
+    @Query("DELETE FROM users")
+    suspend fun deleteAll()
+}
+
+@Database(entities = [UserEntity::class], version = 1, exportSchema = true)
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun userDao(): UserDao
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: How would you preserve Activity state during screen rotation?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Screen rotation triggers a configuration change that destroys and
+ * recreates the Activity. Three strategies to preserve state:
+ *
+ * 1. ViewModel (recommended for in-memory data):
+ *    - Survives configuration changes (NOT process death).
+ *    - Hold fetched data, computed lists, UI state.
+ *    - The Activity reads from ViewModel after recreation.
+ *
+ * 2. onSaveInstanceState (for small transient UI state):
+ *    - Survives both config changes AND process death.
+ *    - Stored in a Bundle (~1MB limit).
+ *    - Save: scroll position, selected tab, draft text input.
+ *    - Restored in onCreate(bundle) or onRestoreInstanceState(bundle).
+ *
+ * 3. SavedStateHandle in ViewModel (best of both worlds):
+ *    - ViewModel convenience + process death survival.
+ *    - Backed by the savedInstanceState Bundle.
+ *
+ * 4. Persistent storage (for data that must survive everything):
+ *    - Room database, DataStore, files.
+ *    - Survives process death, app uninstall (external storage), etc.
+ *
+ * 5. android:configChanges="orientation|screenSize" (avoid if possible):
+ *    - Prevents destruction; calls onConfigurationChanged() instead.
+ *    - Google discourages this for most use cases.
+ *
+ * Best practice: use ViewModel for transient data, SavedStateHandle for
+ * critical UI state that must survive process death, and persistent
+ * storage for business data.
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What are different ways to store data in your Android app?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * 1. SharedPreferences:
+ *    - Key-value pairs stored in XML file
+ *    - Synchronous reads, async writes (apply) or sync writes (commit)
+ *    - Use for: simple settings, flags, small values
+ *
+ * 2. Jetpack DataStore:
+ *    - Modern replacement for SharedPreferences
+ *    - Preferences DataStore (key-value) or Proto DataStore (typed)
+ *    - Fully async with Flow and coroutines
+ *
+ * 3. SQLite / Room:
+ *    - Relational database for structured data
+ *    - Room wraps SQLite with compile-time verification
+ *    - Use for: local caching, complex queries, large datasets
+ *
+ * 4. Internal file storage (context.filesDir):
+ *    - Private to the app, removed on uninstall
+ *    - Use for: serialized objects, downloaded files
+ *
+ * 5. Cache directory (context.cacheDir):
+ *    - System may delete when storage is low
+ *    - Use for: temporary files, image cache
+ *
+ * 6. External storage (Scoped Storage):
+ *    - MediaStore for media files (photos, video, audio)
+ *    - Storage Access Framework for user-selected files
+ *    - App-specific external (getExternalFilesDir)
+ *
+ * 7. Network storage:
+ *    - Firebase Firestore/Realtime Database
+ *    - REST API with local Room cache for offline support
+ *
+ * 8. EncryptedSharedPreferences / EncryptedFile:
+ *    - For sensitive data (tokens, credentials)
+ *
+ * 9. ContentProvider:
+ *    - Share data with other apps via content:// URIs
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Explain Scoped Storage in Android
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Scoped Storage (API 29+, enforced API 30+) restricts how apps access
+ * files on external storage to improve user privacy and file hygiene.
+ *
+ * Before Scoped Storage:
+ *   - Apps could read/write anywhere on external storage with a single permission.
+ *   - Privacy nightmare: any app could read photos, documents, etc.
+ *
+ * With Scoped Storage:
+ *   - Each app has a private sandbox: getExternalFilesDir() — no permission needed.
+ *   - Media files (images, video, audio) are accessed via MediaStore.
+ *   - Other files (PDFs, docs) require Storage Access Framework (SAF).
+ *   - Apps can only see their own files without special permission.
+ *
+ * Access patterns:
+ *
+ * 1. App-specific files (no permission):
+ *    context.getExternalFilesDir(type) — deleted with uninstall.
+ *
+ * 2. Media files (shared):
+ *    MediaStore.Images, MediaStore.Video, MediaStore.Audio
+ *    - Read own media: no permission
+ *    - Read others' media: READ_MEDIA_IMAGES (API 33+) or
+ *      READ_EXTERNAL_STORAGE (older)
+ *    - Write own media: no permission
+ *    - Modify others' media: requires MediaStore.createWriteRequest()
+ *
+ * 3. Documents and other files:
+ *    Storage Access Framework — user picks files via system picker.
+ *    Intent(Intent.ACTION_OPEN_DOCUMENT) or ACTION_CREATE_DOCUMENT.
+ *
+ * 4. MANAGE_EXTERNAL_STORAGE (API 30+):
+ *    - Broad access (like pre-scoped). Only for file managers, antivirus.
+ *    - Requires Google Play review and justification.
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: How to encrypt data in Android?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Android provides several encryption mechanisms:
+ *
+ * 1. EncryptedSharedPreferences (Jetpack Security):
+ *    - Drop-in replacement for SharedPreferences
+ *    - AES-256-SIV for keys, AES-256-GCM for values
+ *    - Uses Android Keystore for master key management
+ *
+ * 2. EncryptedFile (Jetpack Security):
+ *    - Transparent file encryption/decryption
+ *    - Streaming encryption for large files
+ *
+ * 3. Android Keystore System:
+ *    - Hardware-backed key storage (TEE/StrongBox)
+ *    - Keys never leave the secure hardware
+ *    - Supports: AES, RSA, EC, HMAC
+ *    - Can require biometric authentication to use the key
+ *
+ * 4. Room + SQLCipher:
+ *    - Encrypts the entire SQLite database
+ *    - Transparent to Room DAO operations
+ *
+ * 5. Tink (Google's crypto library):
+ *    - High-level API for symmetric/asymmetric encryption
+ *    - Handles key rotation, versioning
+ *    - Less error-prone than raw javax.crypto
+ */
+
+fun encryptedSharedPrefsExample(context: Context) {
+    val masterKey = MasterKey.Builder(context)
+        .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+        .build()
+
+    val encryptedPrefs = EncryptedSharedPreferences.create(
+        context,
+        "secure_prefs",
+        masterKey,
+        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+    )
+
+    encryptedPrefs.edit().putString("auth_token", "secret_value").apply()
+    val token = encryptedPrefs.getString("auth_token", null)
+}
+
+fun keystoreExample() {
+    val keyGenerator = KeyGenerator.getInstance(
+        KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore"
+    )
+    keyGenerator.init(
+        KeyGenParameterSpec.Builder("my_key", KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
+            .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+            .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+            .setUserAuthenticationRequired(true)
+            .setUserAuthenticationParameters(30, KeyProperties.AUTH_BIOMETRIC_STRONG)
+            .build()
+    )
+    val secretKey = keyGenerator.generateKey()
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is commit() and apply() in SharedPreferences?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Both write data to SharedPreferences, but differ in synchronicity:
+ *
+ * commit():
+ *   - SYNCHRONOUS — writes to disk on the calling thread.
+ *   - Returns boolean indicating success or failure.
+ *   - Blocks the thread until the file write completes.
+ *   - Use when you NEED to know if the write succeeded.
+ *   - Avoid on the main thread (causes ANR risk for large files).
+ *
+ * apply():
+ *   - ASYNCHRONOUS — writes to memory immediately, then schedules
+ *     a disk write on a background thread.
+ *   - Returns void (no success/failure feedback).
+ *   - Does not block the calling thread.
+ *   - If you call apply() multiple times, only the last state is written.
+ *   - Preferred for most use cases (non-blocking).
+ *
+ * Gotcha: apply() flushes pending writes during Activity.onStop() and
+ * Service lifecycle events. This can block the main thread if many pending
+ * writes are queued (known issue). This is one reason DataStore is preferred.
+ *
+ * Modern recommendation: Use Jetpack DataStore which is fully async
+ * and avoids both the commit() blocking issue and apply() flush issue.
+ */
+
+fun sharedPrefsExample(context: Context) {
+    val prefs = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+
+    // apply() — async, non-blocking, preferred
+    prefs.edit().apply {
+        putString("username", "john_doe")
+        putInt("login_count", 42)
+        apply() // returns immediately
+    }
+
+    // commit() — sync, blocking, returns success
+    val success = prefs.edit().putBoolean("onboarding_done", true).commit()
+
+    // Reading — always synchronous
+    val username = prefs.getString("username", "default")
+    val count = prefs.getInt("login_count", 0)
+}
+
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // SECTION 11 — ANDROID LIBRARIES
@@ -3692,23 +6070,340 @@ class AnalyticsInitializer : Initializer<AnalyticsTracker> {
  */
 
 
-// ────────────────────────────────────────────────────────────────────────────
-// SECTION 12: ANDROID ARCHITECTURE
-// ⛔ STUB — Full content removed (duplicates 02_app_architecture.kt)
-// 📖 Primary reference: 02_app_architecture.kt
-// ────────────────────────────────────────────────────────────────────────────
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// SECTION 12 — ANDROID ARCHITECTURE
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Describe MVVM
+// ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * This section duplicated content from 02_app_architecture.kt.
- * Read that file for interview tips (💡), gotchas (⚠️), and follow-ups (❓).
+ * MVVM (Model-View-ViewModel) is the architecture Google recommends for Android.
  *
- * Quick topics covered there:
- *   - MVVM with LiveData/Flow
- *   - Repository pattern
- *   - Clean Architecture layers
+ * ┌─────────┐    observes     ┌─────────────┐    calls     ┌─────────┐
+ * │  VIEW   │ ──────────────→ │  VIEWMODEL  │ ──────────→  │  MODEL  │
+ * │(Activity│    (LiveData/   │             │              │(Repo/DB/│
+ * │Fragment/│     StateFlow)  │  Holds UI   │              │ Network)│
+ * │Compose) │                 │  State      │              │         │
+ * └─────────┘                 └─────────────┘              └─────────┘
+ *      │                            ↑
+ *      └── user actions ────────────┘
  *
- * Use this file (17) for UNIQUE sections only — see header navigation table.
+ * MODEL — Data layer. Repositories, data sources (Room, Retrofit, DataStore).
+ *         Has no knowledge of ViewModel or View.
+ *
+ * VIEW — UI layer (Activity, Fragment, Composable). Observes ViewModel state
+ *        and forwards user events. Contains NO business logic.
+ *
+ * VIEWMODEL — Mediator between View and Model. Holds UI state, survives
+ *             configuration changes. Exposes data via observable streams
+ *             (LiveData, StateFlow). Does NOT hold View references.
+ *
+ * Benefits:
+ *   • Separation of concerns — each layer has a clear responsibility.
+ *   • Testability — ViewModel can be unit tested without Android framework.
+ *   • Lifecycle safety — ViewModel survives config changes.
+ *   • Reactive UI — View reacts to state changes automatically.
  */
+
+// MVVM Example
+data class UserUiState(
+    val users: List<User> = emptyList(),
+    val isLoading: Boolean = false,
+    val error: String? = null
+)
+
+class UserViewModel(
+    private val repository: UserRepository
+) : ViewModel() {
+
+    private val _uiState = MutableStateFlow(UserUiState())
+    val uiState: StateFlow<UserUiState> = _uiState.asStateFlow()
+
+    init { loadUsers() }
+
+    fun loadUsers() {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true, error = null) }
+            repository.getUsers()
+                .catch { e -> _uiState.update { it.copy(isLoading = false, error = e.message) } }
+                .collect { users -> _uiState.update { it.copy(users = users, isLoading = false) } }
+        }
+    }
+}
+
+// View (Fragment) observes state
+// lifecycleScope.launch {
+//     repeatOnLifecycle(Lifecycle.State.STARTED) {
+//         viewModel.uiState.collect { state ->
+//             binding.progressBar.isVisible = state.isLoading
+//             adapter.submitList(state.users)
+//             state.error?.let { showSnackbar(it) }
+//         }
+//     }
+// }
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: MVC vs MVP vs MVVM architecture
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * ┌──────────┬──────────────────────┬──────────────────────┬──────────────────────┐
+ * │          │ MVC                  │ MVP                  │ MVVM                 │
+ * ├──────────┼──────────────────────┼──────────────────────┼──────────────────────┤
+ * │ View     │ XML + Activity       │ XML + Activity       │ XML/Compose +        │
+ * │          │ (handles input &     │ (implements View     │ Activity/Fragment    │
+ * │          │  display)            │  interface, passive) │ (observes state)     │
+ * ├──────────┼──────────────────────┼──────────────────────┼──────────────────────┤
+ * │ Middle   │ Controller           │ Presenter            │ ViewModel            │
+ * │ Layer    │ (Activity often acts │ (holds View ref via  │ (no View ref,        │
+ * │          │  as both V and C)    │  interface, updates  │  exposes observable   │
+ * │          │                      │  View directly)      │  state)              │
+ * ├──────────┼──────────────────────┼──────────────────────┼──────────────────────┤
+ * │ Model    │ Data layer           │ Data layer           │ Data layer           │
+ * ├──────────┼──────────────────────┼──────────────────────┼──────────────────────┤
+ * │ Coupling │ Tight (V ↔ C)       │ Medium (V ↔ P via    │ Loose (V → VM, VM    │
+ * │          │                      │  interface)          │  doesn't know V)     │
+ * ├──────────┼──────────────────────┼──────────────────────┼──────────────────────┤
+ * │ Testing  │ Hard (Controller is  │ Good (mock View      │ Best (ViewModel has  │
+ * │          │  the Activity)       │  interface)          │  no Android deps)    │
+ * ├──────────┼──────────────────────┼──────────────────────┼──────────────────────┤
+ * │ Config   │ State lost           │ Presenter may leak   │ ViewModel survives   │
+ * │ Change   │                      │  or need re-attach   │  config changes      │
+ * ├──────────┼──────────────────────┼──────────────────────┼──────────────────────┤
+ * │ Android  │ Not recommended      │ Viable but more      │ Google recommended   │
+ * │ Fit      │                      │  boilerplate         │                      │
+ * └──────────┴──────────────────────┴──────────────────────┴──────────────────────┘
+ *
+ * Key insight for interviews: In Android, Activity acts as both View AND
+ * Controller in MVC, making true MVC nearly impossible. MVP fixes this by
+ * extracting a Presenter, but MVVM goes further by removing the View
+ * reference entirely, leveraging Android's lifecycle-aware components.
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Clean Architecture
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Clean Architecture (Robert C. Martin) organizes code in concentric layers
+ * with the Dependency Rule: dependencies point INWARD only.
+ *
+ *  ┌───────────────────────────────────────────────┐
+ *  │  PRESENTATION (UI)                            │
+ *  │   Activity, Fragment, Compose, ViewModel      │
+ *  │  ┌───────────────────────────────────────┐    │
+ *  │  │  DOMAIN (Business Logic)              │    │
+ *  │  │   Use Cases, Entities, Repository     │    │
+ *  │  │   Interfaces                          │    │
+ *  │  │  ┌───────────────────────────────┐    │    │
+ *  │  │  │  DATA                         │    │    │
+ *  │  │  │   Repository Impl, API,       │    │    │
+ *  │  │  │   Database, Mappers           │    │    │
+ *  │  │  └───────────────────────────────┘    │    │
+ *  │  └───────────────────────────────────────┘    │
+ *  └───────────────────────────────────────────────┘
+ *
+ * LAYERS:
+ *
+ * 1. DOMAIN (innermost, pure Kotlin, no Android deps)
+ *    - Entities (business models)
+ *    - Use Cases (single responsibility, one business action)
+ *    - Repository interfaces (abstractions, NOT implementations)
+ *
+ * 2. DATA (implements domain interfaces)
+ *    - Repository implementations
+ *    - Remote data source (Retrofit)
+ *    - Local data source (Room)
+ *    - DTOs and mappers (API model ↔ domain model)
+ *
+ * 3. PRESENTATION (outermost, Android-dependent)
+ *    - ViewModels (call use cases)
+ *    - UI (Activity/Fragment/Compose)
+ *    - UI models and mappers
+ *
+ * Dependency Rule: Presentation → Domain ← Data
+ *   Domain knows NOTHING about Presentation or Data.
+ *   Data implements Domain's interfaces.
+ *
+ * Benefits: testability, swappable data sources, enforced boundaries.
+ * Tradeoff: more boilerplate (mappers, interfaces) — justified for large apps.
+ */
+
+// Domain layer — pure Kotlin
+data class User(val id: String, val name: String, val email: String)
+
+interface UserRepository {
+    fun getUsers(): Flow<List<User>>
+    suspend fun getUserById(id: String): User
+}
+
+class GetUsersUseCase(private val repository: UserRepository) {
+    operator fun invoke(): Flow<List<User>> = repository.getUsers()
+}
+
+// Data layer — implements domain interface
+class UserRepositoryImpl(
+    private val api: UserApiService,
+    private val dao: UserDao,
+    private val mapper: UserMapper
+) : UserRepository {
+
+    override fun getUsers(): Flow<List<User>> =
+        dao.observeAll().map { entities -> entities.map(mapper::toDomain) }
+            .onStart {
+                val remote = api.fetchUsers()
+                dao.insertAll(remote.map(mapper::toEntity))
+            }
+
+    override suspend fun getUserById(id: String): User =
+        mapper.toDomain(dao.getById(id) ?: throw UserNotFoundException(id))
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: MVI (Model-View-Intent)
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * MVI applies unidirectional data flow to Android architecture.
+ *
+ *   User Action → Intent → ViewModel (Reducer) → State → View renders State
+ *        ↑                                                      │
+ *        └──────────────────────────────────────────────────────┘
+ *
+ * Components:
+ *
+ * MODEL (State) — A single immutable data class representing the entire
+ *                 screen state. The view renders from this single source.
+ *
+ * VIEW — Renders the state. Sends user actions as Intents (sealed classes).
+ *
+ * INTENT — User intentions (not Android Intent). Sealed class describing
+ *          every possible event: LoadData, ClickItem, Refresh, etc.
+ *
+ * REDUCER — Pure function: (currentState, intent) → newState
+ *           Predictable, testable, no side effects.
+ *
+ * Benefits:
+ *   • Single source of truth — one state object, no state inconsistency.
+ *   • Predictable — state transitions are explicit and testable.
+ *   • Time-travel debugging — can replay intents to reproduce bugs.
+ *   • Thread-safe — state updates through a single pipeline.
+ *
+ * Tradeoff: More boilerplate (sealed classes for every intent/state).
+ *           Can be overkill for simple screens.
+ */
+
+// State
+data class ArticleListState(
+    val articles: List<Article> = emptyList(),
+    val isLoading: Boolean = false,
+    val error: String? = null
+)
+
+// Intent (user actions)
+sealed class ArticleIntent {
+    object LoadArticles : ArticleIntent()
+    object Refresh : ArticleIntent()
+    data class DeleteArticle(val id: String) : ArticleIntent()
+}
+
+// Side Effects (one-shot events)
+sealed class ArticleSideEffect {
+    data class ShowToast(val message: String) : ArticleSideEffect()
+    data class NavigateToDetail(val id: String) : ArticleSideEffect()
+}
+
+class ArticleViewModel(
+    private val repository: ArticleRepository
+) : ViewModel() {
+
+    private val _state = MutableStateFlow(ArticleListState())
+    val state: StateFlow<ArticleListState> = _state.asStateFlow()
+
+    private val _sideEffect = Channel<ArticleSideEffect>(Channel.BUFFERED)
+    val sideEffect: Flow<ArticleSideEffect> = _sideEffect.receiveAsFlow()
+
+    fun processIntent(intent: ArticleIntent) {
+        when (intent) {
+            is ArticleIntent.LoadArticles -> loadArticles()
+            is ArticleIntent.Refresh -> loadArticles()
+            is ArticleIntent.DeleteArticle -> deleteArticle(intent.id)
+        }
+    }
+
+    private fun loadArticles() {
+        viewModelScope.launch {
+            _state.update { it.copy(isLoading = true, error = null) }
+            try {
+                val articles = repository.getArticles()
+                _state.update { it.copy(articles = articles, isLoading = false) }
+            } catch (e: Exception) {
+                _state.update { it.copy(isLoading = false, error = e.message) }
+            }
+        }
+    }
+
+    private fun deleteArticle(id: String) {
+        viewModelScope.launch {
+            repository.delete(id)
+            _state.update { it.copy(articles = it.articles.filter { a -> a.id != id }) }
+            _sideEffect.send(ArticleSideEffect.ShowToast("Article deleted"))
+        }
+    }
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Benefits of Multi-Module Architecture
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Multi-module architecture splits a monolithic app into multiple Gradle modules.
+ *
+ * Common module types:
+ *   :app            → Application module, wires everything together
+ *   :core:network   → Retrofit, OkHttp setup
+ *   :core:database  → Room DB, DAOs
+ *   :core:ui        → Shared Compose components, themes
+ *   :core:common    → Utility classes, extensions
+ *   :feature:home   → Home screen feature
+ *   :feature:search → Search feature
+ *   :feature:profile→ Profile feature
+ *
+ * BENEFITS:
+ *
+ * 1. FASTER BUILD TIMES — Gradle only recompiles changed modules.
+ *    Unchanged modules use cached artifacts. On large codebases, this
+ *    can reduce build time from minutes to seconds.
+ *
+ * 2. CLEAR DEPENDENCY BOUNDARIES — Modules declare explicit dependencies.
+ *    feature:home can't accidentally access feature:profile's internals.
+ *    Uses `internal` visibility modifier effectively.
+ *
+ * 3. REUSABILITY — core modules can be shared across features.
+ *    core:ui components are reusable across all feature modules.
+ *
+ * 4. PARALLEL DEVELOPMENT — Teams can own separate feature modules
+ *    with minimal merge conflicts. Clear ownership boundaries.
+ *
+ * 5. DYNAMIC DELIVERY — Feature modules can be delivered on-demand
+ *    via Play Feature Delivery, reducing initial APK size.
+ *
+ * 6. ENFORCED ARCHITECTURE — Module boundaries enforce Clean Architecture
+ *    layers. Domain module has no Android dependency.
+ *
+ * 7. BETTER TESTING — Feature modules can be tested in isolation.
+ *    :feature:search tests don't need to build the entire app.
+ *
+ * Tradeoff: Configuration overhead (build.gradle per module, navigation
+ * between modules, DI setup). Worth it for medium-to-large apps (15+ screens).
+ */
+
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // SECTION 13 — DESIGN PATTERNS
@@ -4605,23 +7300,403 @@ class BitmapLruCache(maxSizeBytes: Int) : android.util.LruCache<String, Bitmap>(
  */
 
 
-// ────────────────────────────────────────────────────────────────────────────
-// SECTION 15: ANDROID UNIT TESTING
-// ⛔ STUB — Full content removed (duplicates 11_testing.kt)
-// 📖 Primary reference: 11_testing.kt
-// ────────────────────────────────────────────────────────────────────────────
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// SECTION 15 — ANDROID UNIT TESTING
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Unit Testing ViewModel with Kotlin Coroutines and LiveData
+// ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * This section duplicated content from 11_testing.kt.
- * Read that file for interview tips (💡), gotchas (⚠️), and follow-ups (❓).
+ * Testing ViewModels with coroutines requires controlling the dispatcher
+ * and using special test utilities.
  *
- * Quick topics covered there:
- *   - ViewModel unit testing with coroutines
- *   - Mockito vs MockK
- *   - Testing LiveData/Flow
- *
- * Use this file (17) for UNIQUE sections only — see header navigation table.
+ * KEY SETUP:
+ * 1. Replace Dispatchers.Main with TestDispatcher (Main is unavailable in JVM tests).
+ * 2. Use InstantTaskExecutorRule for LiveData (makes postValue synchronous).
+ * 3. Use runTest {} for coroutine testing.
  */
+
+// Dependencies:
+// testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.x"
+// testImplementation "androidx.arch.core:core-testing:2.2.0"
+
+@OptIn(ExperimentalCoroutinesApi::class)
+class UserViewModelTest {
+
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    private val testDispatcher = UnconfinedTestDispatcher()
+    private lateinit var viewModel: UserViewModel
+    private lateinit var fakeRepository: FakeUserRepository
+
+    @Before
+    fun setup() {
+        Dispatchers.setMain(testDispatcher)
+        fakeRepository = FakeUserRepository()
+        viewModel = UserViewModel(fakeRepository)
+    }
+
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
+    }
+
+    @Test
+    fun `loadUsers should emit loading then success`() = runTest {
+        val users = listOf(User("1", "Alice"), User("2", "Bob"))
+        fakeRepository.setUsers(users)
+
+        viewModel.loadUsers()
+
+        // LiveData assertion
+        val result = viewModel.users.getOrAwaitValue()
+        assertEquals(users, result)
+        assertFalse(viewModel.isLoading.getOrAwaitValue())
+    }
+
+    @Test
+    fun `loadUsers should emit error on failure`() = runTest {
+        fakeRepository.setShouldFail(true)
+
+        viewModel.loadUsers()
+
+        assertNotNull(viewModel.error.getOrAwaitValue())
+    }
+}
+
+// Helper extension for LiveData testing
+fun <T> LiveData<T>.getOrAwaitValue(
+    time: Long = 2,
+    timeUnit: TimeUnit = TimeUnit.SECONDS
+): T {
+    var data: T? = null
+    val latch = CountDownLatch(1)
+    val observer = object : Observer<T> {
+        override fun onChanged(value: T) {
+            data = value
+            latch.countDown()
+            removeObserver(this)
+        }
+    }
+    observeForever(observer)
+    if (!latch.await(time, timeUnit)) {
+        removeObserver(observer)
+        throw TimeoutException("LiveData value never set.")
+    }
+    @Suppress("UNCHECKED_CAST")
+    return data as T
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Unit Testing ViewModel with Kotlin Flow and StateFlow
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Testing StateFlow requires collecting emissions. Use Turbine library
+ * for clean Flow testing, or manually collect with a background job.
+ */
+
+// Using Turbine (recommended)
+// testImplementation "app.cash.turbine:turbine:1.0.0"
+
+@OptIn(ExperimentalCoroutinesApi::class)
+class SearchViewModelTest {
+
+    private val testDispatcher = StandardTestDispatcher()
+
+    @Before
+    fun setup() { Dispatchers.setMain(testDispatcher) }
+
+    @After
+    fun tearDown() { Dispatchers.resetMain() }
+
+    @Test
+    fun `search emits loading then results`() = runTest {
+        val fakeRepo = FakeSearchRepository()
+        val viewModel = SearchViewModel(fakeRepo)
+
+        viewModel.uiState.test {
+            assertEquals(SearchUiState(), awaitItem()) // initial state
+
+            viewModel.search("kotlin")
+            assertEquals(SearchUiState(isLoading = true), awaitItem())
+
+            val results = listOf(SearchResult("Kotlin Docs"))
+            fakeRepo.emit(results)
+            assertEquals(
+                SearchUiState(results = results, isLoading = false),
+                awaitItem()
+            )
+
+            cancelAndConsumeRemainingEvents()
+        }
+    }
+
+    // Without Turbine — manual collection
+    @Test
+    fun `manual flow collection`() = runTest {
+        val viewModel = SearchViewModel(FakeSearchRepository())
+        val states = mutableListOf<SearchUiState>()
+
+        val collectJob = launch(UnconfinedTestDispatcher()) {
+            viewModel.uiState.collect { states.add(it) }
+        }
+
+        viewModel.search("android")
+        advanceUntilIdle()
+
+        assertTrue(states.any { it.isLoading })
+        assertTrue(states.last().results.isNotEmpty())
+
+        collectJob.cancel()
+    }
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is Espresso?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Espresso is Google's UI testing framework for Android instrumented tests.
+ * It runs on a real device/emulator inside the app's process.
+ *
+ * Key features:
+ * - Automatic synchronization with UI thread, AsyncTask, and IdlingResources.
+ * - No need for Thread.sleep() — Espresso waits for the UI to be idle.
+ * - Fast and reliable because it runs in-process.
+ *
+ * Core API:
+ *   onView(matcher)       — Find a view matching criteria
+ *   .perform(action)      — Perform action (click, type, scroll)
+ *   .check(assertion)     — Verify view state
+ *
+ * For async operations (coroutines, Retrofit), register an IdlingResource
+ * so Espresso knows when the app is idle.
+ */
+
+@RunWith(AndroidJUnit4::class)
+class LoginScreenTest {
+
+    @get:Rule
+    val activityRule = ActivityScenarioRule(LoginActivity::class.java)
+
+    @Test
+    fun validLogin_navigatesToHome() {
+        onView(withId(R.id.emailInput))
+            .perform(typeText("user@example.com"), closeSoftKeyboard())
+
+        onView(withId(R.id.passwordInput))
+            .perform(typeText("password123"), closeSoftKeyboard())
+
+        onView(withId(R.id.loginButton))
+            .perform(click())
+
+        // Verify navigation to home screen
+        onView(withId(R.id.homeTitle))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun emptyEmail_showsError() {
+        onView(withId(R.id.loginButton)).perform(click())
+
+        onView(withId(R.id.emailInputLayout))
+            .check(matches(hasTextInputLayoutErrorText("Email is required")))
+    }
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is Robolectric? What are its disadvantages?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Robolectric is a framework that simulates the Android framework on JVM,
+ * allowing you to run Android-dependent tests WITHOUT a device/emulator.
+ *
+ * How it works: Robolectric provides "shadow" classes that intercept
+ * calls to Android framework classes (Activity, Context, SharedPreferences,
+ * etc.) and execute equivalent logic on the JVM.
+ *
+ * ADVANTAGES:
+ *   • Runs on JVM — 10-100x faster than instrumented tests.
+ *   • No emulator needed — runs in CI easily.
+ *   • Can test Activities, Fragments, Views, Resources, Intents.
+ *   • Useful for testing code that depends on Android but doesn't
+ *     need a real device (e.g., testing a Fragment's behavior).
+ *
+ * DISADVANTAGES:
+ *   • NOT a real Android environment — shadow implementations may
+ *     differ from actual framework behavior. Can give false positives.
+ *   • Rendering is not real — can't test actual pixel-level UI.
+ *   • Doesn't support all APIs — some hardware-dependent APIs (Camera,
+ *     Bluetooth, NFC) have limited or no shadow support.
+ *   • Initial classloading is slow (can take 5-15 seconds).
+ *   • Multi-threading behavior differs from real Android.
+ *   • Custom Views with native rendering won't work properly.
+ *   • API level support lags behind — latest Android APIs may not
+ *     be available immediately.
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is UI-Automator?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * UI Automator is an Android testing framework for cross-app UI testing.
+ * Unlike Espresso (within one app), UI Automator can interact with
+ * any app on the device, including system UI.
+ *
+ * Use cases:
+ *   • Testing interaction with system dialogs (permission prompts).
+ *   • Testing notifications (pull down notification shade).
+ *   • Cross-app flows (e.g., share to another app, open camera).
+ *   • Testing Quick Settings, Settings app, launcher.
+ *
+ * Key classes:
+ *   UiDevice     — represents the device; press Home, Back, open notifications
+ *   UiObject2    — represents a UI element on screen
+ *   UiSelector   — find elements by text, resource ID, class name, description
+ *   By           — modern search criteria builder
+ *
+ * Limitations:
+ *   • Slower than Espresso (communicates via AccessibilityService).
+ *   • No automatic synchronization (may need UiDevice.waitForIdle).
+ *   • Can't access internal app state.
+ *   • Best used in combination with Espresso, not as a replacement.
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Explain unit test vs instrumented test
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * ┌─────────────────┬──────────────────────────┬──────────────────────────┐
+ * │                 │ Unit Test                │ Instrumented Test        │
+ * ├─────────────────┼──────────────────────────┼──────────────────────────┤
+ * │ Location        │ test/ directory          │ androidTest/ directory   │
+ * ├─────────────────┼──────────────────────────┼──────────────────────────┤
+ * │ Runs on         │ JVM (local machine)      │ Device / Emulator        │
+ * ├─────────────────┼──────────────────────────┼──────────────────────────┤
+ * │ Speed           │ Fast (milliseconds)      │ Slow (seconds to minutes)│
+ * ├─────────────────┼──────────────────────────┼──────────────────────────┤
+ * │ Android APIs    │ Not available (need       │ Full Android API access  │
+ * │                 │ Robolectric or mocks)     │                          │
+ * ├─────────────────┼──────────────────────────┼──────────────────────────┤
+ * │ What to test    │ ViewModels, UseCases,    │ UI interactions, DB,     │
+ * │                 │ Repositories, Utils,     │ Intents, cross-process,  │
+ * │                 │ business logic           │ real integrations        │
+ * ├─────────────────┼──────────────────────────┼──────────────────────────┤
+ * │ Frameworks      │ JUnit, Mockito, Turbine, │ Espresso, UI Automator,  │
+ * │                 │ Truth, Robolectric       │ Compose Testing, JUnit   │
+ * ├─────────────────┼──────────────────────────┼──────────────────────────┤
+ * │ CI suitability  │ Excellent (no device)    │ Needs emulator or device │
+ * │                 │                          │ farm (Firebase Test Lab)  │
+ * └─────────────────┴──────────────────────────┴──────────────────────────┘
+ *
+ * TESTING PYRAMID:
+ *   Unit tests (70%) → Integration tests (20%) → UI/E2E tests (10%)
+ *
+ * Rule of thumb: If it doesn't touch Android APIs, it should be a unit test.
+ * ViewModels with injected dependencies should be 100% unit-testable.
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Why Mockito is used?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Mockito is a mocking framework that creates fake (mock) objects for testing.
+ * It lets you isolate the class under test by replacing its dependencies.
+ *
+ * Key concepts:
+ *
+ * mock()   — Create a fake object that returns default values (null, 0, false).
+ * when()   — Define behavior: when(mock.method()).thenReturn(value)
+ * verify() — Assert a method was called: verify(mock).method()
+ * spy()    — Partial mock: real object with some methods overridden.
+ *
+ * For Kotlin, use MockK (more Kotlin-friendly) or mockito-kotlin extension.
+ *
+ * Why use mocking?
+ * 1. ISOLATION — Test one class without its real dependencies.
+ * 2. CONTROL — Define exact behavior (return specific values, throw exceptions).
+ * 3. VERIFICATION — Assert interactions (was this method called? how many times?).
+ * 4. SPEED — No need for real network, database, etc.
+ *
+ * ⚠️ Don't over-mock: prefer fakes (manual test implementations) for
+ *    repositories and data sources. Mock only external boundaries.
+ */
+
+// Mockito example
+@Test
+fun `test with mockito`() {
+    val mockRepo = mock(UserRepository::class.java)
+    `when`(mockRepo.getUserById("1")).thenReturn(User("1", "Alice"))
+
+    val useCase = GetUserUseCase(mockRepo)
+    val result = useCase("1")
+
+    assertEquals("Alice", result.name)
+    verify(mockRepo).getUserById("1")
+}
+
+// MockK example (Kotlin-first)
+@Test
+fun `test with mockk`() {
+    val mockRepo = mockk<UserRepository>()
+    coEvery { mockRepo.getUserById("1") } returns User("1", "Alice")
+
+    val useCase = GetUserUseCase(mockRepo)
+    val result = runBlocking { useCase("1") }
+
+    assertEquals("Alice", result.name)
+    coVerify { mockRepo.getUserById("1") }
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Describe code coverage
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Code coverage measures what percentage of your code is executed by tests.
+ *
+ * TYPES OF COVERAGE:
+ *
+ * 1. LINE COVERAGE — % of lines executed by tests.
+ * 2. BRANCH COVERAGE — % of if/else/when branches tested.
+ * 3. METHOD COVERAGE — % of methods called by tests.
+ * 4. INSTRUCTION COVERAGE — % of bytecode instructions executed.
+ *
+ * TOOLS FOR ANDROID:
+ *   - JaCoCo — Standard Java code coverage. Integrates with Gradle.
+ *     Apply plugin: `jacoco`, configure report task for unit and instrumented tests.
+ *   - Android Studio built-in — "Run with Coverage" button.
+ *   - Kover — JetBrains' Kotlin-aware coverage tool (handles inline functions).
+ *
+ * REALISTIC TARGETS:
+ *   - Business logic / UseCases: 90-100%
+ *   - ViewModels: 80-90%
+ *   - Repositories: 70-80%
+ *   - UI code: 30-50% (harder to test, lower ROI)
+ *   - Overall project: 60-80% is a healthy target
+ *
+ * IMPORTANT CAVEATS:
+ *   - High coverage ≠ good tests. You can have 100% coverage with zero assertions.
+ *   - Focus on meaningful coverage — critical paths, edge cases, error handling.
+ *   - Coverage is a metric, not a goal. Don't write bad tests just to hit a number.
+ *   - Exclude generated code (Dagger, data binding, BuildConfig) from reports.
+ */
+
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // SECTION 16 — ANDROID TOOLS AND TECHNOLOGIES
@@ -5037,23 +8112,994 @@ fun enableStrictMode() {
  */
 
 
-// ────────────────────────────────────────────────────────────────────────────
-// SECTION 17: JETPACK COMPOSE
-// ⛔ STUB — Full content removed (duplicates 03_jetpack_compose.kt)
-// 📖 Primary reference: 03_jetpack_compose.kt
-// ────────────────────────────────────────────────────────────────────────────
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// SECTION 17 — JETPACK COMPOSE
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Jetpack Compose vs Android View System
+// ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * This section duplicated content from 03_jetpack_compose.kt.
- * Read that file for interview tips (💡), gotchas (⚠️), and follow-ups (❓).
+ * ┌────────────────────┬──────────────────────┬──────────────────────────┐
+ * │                    │ View System          │ Jetpack Compose          │
+ * ├────────────────────┼──────────────────────┼──────────────────────────┤
+ * │ Paradigm           │ Imperative           │ Declarative              │
+ * ├────────────────────┼──────────────────────┼──────────────────────────┤
+ * │ UI Definition      │ XML layouts          │ Kotlin functions         │
+ * ├────────────────────┼──────────────────────┼──────────────────────────┤
+ * │ State Management   │ Manual (set/get)     │ Reactive (state drives   │
+ * │                    │                      │ recomposition)           │
+ * ├────────────────────┼──────────────────────┼──────────────────────────┤
+ * │ Inheritance        │ Deep View hierarchy  │ Composition over         │
+ * │                    │ (View → TextView →   │ inheritance (flat        │
+ * │                    │  EditText)           │  composable functions)   │
+ * ├────────────────────┼──────────────────────┼──────────────────────────┤
+ * │ Layout files       │ XML + data binding   │ No XML, pure Kotlin      │
+ * ├────────────────────┼──────────────────────┼──────────────────────────┤
+ * │ Custom Views       │ Extend View class,   │ Write composable         │
+ * │                    │ override onDraw/     │ functions, use Canvas    │
+ * │                    │ onMeasure/onLayout   │ composable for drawing   │
+ * ├────────────────────┼──────────────────────┼──────────────────────────┤
+ * │ Preview            │ XML preview          │ @Preview annotation,     │
+ * │                    │                      │ interactive preview      │
+ * ├────────────────────┼──────────────────────┼──────────────────────────┤
+ * │ Testing            │ Espresso             │ ComposeTestRule,         │
+ * │                    │                      │ semantic matchers        │
+ * ├────────────────────┼──────────────────────┼──────────────────────────┤
+ * │ Learning curve     │ Familiar to most     │ New paradigm shift       │
+ * │                    │ Android devs         │                          │
+ * └────────────────────┴──────────────────────┴──────────────────────────┘
  *
- * Quick topics covered there:
- *   - Compose vs View system
- *   - Recomposition mechanics
- *   - Compose state hoisting
+ * Compose advantages: Less code, no findViewById/ViewBinding, no XML↔Kotlin
+ * split, powerful theming, animations, built-in lazy lists, better tooling.
  *
- * Use this file (17) for UNIQUE sections only — see header navigation table.
+ * Interop: AndroidView{} to embed Views in Compose, ComposeView to embed
+ * Compose in Views. Allows incremental migration.
  */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Declarative UI vs Imperative UI
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * IMPERATIVE UI (View System):
+ *   You tell the framework HOW to update the UI step by step.
+ *   "Find this view, change its text, hide this, show that."
+ *
+ *   val textView = findViewById<TextView>(R.id.name)
+ *   textView.text = user.name               // manually update
+ *   progressBar.visibility = View.GONE       // manually hide
+ *   errorView.visibility = View.VISIBLE      // manually show
+ *
+ *   Problem: State synchronization. Must track which views need updating
+ *   for every state change. Easy to miss an update → inconsistent UI.
+ *
+ * DECLARATIVE UI (Compose):
+ *   You declare WHAT the UI should look like for a given state.
+ *   The framework figures out how to update the actual UI.
+ *
+ *   @Composable
+ *   fun UserScreen(state: UserState) {
+ *       if (state.isLoading) CircularProgressIndicator()
+ *       else if (state.error != null) ErrorView(state.error)
+ *       else UserProfile(state.user)
+ *   }
+ *
+ *   When state changes, Compose re-invokes the function and efficiently
+ *   updates only the parts of the UI that changed (recomposition).
+ *
+ * The key insight: Declarative UI eliminates the "state sync problem."
+ * UI is always a pure function of state. No stale views, no missed updates.
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What are Composable functions?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * A Composable function is a Kotlin function annotated with @Composable
+ * that describes a piece of UI. It's the fundamental building block of
+ * Jetpack Compose.
+ *
+ * KEY PROPERTIES:
+ *
+ * 1. NOT a class, just a function — no inheritance hierarchy.
+ * 2. Can call other @Composable functions — composition over inheritance.
+ * 3. Runs during "composition" — the initial build of the UI tree.
+ * 4. Re-runs during "recomposition" — when inputs (state) change.
+ * 5. Can be skipped during recomposition if inputs haven't changed.
+ * 6. Must be called from within another @Composable function or a
+ *    Composition context (setContent, ComposeView).
+ *
+ * Under the hood, the Compose compiler plugin transforms @Composable functions.
+ * It adds a Composer parameter, generates "groups" in the slot table for
+ * efficient diffing, and adds comparison checks for smart recomposition.
+ *
+ * Naming convention: PascalCase for @Composable functions that emit UI
+ * (e.g., UserProfile), camelCase for those returning values (e.g., rememberX).
+ */
+
+@Composable
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "Hello, $name!",
+        modifier = modifier.padding(16.dp),
+        style = MaterialTheme.typography.headlineMedium
+    )
+}
+
+@Composable
+fun UserCard(user: User, onClickDetail: (String) -> Unit) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .clickable { onClickDetail(user.id) }
+    ) {
+        Row(modifier = Modifier.padding(16.dp)) {
+            AsyncImage(model = user.avatarUrl, contentDescription = null)
+            Spacer(modifier = Modifier.width(12.dp))
+            Column {
+                Text(user.name, style = MaterialTheme.typography.titleMedium)
+                Text(user.email, style = MaterialTheme.typography.bodySmall)
+            }
+        }
+    }
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is Recomposition?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Recomposition is the process of re-invoking composable functions when
+ * their inputs (state) change, to update the UI.
+ *
+ * HOW IT WORKS:
+ * 1. Initial composition: all composables run and build the UI tree.
+ * 2. State changes: a MutableState/StateFlow value is modified.
+ * 3. Compose invalidates all composables that READ the changed state.
+ * 4. Recomposition: only invalidated composables re-execute.
+ * 5. Compose diffs the new output with the old and applies minimal changes.
+ *
+ * KEY RULES:
+ *
+ * • Composable functions can run in any order — don't depend on execution order.
+ * • Can run in parallel — don't write to shared mutable state in composables.
+ * • Recomposition skips unchanged composables — if inputs are the same, skip.
+ * • Recomposition is optimistic — assumes state won't change again mid-recomposition.
+ * • Side effects must use dedicated APIs (LaunchedEffect, etc.)
+ *
+ * SMART RECOMPOSITION: Compose skips recomposition of a composable if ALL
+ * its parameters are "stable" and haven't changed. Stable types:
+ *   - Primitives (Int, String, Boolean, Float, etc.)
+ *   - @Stable or @Immutable annotated classes
+ *   - Lambda types (by reference equality)
+ *
+ * Performance tip: Use @Immutable for data classes passed to composables.
+ * Use remember { } to cache expensive computations across recompositions.
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is State in Compose? remember vs rememberSaveable
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * STATE in Compose is any value that can change over time and affects the UI.
+ * When state changes, Compose recomposes the composables that read it.
+ *
+ * MutableState<T> — Compose's observable state holder.
+ * Created via mutableStateOf(initialValue).
+ * When .value changes, all composables reading it are recomposed.
+ *
+ * REMEMBER — Caches a value across recompositions within the same composition.
+ *   Without remember, the value would reset on every recomposition.
+ *   Survives: recomposition.
+ *   Lost on: configuration change, process death, composable leaving composition.
+ *
+ * REMEMBER SAVEABLE — Like remember, but also survives configuration changes
+ *   and process death (stores in savedInstanceState Bundle).
+ *   Automatically works for Bundle-compatible types (primitives, String, etc.).
+ *   For custom types, provide a Saver or use @Parcelize.
+ *
+ * ┌─────────────────────┬──────────────┬────────────────┬──────────────────┐
+ * │                     │ Recomposition│ Config Change  │ Process Death    │
+ * ├─────────────────────┼──────────────┼────────────────┼──────────────────┤
+ * │ mutableStateOf      │ ✗ Resets     │ ✗ Lost         │ ✗ Lost           │
+ * │ remember { }        │ ✓ Survives   │ ✗ Lost         │ ✗ Lost           │
+ * │ rememberSaveable {} │ ✓ Survives   │ ✓ Survives     │ ✓ Survives       │
+ * │ ViewModel state     │ ✓ Survives   │ ✓ Survives     │ ✗ Lost*          │
+ * └─────────────────────┴──────────────┴────────────────┴──────────────────┘
+ * * Use SavedStateHandle in ViewModel for process death.
+ */
+
+@Composable
+fun Counter() {
+    // remember: survives recomposition
+    var count by remember { mutableStateOf(0) }
+
+    // rememberSaveable: survives config change + process death
+    var savedCount by rememberSaveable { mutableStateOf(0) }
+
+    Column {
+        Text("Count (remember): $count")
+        Text("Count (saveable): $savedCount")
+        Button(onClick = { count++; savedCount++ }) {
+            Text("Increment")
+        }
+    }
+}
+
+// Custom Saver for non-Bundle types
+data class City(val name: String, val country: String)
+
+val CitySaver = run {
+    val nameKey = "name"
+    val countryKey = "country"
+    mapSaver(
+        save = { mapOf(nameKey to it.name, countryKey to it.country) },
+        restore = { City(it[nameKey] as String, it[countryKey] as String) }
+    )
+}
+
+@Composable
+fun CityPicker() {
+    var selectedCity by rememberSaveable(stateSaver = CitySaver) {
+        mutableStateOf(City("Tokyo", "Japan"))
+    }
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Stateful composable vs Stateless composable
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * STATEFUL COMPOSABLE — Owns and manages its own state internally.
+ *   Uses remember/rememberSaveable to hold state.
+ *   Harder to test and reuse because behavior is internal.
+ *
+ * STATELESS COMPOSABLE — Receives state as parameters and emits events
+ *   via callbacks (lambdas). Has no internal state.
+ *   Easy to test, reuse, preview, and compose.
+ *
+ * Best practice: Extract state up (State Hoisting). The composable
+ * that USES the state should be stateless; the CALLER manages state.
+ */
+
+// ❌ Stateful — harder to test and reuse
+@Composable
+fun StatefulSearchBar() {
+    var query by remember { mutableStateOf("") }
+    TextField(
+        value = query,
+        onValueChange = { query = it },
+        placeholder = { Text("Search...") }
+    )
+}
+
+// ✓ Stateless — caller manages state
+@Composable
+fun StatelessSearchBar(
+    query: String,
+    onQueryChange: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    TextField(
+        value = query,
+        onValueChange = onQueryChange,
+        placeholder = { Text("Search...") },
+        modifier = modifier
+    )
+}
+
+// Stateful wrapper that hoists state
+@Composable
+fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+    StatelessSearchBar(
+        query = state.query,
+        onQueryChange = viewModel::onQueryChanged
+    )
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What are side effects? LaunchedEffect vs DisposableEffect
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * A SIDE EFFECT is any operation that escapes the scope of a composable function:
+ * network calls, database writes, analytics events, navigation, showing toasts, etc.
+ *
+ * Composables should be side-effect free for predictable behavior. When you
+ * need side effects, use dedicated Effect APIs that are lifecycle-aware.
+ *
+ * LAUNCHED EFFECT — Runs a suspend function when the composable enters the
+ *   composition. Re-launches when key changes. Cancels when composable leaves.
+ *   Use for: one-shot loading, navigation events, snackbar.
+ *
+ * DISPOSABLE EFFECT — Runs a block on enter and provides onDispose {} for cleanup.
+ *   Use for: registering/unregistering listeners, observers, callbacks.
+ *   Like LaunchedEffect, re-runs when key changes (disposing previous first).
+ */
+
+@Composable
+fun UserDetailScreen(userId: String, viewModel: UserDetailViewModel = hiltViewModel()) {
+    // LaunchedEffect: load data when userId changes
+    LaunchedEffect(userId) {
+        viewModel.loadUser(userId)
+    }
+
+    // LaunchedEffect for one-shot event collection
+    val snackbarHostState = remember { SnackbarHostState() }
+    LaunchedEffect(Unit) {
+        viewModel.errorEvents.collect { message ->
+            snackbarHostState.showSnackbar(message)
+        }
+    }
+}
+
+@Composable
+fun LocationTracker(onLocationUpdate: (Location) -> Unit) {
+    val context = LocalContext.current
+
+    // DisposableEffect: register listener on enter, unregister on leave
+    DisposableEffect(Unit) {
+        val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val listener = LocationListener { location -> onLocationUpdate(location) }
+
+        locationManager.requestLocationUpdates(
+            LocationManager.GPS_PROVIDER, 1000L, 10f, listener
+        )
+
+        onDispose {
+            locationManager.removeUpdates(listener)
+        }
+    }
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: rememberCoroutineScope use cases
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * rememberCoroutineScope() provides a CoroutineScope tied to the composable's
+ * lifecycle. The scope is cancelled when the composable leaves the composition.
+ *
+ * USE CASE: Launching coroutines from event handlers (callbacks).
+ *
+ * LaunchedEffect vs rememberCoroutineScope:
+ *   - LaunchedEffect: runs automatically on composition / key change.
+ *   - rememberCoroutineScope: gives you a scope to launch manually from callbacks.
+ *
+ * Common use cases:
+ *   - Scroll to item on button click (lazyListState.animateScrollToItem)
+ *   - Show snackbar on user action
+ *   - Perform animation on click
+ *   - Save data on button press
+ */
+
+@Composable
+fun ScrollableList(items: List<String>) {
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
+
+    Column {
+        Button(onClick = {
+            coroutineScope.launch {
+                listState.animateScrollToItem(0) // needs suspend
+            }
+        }) {
+            Text("Scroll to Top")
+        }
+
+        LazyColumn(state = listState) {
+            items(items) { item -> Text(item, modifier = Modifier.padding(16.dp)) }
+        }
+    }
+}
+
+@Composable
+fun SnackbarExample() {
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+
+    Scaffold(snackbarHost = { SnackbarHost(snackbarHostState) }) { padding ->
+        Button(
+            onClick = {
+                scope.launch {
+                    val result = snackbarHostState.showSnackbar(
+                        message = "Item deleted",
+                        actionLabel = "Undo",
+                        duration = SnackbarDuration.Short
+                    )
+                    if (result == SnackbarResult.ActionPerformed) {
+                        // Undo delete
+                    }
+                }
+            },
+            modifier = Modifier.padding(padding)
+        ) {
+            Text("Delete")
+        }
+    }
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: How to observe Flows and LiveData states in Compose UI?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Compose provides extension functions to collect observable streams as State.
+ *
+ * STATEFLOW / FLOW:
+ *   collectAsStateWithLifecycle() — Lifecycle-aware (recommended).
+ *     Starts collecting in STARTED, stops in STOPPED.
+ *     Prevents UI updates when app is in background.
+ *
+ *   collectAsState() — Not lifecycle-aware. Collects as long as composable
+ *     is in composition. Use only when lifecycle awareness isn't needed.
+ *
+ * LIVEDATA:
+ *   observeAsState() — Converts LiveData to Compose State.
+ *     Automatically observes/un-observes with composition lifecycle.
+ *
+ * Dependency: implementation "androidx.lifecycle:lifecycle-runtime-compose:2.7.x"
+ */
+
+@Composable
+fun UserScreen(viewModel: UserViewModel = hiltViewModel()) {
+    // StateFlow → State (lifecycle-aware, recommended)
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    // Flow → State
+    val messages by viewModel.messages.collectAsStateWithLifecycle(initialValue = emptyList())
+
+    // LiveData → State
+    val legacyData by viewModel.legacyLiveData.observeAsState(initial = "")
+
+    when {
+        uiState.isLoading -> CircularProgressIndicator()
+        uiState.error != null -> ErrorScreen(uiState.error!!)
+        else -> UserList(uiState.users)
+    }
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: derivedStateOf, rememberUpdatedState explained
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * DERIVED STATE OF — Creates a state that is computed from other states.
+ * Only triggers recomposition when the DERIVED value changes, not when
+ * the source state changes. Great for filtering/transforming state.
+ *
+ * Without derivedStateOf: Every scroll position change (hundreds per second)
+ * would trigger recomposition of the "Show button" logic.
+ * With derivedStateOf: Only recomposes when shouldShow flips true↔false.
+ *
+ * REMEMBER UPDATED STATE — Captures the latest value of a parameter in
+ * a long-lived lambda (e.g., inside LaunchedEffect).
+ *
+ * Problem: LaunchedEffect(Unit) captures the initial value of a lambda.
+ * If the lambda changes (new callback), the effect still uses the old one.
+ * rememberUpdatedState ensures the latest value is always used.
+ */
+
+// derivedStateOf
+@Composable
+fun ContactList(contacts: List<Contact>) {
+    val listState = rememberLazyListState()
+
+    val showScrollToTop by remember {
+        derivedStateOf { listState.firstVisibleItemIndex > 5 }
+    }
+
+    Box {
+        LazyColumn(state = listState) {
+            items(contacts) { ContactItem(it) }
+        }
+        if (showScrollToTop) {
+            FloatingActionButton(onClick = { /* scroll */ }) {
+                Icon(Icons.Default.ArrowUpward, contentDescription = "Scroll to top")
+            }
+        }
+    }
+}
+
+// rememberUpdatedState
+@Composable
+fun SplashScreen(onTimeout: () -> Unit) {
+    val currentOnTimeout by rememberUpdatedState(onTimeout)
+
+    LaunchedEffect(Unit) {
+        delay(3000)
+        currentOnTimeout() // always calls the latest onTimeout, not the initial one
+    }
+
+    // Splash UI...
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is State Hoisting?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * State Hoisting is the pattern of moving state UP from a composable to its
+ * caller, making the composable stateless. The caller passes state DOWN
+ * as parameters and receives events UP as callbacks.
+ *
+ * Pattern: (value: T, onValueChange: (T) -> Unit)
+ *
+ * Benefits:
+ *   • Single source of truth — state lives in one place.
+ *   • Encapsulation — only the state owner can modify it.
+ *   • Shareability — hoisted state can be shared with multiple composables.
+ *   • Testability — stateless composables are easy to test.
+ *   • Reusability — composable works with any state source.
+ *
+ * How far to hoist? Hoist to the LOWEST COMMON ANCESTOR that needs it.
+ * If only one screen uses it → ViewModel. If shared → navigation-level ViewModel.
+ */
+
+// Hoisted state pattern
+@Composable
+fun EditableUserProfile(
+    name: String,
+    onNameChange: (String) -> Unit,
+    email: String,
+    onEmailChange: (String) -> Unit,
+    onSave: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier = modifier.padding(16.dp)) {
+        OutlinedTextField(value = name, onValueChange = onNameChange, label = { Text("Name") })
+        OutlinedTextField(value = email, onValueChange = onEmailChange, label = { Text("Email") })
+        Button(onClick = onSave) { Text("Save") }
+    }
+}
+
+// Caller (screen-level composable) owns the state
+@Composable
+fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+    EditableUserProfile(
+        name = state.name,
+        onNameChange = viewModel::onNameChange,
+        email = state.email,
+        onEmailChange = viewModel::onEmailChange,
+        onSave = viewModel::saveProfile
+    )
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Explain CompositionLocal
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * CompositionLocal provides implicit data passing through the composition tree
+ * without explicitly passing it as parameters to every composable.
+ *
+ * Think of it as "scoped dependency injection" for composables.
+ *
+ * Built-in examples:
+ *   LocalContext.current            — current Android Context
+ *   LocalDensity.current            — screen density
+ *   LocalConfiguration.current      — device configuration
+ *   LocalLifecycleOwner.current     — lifecycle owner
+ *   LocalFocusManager.current       — focus management
+ *
+ * Two types:
+ *   staticCompositionLocalOf  — rarely changes; when it does, entire subtree recomposes.
+ *   compositionLocalOf        — can change often; only recomposes readers.
+ *
+ * USE CASES:
+ *   • Theming (MaterialTheme uses CompositionLocals internally)
+ *   • Feature flags
+ *   • Analytics/logging context
+ *   • Navigation controller access
+ *
+ * ⚠️ Use sparingly. Overuse makes code harder to understand because
+ *    dependencies are implicit. Prefer explicit parameters when feasible.
+ */
+
+data class AppConfig(val isDarkMode: Boolean, val apiBaseUrl: String)
+
+val LocalAppConfig = compositionLocalOf<AppConfig> {
+    error("No AppConfig provided")
+}
+
+@Composable
+fun AppRoot() {
+    val config = AppConfig(isDarkMode = true, apiBaseUrl = "https://api.example.com")
+
+    CompositionLocalProvider(LocalAppConfig provides config) {
+        AppContent() // all children can access LocalAppConfig.current
+    }
+}
+
+@Composable
+fun DeepNestedChild() {
+    val config = LocalAppConfig.current
+    Text("API: ${config.apiBaseUrl}")
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Jetpack Compose Phases
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Compose renders UI in THREE phases (similar to View's measure/layout/draw):
+ *
+ * 1. COMPOSITION (What to show)
+ *    - Executes @Composable functions.
+ *    - Builds/updates the UI tree (slot table).
+ *    - Reads state to determine what to display.
+ *    - Produces a tree of LayoutNodes.
+ *
+ * 2. LAYOUT (Where to place it)
+ *    - Measures each node (like onMeasure in View).
+ *    - Places nodes at specific positions (like onLayout).
+ *    - Single-pass measurement: each child measured once (no double taxation).
+ *    - Uses Constraints (min/max width/height).
+ *
+ * 3. DRAWING (How to render it)
+ *    - Draws each node to the Canvas.
+ *    - Renders text, shapes, images, etc.
+ *    - Canvas operations (drawRect, drawText, etc.)
+ *
+ * PERFORMANCE INSIGHT:
+ * State reads in later phases don't trigger earlier phases.
+ *   - State read in DRAWING → only re-draws (no re-layout, no re-composition).
+ *   - State read in LAYOUT → re-layout + re-draw (no re-composition).
+ *   - State read in COMPOSITION → full re-composition + layout + draw.
+ *
+ * Optimization tip: Use Modifier.graphicsLayer { } for animation state
+ * to read state in the DRAWING phase only, skipping composition/layout.
+ *
+ * Example: animating alpha
+ *   ❌ Modifier.alpha(animatedAlpha)         → reads in composition
+ *   ✓  Modifier.graphicsLayer { alpha = animatedAlpha } → reads in draw only
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What is the role of Modifier?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Modifier is Compose's mechanism for decorating or augmenting composables.
+ * It replaces XML attributes like layout_width, padding, background, onClick,
+ * etc. from the View system.
+ *
+ * KEY PROPERTIES:
+ *
+ * 1. CHAINING — Modifiers chain with the dot operator. Order matters!
+ *    Modifier.padding(8.dp).background(Color.Red)  // padding OUTSIDE red bg
+ *    Modifier.background(Color.Red).padding(8.dp)  // padding INSIDE red bg
+ *
+ * 2. ORDER MATTERS — Modifiers apply from LEFT to RIGHT (outer to inner).
+ *    Like wrapping in nested containers.
+ *
+ * 3. CATEGORIES:
+ *    Layout:   size, fillMaxWidth, padding, offset, wrapContentSize
+ *    Drawing:  background, border, clip, shadow, alpha
+ *    Input:    clickable, toggleable, draggable, scrollable
+ *    Semantics: semantics, testTag, contentDescription
+ *    Focus:    focusable, focusRequester
+ *    Other:    graphicsLayer, animateContentSize, pointerInput
+ *
+ * 4. BEST PRACTICE — Accept Modifier parameter (default = Modifier) as the
+ *    first optional parameter. Lets callers customize layout from outside.
+ */
+
+@Composable
+fun StyledCard(title: String, modifier: Modifier = Modifier) {
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .shadow(4.dp, shape = RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(12.dp))
+            .clickable { /* handle click */ }
+    ) {
+        Text(
+            text = title,
+            modifier = Modifier.padding(16.dp),
+            style = MaterialTheme.typography.titleMedium
+        )
+    }
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: What are Semantics?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Semantics in Compose provide meaning and metadata to UI elements for:
+ *
+ * 1. ACCESSIBILITY — TalkBack reads semantics to describe UI to visually
+ *    impaired users. contentDescription, stateDescription, role.
+ *
+ * 2. TESTING — Compose testing APIs find elements by semantics.
+ *    onNodeWithText(), onNodeWithContentDescription(), onNodeWithTag().
+ *
+ * 3. AUTOFILL — System uses semantics to auto-fill form fields.
+ *
+ * Compose automatically merges semantics up the tree. A Button with Text
+ * inside automatically has the text as its semantic label.
+ *
+ * clearAndSetSemantics { } — replaces all child semantics with custom ones.
+ * semantics(mergeDescendants = true) { } — merges children into one node.
+ */
+
+@Composable
+fun AccessibleToggle(
+    label: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .semantics(mergeDescendants = true) { }
+            .toggleable(
+                value = checked,
+                onValueChange = onCheckedChange,
+                role = Role.Switch
+            )
+            .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(label, modifier = Modifier.weight(1f))
+        Switch(
+            checked = checked,
+            onCheckedChange = null // handled by parent Row
+        )
+    }
+}
+
+// Testing with semantics
+// composeTestRule.onNodeWithText("Dark Mode").assertIsToggled()
+// composeTestRule.onNodeWithTag("loginButton").performClick()
+// composeTestRule.onNodeWithContentDescription("Profile picture").assertIsDisplayed()
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: How do you handle navigation in Jetpack Compose?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Navigation in Compose uses the Navigation Component for Compose library.
+ *
+ * KEY CONCEPTS:
+ *   NavHost — Container that displays destinations. Manages back stack.
+ *   NavController — Manages navigation state. Created via rememberNavController().
+ *   NavGraph — Collection of destinations (routes).
+ *   Route — String identifier for a destination (e.g., "profile/{userId}").
+ *
+ * Type-safe navigation (Navigation 2.8+) uses @Serializable data classes as routes.
+ */
+
+// Define routes as serializable classes
+@Serializable object HomeRoute
+@Serializable data class ProfileRoute(val userId: String)
+@Serializable data class SettingsRoute(val tab: String = "general")
+
+@Composable
+fun AppNavigation() {
+    val navController = rememberNavController()
+
+    NavHost(navController = navController, startDestination = HomeRoute) {
+
+        composable<HomeRoute> {
+            HomeScreen(
+                onNavigateToProfile = { userId ->
+                    navController.navigate(ProfileRoute(userId))
+                },
+                onNavigateToSettings = {
+                    navController.navigate(SettingsRoute())
+                }
+            )
+        }
+
+        composable<ProfileRoute> { backStackEntry ->
+            val route = backStackEntry.toRoute<ProfileRoute>()
+            ProfileScreen(userId = route.userId)
+        }
+
+        composable<SettingsRoute> { backStackEntry ->
+            val route = backStackEntry.toRoute<SettingsRoute>()
+            SettingsScreen(initialTab = route.tab)
+        }
+    }
+}
+
+/**
+ * Navigation best practices:
+ *   • Pass navController only to top-level composable; pass callbacks down.
+ *   • Use ViewModel for navigation events (SharedFlow of navigation actions).
+ *   • Hoist navigation state — screens shouldn't know about NavController.
+ *   • Handle deep links via NavDeepLink in navigation graph.
+ */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: Unidirectional data flow in Jetpack Compose
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Unidirectional Data Flow (UDF) means data flows DOWN and events flow UP.
+ *
+ *   ┌──────────┐   state (down)    ┌──────────┐
+ *   │ ViewModel│ ────────────────→ │   UI     │
+ *   │          │                   │(Compose) │
+ *   │          │ ←──────────────── │          │
+ *   └──────────┘   events (up)     └──────────┘
+ *
+ * STATE flows DOWN: ViewModel exposes StateFlow → UI collects and renders.
+ * EVENTS flow UP: User actions → UI calls ViewModel methods via lambdas.
+ *
+ * Benefits:
+ *   • Single source of truth — state lives in ViewModel only.
+ *   • Predictable — UI is a pure function of state.
+ *   • Testable — test ViewModel by sending events, asserting state.
+ *   • Debuggable — can log/inspect every state change.
+ *
+ * Implementation pattern:
+ *   1. Screen-level state in ViewModel (StateFlow<UiState>).
+ *   2. UI collects state with collectAsStateWithLifecycle().
+ *   3. User interactions call ViewModel methods (click → viewModel.onAction()).
+ *   4. ViewModel updates state → UI re-renders.
+ */
+
+// UDF Example
+data class TodoUiState(
+    val items: List<TodoItem> = emptyList(),
+    val inputText: String = ""
+)
+
+class TodoViewModel : ViewModel() {
+    private val _uiState = MutableStateFlow(TodoUiState())
+    val uiState: StateFlow<TodoUiState> = _uiState.asStateFlow()
+
+    fun onInputChanged(text: String) {
+        _uiState.update { it.copy(inputText = text) }
+    }
+
+    fun onAddTodo() {
+        val text = _uiState.value.inputText
+        if (text.isBlank()) return
+        _uiState.update {
+            it.copy(
+                items = it.items + TodoItem(text = text),
+                inputText = ""
+            )
+        }
+    }
+}
+
+@Composable
+fun TodoScreen(viewModel: TodoViewModel = hiltViewModel()) {
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+    TodoContent(
+        items = state.items,
+        inputText = state.inputText,
+        onInputChanged = viewModel::onInputChanged, // events UP
+        onAddClicked = viewModel::onAddTodo
+    )
+}
+
+@Composable
+fun TodoContent(
+    items: List<TodoItem>,       // state DOWN
+    inputText: String,           // state DOWN
+    onInputChanged: (String) -> Unit, // events UP
+    onAddClicked: () -> Unit          // events UP
+) {
+    Column {
+        LazyColumn { items(items) { Text(it.text) } }
+        Row {
+            TextField(value = inputText, onValueChange = onInputChanged)
+            Button(onClick = onAddClicked) { Text("Add") }
+        }
+    }
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q: How to create Custom Layouts in Compose?
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Custom Layouts in Compose let you control exactly how children are
+ * measured and placed, beyond what Row/Column/Box provide.
+ *
+ * Use the Layout composable (analogous to custom ViewGroup in View system).
+ *
+ * Steps:
+ * 1. Measure each child with constraints → get Placeables.
+ * 2. Determine the layout's total size.
+ * 3. Place each child at specific coordinates.
+ *
+ * Single-pass measurement: each child is measured ONCE.
+ * Use intrinsic measurements if you need to pre-query sizes.
+ */
+
+// Staggered grid / flow layout
+@Composable
+fun FlowRow(
+    modifier: Modifier = Modifier,
+    horizontalSpacing: Dp = 8.dp,
+    verticalSpacing: Dp = 8.dp,
+    content: @Composable () -> Unit
+) {
+    Layout(
+        content = content,
+        modifier = modifier
+    ) { measurables, constraints ->
+        val hSpacingPx = horizontalSpacing.roundToPx()
+        val vSpacingPx = verticalSpacing.roundToPx()
+
+        val placeables = measurables.map { it.measure(constraints.copy(minWidth = 0)) }
+
+        var x = 0
+        var y = 0
+        var rowHeight = 0
+
+        val positions = placeables.map { placeable ->
+            if (x + placeable.width > constraints.maxWidth && x > 0) {
+                x = 0
+                y += rowHeight + vSpacingPx
+                rowHeight = 0
+            }
+            val pos = IntOffset(x, y)
+            x += placeable.width + hSpacingPx
+            rowHeight = maxOf(rowHeight, placeable.height)
+            pos
+        }
+
+        val totalHeight = y + rowHeight
+
+        layout(constraints.maxWidth, totalHeight) {
+            placeables.forEachIndexed { index, placeable ->
+                placeable.placeRelative(positions[index])
+            }
+        }
+    }
+}
+
+// Modifier.layout for single-element custom layout
+@Composable
+fun BaselineAlignedText() {
+    Text(
+        "Hello",
+        modifier = Modifier.layout { measurable, constraints ->
+            val placeable = measurable.measure(constraints)
+            val firstBaseline = placeable[FirstBaseline]
+            val y = 48.dp.roundToPx() - firstBaseline
+            layout(placeable.width, placeable.height + y) {
+                placeable.placeRelative(0, y)
+            }
+        }
+    )
+}
+
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // SECTION 18 — JAVA (Brief Interview Answers)

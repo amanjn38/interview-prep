@@ -104,7 +104,7 @@ Each day has three blocks: **Read** (concepts), **Practice** (out loud / on pape
 |-------|------|----------|
 | Read | 60 min | [20_dsa_solutions.md](20_dsa_solutions.md) — focus on patterns table + study order |
 | Code | 90 min | Solve on paper (no IDE): Two Sum, LRU Cache, Number of Islands, Course Schedule, Validate BST |
-| Read | 60 min | [17_amit_shekhar_questions_answers.kt](17_amit_shekhar_questions_answers.kt) — sections 6, 7, 16, 18 only (RecyclerView, Java, Gradle) |
+| Read | 60 min | [17_amit_shekhar_questions_answers.kt](17_amit_shekhar_questions_answers.kt) — focus RecyclerView (6–7), tooling (16), Java (18); skim rest for extra angles |
 | Review | 30 min | learn.html — Topic 20 (DSA patterns) |
 
 **Checklist:**
